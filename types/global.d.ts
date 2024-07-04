@@ -23,28 +23,7 @@ interface ResponseData<T = any> {
     message?: string;
 }
 
-interface MenuMeta {
-    title: string,
-    icon?: string;
-    close?: boolean;
-    web?: boolean;
-    open?: boolean;
-    href?: string;
-}
+declare type Nullable<T> = T | null;
 
-interface IMenuItem {
-    path: string;
-    meta?: MenuMeta;
-}
-
-interface IMenu extends IMenuItem {
-    children?: IMenuItemp[],
-}
-
-interface TagView {
-    title: string;
-    path: string;
-    icon?: string;
-    close?: boolean;
-}
+declare type TimeoutHandle = ReturnType<typeof setTimeout>;
 

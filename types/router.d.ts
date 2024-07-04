@@ -11,6 +11,6 @@ declare module 'vue-router' {
         open?: boolean;
         href?: string;
         sorter?: number;
-        permission?: string;
+        permission?: string | string[];
     }
 }

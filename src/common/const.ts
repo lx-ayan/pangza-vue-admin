@@ -1,5 +1,7 @@
 import { LabelOptionList } from "@t/global";
 
+export const ADD_ROUTE_NAME = 'app';
+
 /**
  * @description 菜单分组样式
  */

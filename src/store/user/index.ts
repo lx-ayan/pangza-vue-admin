@@ -34,6 +34,7 @@ const userStore = defineStore('userStore', {
                     router.removeRoute(item.name!);
                 }
             });
+            window.location.reload();
         }
     },
     persist: piniaPersistedState('userStore')

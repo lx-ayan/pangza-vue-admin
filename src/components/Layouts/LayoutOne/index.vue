@@ -21,7 +21,7 @@ const useThemeStore = themeStore();
                     <ThemeDrawer v-if="!useThemeStore.header" />
 
                     <TagView />
-                    <div class=" overflow-auto h-full p-3">
+                    <div class=" overflow-auto overflow-x-hidden p-3">
                         <router-view class="h-full" #default="{ Component }">
                             <Transition v-if="useThemeStore.animate" :name="useThemeStore.animateName" mode="out-in">
                                 <component :is="Component"></component>

@@ -47,7 +47,6 @@ export default [
                     message: '登录成功'
                 }
             }
-
         },
     }
 ] 

@@ -20,7 +20,7 @@ function getTime() {
     if (unit === 's') return 1000;
     if (unit === 'm') return 1000 * 60;
     if (unit === 'h') return 1000 * 60 * 60;
-    if (unit === 'd') return 1000 * 60 * 24;
+    if (unit === 'd') return 1000 * 60 * 60 * 24;
     else return 1;
 }
 
@@ -49,7 +49,7 @@ const storeUtil: IStore = {
         }
     },
     remove(key: string) {
-        if(!key) {
+        if (!key) {
             warn('key is undefined');
             return;
         }

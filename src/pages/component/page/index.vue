@@ -70,24 +70,26 @@ async function request() {
 </script>
 
 <template>
-    <div id="page-container" class="bg-white h-full p-4">
-        <PageContainer tabDefaultValue="A" :tabs :breads title="页面容器布局">
-            <template #actions>
-                <t-button>操作一</t-button>
-                <t-button variant="outline" style="margin-left: 12px;">操作二</t-button>
-                <Screen variant="outline" style="margin-left: 12px;" el="page-container">
-                    <template #default="{state}">
-                        {{ state? '缩小': '全屏' }}
-                    </template>
-                </Screen>
-            </template>
-            <template #content>
-                <div>
-                    <ProDescription :column="6" title=" " :options="options" :request="request" />
-                </div>
-            </template>
-        </PageContainer>
-    </div>
+    <t-card size="small" :bordered="false">
+        <div id="page-container" class="h-full p-4">
+            <PageContainer tabDefaultValue="A" :tabs :breads title="页面容器布局">
+                <template #actions>
+                    <t-button>操作一</t-button>
+                    <t-button variant="outline" style="margin-left: 12px;">操作二</t-button>
+                    <Screen variant="outline" style="margin-left: 12px;" el="page-container">
+                        <template #default="{ state }">
+                            {{ state ? '缩小' : '全屏' }}
+                        </template>
+                    </Screen>
+                </template>
+                <template #content>
+                    <div>
+                        <ProDescription :column="6" title=" " :options="options" :request="request" />
+                    </div>
+                </template>
+            </PageContainer>
+        </div>
+    </t-card>
 </template>
 
 <style lang='scss'></style>

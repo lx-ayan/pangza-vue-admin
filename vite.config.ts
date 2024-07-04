@@ -1,4 +1,4 @@
-import { UserConfig, defineConfig, loadEnv } from 'vite'
+import { UserConfig, loadEnv } from 'vite'
 import createVite from './vite';
 import parseEnv from './vite/env';
 
