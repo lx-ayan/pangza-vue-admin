@@ -4,7 +4,7 @@ import { RouteMeta, RouteRecordRaw, Router } from "vue-router";
 
 const module = import.meta.glob('../../pages/**/*.vue');
 
-function formatRoute(routeList: Array<MenuResult>, parentMeta?: RouteMeta) {
+function formatRoute(routeList: Array<MenuResult>, parentRoute?: MenuResult) {
     const formatRouteList: Array<RouteRecordRaw> = [];
     if (!routeList) return;
     routeList.forEach(route => {
@@ -13,14 +13,14 @@ function formatRoute(routeList: Array<MenuResult>, parentMeta?: RouteMeta) {
         currentRoute.path = path;
         currentRoute.name = name;
         currentRoute.meta = meta;
-        if (parentMeta) {
+        if (parentRoute) {
             currentRoute.meta.parentMeta = {
-                ...parentMeta
+                ...route
             }
         }
         currentRoute.component = module[`../../pages${path}/index.vue`];
         if (route.children && route.children.length) {
-            currentRoute.children = formatRoute(route.children, meta);
+            currentRoute.children = formatRoute(route.children, route);
         }
         formatRouteList.push(currentRoute);
     })

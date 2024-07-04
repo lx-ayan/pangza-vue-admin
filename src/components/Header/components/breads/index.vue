@@ -41,7 +41,7 @@ watch(() => r.path, () => {
                 <t-breadcrumb-item v-if="route.meta.parentMeta">
                     <div v-if="useThemeStore.breadsChildren">
                         <t-dropdown @click="handleDropdownClick"
-                            :options="route.meta.parentMeta.children?.map(item => ({ content: (item.meta?.title || item.name), value: item.path }))">
+                            :options="route.meta.parentMeta.children?.map(item => ({ content: (item.meta?.title || item.name), value: item.path })) as DropdownOption[] || []">
                             {{ route.meta.parentMeta.meta?.title || route.meta.parentMeta.name }}
                         </t-dropdown>
                     </div>

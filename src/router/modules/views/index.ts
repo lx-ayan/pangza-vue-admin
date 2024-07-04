@@ -1,5 +1,4 @@
 import { RouteRecordRaw } from "vue-router";
-
 export default {
     path: '/views',
     component: () => import('@/layouts/views/index.vue'),
@@ -16,8 +15,8 @@ export default {
             component: () => import('@/pages/views/success/index.vue'),
             meta: {
                 title: '成功页面',
-                show: true
-            }
+                show: true,
+            },
         },
         {
             path: '/views/error',
