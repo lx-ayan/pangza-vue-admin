@@ -1,3 +1,4 @@
+import themeStore from '@/store/theme';
 import { Color } from 'tvision-color';
 
 export function insertThemeStylesheet(
@@ -66,4 +67,9 @@ export function generateColorMap(
     '--td-brand-color-10': colorPalette[9]
   };
   return colorMap;
+}
+
+export function getBgColorClass() {
+  const useThemeStore = themeStore();
+  return useThemeStore.theme === 'light' ? 'bg-white' : 'bg-[#242424]';
 }

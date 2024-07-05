@@ -6,7 +6,7 @@ import { ref, watch } from 'vue';
 const useThemeStore = themeStore();
 
 const colorList = [
-    '#2563EB',
+    '#417ff9',
     '#67C23A',
     '#E6A23C',
     '#F56C6C',

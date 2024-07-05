@@ -1,5 +1,7 @@
 <script setup lang='ts'>
 import Screen from '@/components/Screen/index.vue';
+import { getBgColorClass } from '@/utils/color';
+
 const breads = [
     {
         text: '首页',
@@ -70,26 +72,24 @@ async function request() {
 </script>
 
 <template>
-    <t-card size="small" :bordered="false">
-        <div id="page-container" class="h-full p-4">
-            <PageContainer tabDefaultValue="A" :tabs :breads title="页面容器布局">
-                <template #actions>
-                    <t-button>操作一</t-button>
-                    <t-button variant="outline" style="margin-left: 12px;">操作二</t-button>
-                    <Screen variant="outline" style="margin-left: 12px;" el="page-container">
-                        <template #default="{ state }">
-                            {{ state ? '缩小' : '全屏' }}
-                        </template>
-                    </Screen>
-                </template>
-                <template #content>
-                    <div>
-                        <ProDescription :column="6" title=" " :options="options" :request="request" />
-                    </div>
-                </template>
-            </PageContainer>
-        </div>
-    </t-card>
+    <div id="page-container" :class="getBgColorClass()" class="h-full p-4">
+        <PageContainer tabDefaultValue="A" :tabs :breads title="页面容器布局">
+            <template #actions>
+                <t-button>操作一</t-button>
+                <t-button variant="outline" style="margin-left: 12px;">操作二</t-button>
+                <Screen variant="outline" style="margin-left: 12px;" el="page-container">
+                    <template #default="{ state }">
+                        {{ state ? '缩小' : '全屏' }}
+                    </template>
+                </Screen>
+            </template>
+            <template #content>
+                <div>
+                    <ProDescription :column="6" title=" " :options="options" :request="request" />
+                </div>
+            </template>
+        </PageContainer>
+    </div>
 </template>
 
 <style lang='scss'></style>

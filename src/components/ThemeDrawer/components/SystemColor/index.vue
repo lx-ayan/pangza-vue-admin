@@ -5,7 +5,7 @@ const useThemeStore = themeStore();
 
 <template>
     <div class="flex items-center ">
-        <div class="bg-white flex  mr-6 h-20 w-28"  @click="() => useThemeStore.setTheme('light')" :class="useThemeStore.theme == 'light' ? ' border-2 border-[var(--td-brand-color)]': ''">
+        <div class="bg-white flex  mr-6 h-20 w-28 rounded-lg"  @click="() => useThemeStore.setTheme('light')" :class="useThemeStore.theme == 'light' ? ' border-2 border-[var(--td-brand-color)]': ''">
             <div class="w-5 border-r">
 
             </div>
@@ -19,7 +19,7 @@ const useThemeStore = themeStore();
             </div>
         </div>
 
-        <div class="bg-[#333] flex  h-20 w-28" @click="() => useThemeStore.setTheme('dark')" :class="useThemeStore.theme == 'dark' ? ' border-2 border-[var(--td-brand-color)]': ''">
+        <div class="bg-[#333] flex  h-20 w-28 rounded-lg" @click="() => useThemeStore.setTheme('dark')" :class="useThemeStore.theme == 'dark' ? ' border-2 border-[var(--td-brand-color)]': ''">
             <div class="w-5 border-r border-gray-500">
 
             </div>

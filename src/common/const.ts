@@ -26,3 +26,12 @@ export const ROUTER_TRANSITION_LABEL_LIST: LabelOptionList = [
     { label: '偏移', value: 'translate' },
     { label: '弹出', value: 'scale' }
 ];
+
+/**
+ * @description 表格尺寸
+ */
+export const TABLE_SIZE_LABEL_LIST = [
+    { label: '紧凑', value: 'small' },
+    { label: '中等', value: 'medium' },
+    { label: '宽松', value: 'large' }
+];

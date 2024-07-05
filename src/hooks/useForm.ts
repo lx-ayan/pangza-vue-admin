@@ -12,7 +12,7 @@ function useProForm<T = any>(proFormOptions: ProFormOption[] = [], proTableReque
         return await proTableRequest();
     }
 
-    return [options, request, formRef];
+    return [options, request, formRef] as const;
 }
 
 export default useProForm;

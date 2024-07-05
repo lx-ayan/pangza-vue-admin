@@ -14,12 +14,13 @@ export function getCurrentUser(): LoginResult | undefined {
 export function hasPermission(permission: string | string[]) {
     const user = getCurrentUser();
     if (!user) return false;
-    if(!permission) return true;
-
+    if (!permission) return true;
     let innerPermission: string[] = [];
 
     if (!Array.isArray(permission)) {
         innerPermission = permission.split(',');
+    } else {
+        innerPermission = permission;
     }
 
     const result: boolean[] = [];
@@ -27,6 +28,5 @@ export function hasPermission(permission: string | string[]) {
     innerPermission.forEach(_permission => {
         result.push(user.permission!.includes(_permission));
     })
-
     return result.some(item => item);
 }

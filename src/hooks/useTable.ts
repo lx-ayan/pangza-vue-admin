@@ -12,7 +12,7 @@ function useProTable<T = any>(proTableOptions: ProTableOption[] = [], proTableRe
         return await proTableRequest(data);
     }
 
-    return [options, request, tableRef];
+    return [options, request, tableRef] as const;
 }
 
 export default useProTable;

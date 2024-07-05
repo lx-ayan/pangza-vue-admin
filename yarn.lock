@@ -1694,10 +1694,10 @@ postcss@^8.0.0, postcss@^8.1.0, postcss@^8.2.14, postcss@^8.4.21, postcss@^8.4.2
     picocolors "^1.0.0"
     source-map-js "^1.2.0"
 
-procomponent-tdesign-vue@^1.2.42:
-  version "1.2.43"
-  resolved "https://registry.npmjs.org/procomponent-tdesign-vue/-/procomponent-tdesign-vue-1.2.43.tgz"
-  integrity sha512-jSHwiGMhztA4EQAp8vDJD2QGrog7gtCVUxVeV1p1muVowHlt0Xb1YADbZ4SYGUI9ztiOh4AClB0h++buS9xNdg==
+procomponent-tdesign-vue@^1.2.46:
+  version "1.2.46"
+  resolved "https://registry.npmjs.org/procomponent-tdesign-vue/-/procomponent-tdesign-vue-1.2.46.tgz"
+  integrity sha512-uM0FGy+T2aa8alRIi7dS5XwMsXugCbVbLeVCmFSXO2AFhOEKSnA1Xr7ElKe4Yihk/3uiMrgFZEPiAZimrnbwwg==
 
 proxy-from-env@^1.1.0:
   version "1.1.0"
