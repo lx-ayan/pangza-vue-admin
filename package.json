@@ -26,7 +26,8 @@
     "tvision-color": "^1.6.0",
     "v-contextmenu": "^3.0.0",
     "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "vue-router": "^4.3.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
