@@ -16,7 +16,7 @@ const useThemeStore = themeStore();
             <t-aside class="w-auto">
                 <Menu />
             </t-aside>
-            <t-content>
+            <t-content  :class="[useThemeStore.theme === 'dark' ? 'bg-[#181818]' : 'bg-[#eff1f7]']">
                 <TagView />
                 <ThemeDrawer v-if="!useThemeStore.header" />
                 <div class="h-full p-3">

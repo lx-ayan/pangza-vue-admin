@@ -16,11 +16,11 @@ const useThemeStore = themeStore();
             <t-header class="h-[60px]" v-if="useThemeStore.header">
                 <Header />
             </t-header>
-            <t-content class="h-scrren">
+            <t-content class="h-scrren" :class="[useThemeStore.theme === 'dark' ? 'bg-[#181818]' : 'bg-[#eff1f7]']">
                 <ThemeDrawer v-if="!useThemeStore.header" />
                 <TagView />
-                <div  style="height: 855px; overflow-y: auto; overflow-x: hidden;" class=" p-3">
-                    <router-view class="h-full"#default="{ Component }">
+                <div style="height: 855px; overflow-y: auto; overflow-x: hidden;" class=" p-3">
+                    <router-view class="h-full" #default="{ Component }">
                         <Transition v-if="useThemeStore.animate" :name="useThemeStore.animateName" mode="out-in">
                             <component :is="Component"></component>
                         </Transition>
@@ -32,4 +32,5 @@ const useThemeStore = themeStore();
     </t-layout>
 </template>
 
-<style lang='scss'></style>
+<style lang='scss'>
+</style>

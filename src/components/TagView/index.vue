@@ -1,7 +1,8 @@
 <template>
     <div v-if="useThemeStore.tagView" class="border-t tag-view-container  flex items-end overflow-hidden min-w-[1040px]"
         :class="[useThemeStore.theme === 'dark' ? 'bg-[#242424] border-[#393939] ' : 'bg-white ']">
-        <div class="tag-view-left"  :class="[useThemeStore.theme === 'dark' ? ' border-[#393939]' : '']" @click="handlePreClick">
+        <div class="tag-view-left" :class="[useThemeStore.theme === 'dark' ? ' border-[#393939]' : '']"
+            @click="handlePreClick">
             <t-icon size="20" name="chevron-left"></t-icon>
         </div>
         <div ref="containerRef" class="tag-view-inner">
@@ -38,14 +39,15 @@
             <t-icon size="15" name="refresh"></t-icon>
         </div>
         <t-dropdown @click="clickHandler" :options="contentList">
-            <div  :class="[useThemeStore.theme === 'dark' ? ' border-[#393939]' : '']" class="tag-view-more">
+            <div :class="[useThemeStore.theme === 'dark' ? ' border-[#393939]' : '']" class="tag-view-more">
                 <t-icon size="20" name="chevron-down"></t-icon>
             </div>
         </t-dropdown>
 
 
 
-        <div @click="handleNextClick" class="tag-view-right"  :class="[useThemeStore.theme === 'dark' ? ' border-[#393939]' : '']">
+        <div @click="handleNextClick" class="tag-view-right"
+            :class="[useThemeStore.theme === 'dark' ? ' border-[#393939]' : '']">
             <t-icon size="20" name="chevron-right"></t-icon>
         </div>
         <v-contextmenu ref="contextmenu">
@@ -79,6 +81,7 @@
 import tagStore from '@/store/tag';
 import themeStore from '@/store/theme';
 import { TagView } from '@t/global';
+import { NotifyPlugin } from 'tdesign-vue-next';
 import { ref, computed, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -149,6 +152,15 @@ function handleRefresh() {
 }
 
 function handleCloseCurrent() {
+    if (currentTag.value.path == '/home') {
+        NotifyPlugin.error({
+            title: '系统提示',
+            content: '当前标签不可关闭',
+            closeBtn: true
+        })
+
+        return;
+    }
     useTagStore.removeTag(currentTag.value!);
     currentTag.value = undefined;
 }
@@ -197,6 +209,7 @@ const clickIndex = computed(() => {
     flex-wrap: nowrap;
     overflow: hidden;
     display: flex;
+
     &::-webkit-scrollbar {
         display: none;
     }
