@@ -1,15 +1,21 @@
 <script setup lang='ts'>
+import AuthComponent from './components/AuthComponent/index.vue';
+import DirectiveComponent from './components/DirectiveComponent/index.vue';
+import HookComponent from './components/HookComponent/index.vue';
 </script>
 
 <template>
     <div>
-        按钮权限
+        <div class="mb-10">
+            <AuthComponent />
+        </div>
+        <div class="mb-10">
+            <DirectiveComponent />
+        </div>
 
-        <Auth needShow permission="role_ADMIN1">
-            <template #default="{hasAuth}">
-                <t-button :disabled="hasAuth == false">admin</t-button>
-            </template>
-        </Auth>
+        <div>
+            <HookComponent />
+        </div>
     </div>
 </template>
 

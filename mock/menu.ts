@@ -1,7 +1,4 @@
 import { MenuResult } from '@t/menu';
-import Mock from 'mockjs';
-
-const { Random } = Mock;
 
 const adminMenu: MenuResult[] = [
     {
@@ -133,7 +130,7 @@ const adminMenu: MenuResult[] = [
                 name: 'role.web',
                 meta: {
                     title: '页面权限',
-                    show: true
+                    show: true,
                 }
             },
             {
@@ -141,7 +138,8 @@ const adminMenu: MenuResult[] = [
                 name: 'role.button',
                 meta: {
                     title: '按钮权限',
-                    show: true
+                    show: true,
+                    permission: ['role_ADMIN']
                 }
             }
         ]

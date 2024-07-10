@@ -2,9 +2,11 @@
 import Header from '@/components/Header/index.vue';
 import Menu from '@/components/Menu/index.vue';
 import TagView from '@/components/TagView/index.vue';
-import themeStore from '@/store/theme';
+import useColor from '@/hooks/useColor';
 import ThemeDrawer from '@/components/ThemeDrawer/index.vue';
-const useThemeStore = themeStore();
+
+const { useThemeStore, BG_COLOR } = useColor();
+
 </script>
 
 <template>
@@ -16,7 +18,7 @@ const useThemeStore = themeStore();
             <t-header class="h-[60px]" v-if="useThemeStore.header">
                 <Header />
             </t-header>
-            <t-content class="h-scrren" :class="[useThemeStore.theme === 'dark' ? 'bg-[#181818]' : 'bg-[#eff1f7]']">
+            <t-content class="h-scrren" :style="{background: BG_COLOR}">
                 <ThemeDrawer v-if="!useThemeStore.header" />
                 <TagView />
                 <div style="height: 855px; overflow-y: auto; overflow-x: hidden;" class=" p-3">
@@ -32,5 +34,4 @@ const useThemeStore = themeStore();
     </t-layout>
 </template>
 
-<style lang='scss'>
-</style>
+<style lang='scss'></style>

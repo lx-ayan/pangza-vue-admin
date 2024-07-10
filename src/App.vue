@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { CSSProperties, computed } from 'vue';
 import useTheme from './hooks/useTheme';
-import themeStore from './store/theme';
+import useColor from './hooks/useColor';
 
 const [initTheme] = useTheme();
-const useThemeStore = themeStore();
+const { useThemeStore, PRO_TABLE_HEADER_COLOR, TEXT_COLOR } = useColor();
 
 const style = computed<CSSProperties>(() => {
   return useThemeStore.gray ? {
     filter: 'grayscale(100%)'
   } : {}
-})
+});
 
 initTheme();
 </script>
@@ -19,7 +19,7 @@ initTheme();
   <router-view :style class=" min-w-[1040px]"></router-view>
 </template>
 
-<style>
+<style lang="scss">
 .v-contextmenu-inner .v-contextmenu-item {
   color: var(--td-text-color-primary);
   text-align: left;
@@ -39,4 +39,26 @@ initTheme();
   box-shadow: none !important;
 }
 
+.t-menu__item.t-is-active {
+  background-color: v-bind('PRO_TABLE_HEADER_COLOR') !important;
+}
+
+::v-deep .t-table__header {
+  th {
+    background-color: v-bind('PRO_TABLE_HEADER_COLOR') !important;
+    color: v-bind('TEXT_COLOR');
+    padding: 10px 8px !important;
+    box-sizing: border-box;
+  }
+}
+
+.t-table thead tr {
+  background-color: v-bind('PRO_TABLE_HEADER_COLOR') !important;
+  padding: 10px 8px !important;
+  box-sizing: border-box;
+}
+
+.t-table thead tr div {
+  color: v-bind('TEXT_COLOR') !important;
+}
 </style>
