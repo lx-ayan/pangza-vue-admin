@@ -30,7 +30,9 @@ export default [
         url: '/api/login',
         method: 'post',
         response: ({ body }: { body: LoginForm }) => {
-            const user = userList.find(user => user.username === body.username && user.password === body.password);
+            console.log('body', body);
+            const user = userList.find(user => user.username == body.username && user.password == body.password);
+            console.log('user', user);
             if (!user) {
                 return {
                     code: 500,
@@ -38,15 +40,17 @@ export default [
                     message: '用户名密码输入错误'
                 }
             } else {
+                const resultUser = {...user};
+                resultUser.password = void 0;
                 return {
                     code: 200,
                     data: {
-                        ...user,
+                        ...resultUser,
                         token: Random.string(150)
                     },
                     message: '登录成功'
                 }
             }
-        },
+        }
     }
 ] 

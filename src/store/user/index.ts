@@ -6,6 +6,7 @@ import { StoreEnum } from "@/common/enums";
 import { MessagePlugin } from "tdesign-vue-next";
 import router from "@/router";
 import { hideFullLoading, showFullLoading } from "@/config/loading";
+import { login } from "@/api/user";
 
 const userStore = defineStore('userStore', {
     state: () => ({
@@ -20,7 +21,18 @@ const userStore = defineStore('userStore', {
         setUser(user: LoginResult | undefined) {
             this.user = user;
         },
-        logout() {
+        doLogin(data: LoginForm) {
+            login(data).then(res => {
+                if (res) {
+                    storeUtil.set(StoreEnum.TOKEN, res.token, 7);
+                    this.setUser(res);
+                    router.push('/home');
+                }
+            }).catch(e => {
+                MessagePlugin.error(e);
+            });
+        },
+        doLogout() {
             showFullLoading('正在退出，请稍后...');
             const useTagStore = tagStore();
             storeUtil.remove(StoreEnum.TOKEN);

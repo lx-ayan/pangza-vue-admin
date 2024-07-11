@@ -13,7 +13,7 @@ function handleClick(data: DropdownOption) {
     const { value } = data;
     console.log('value',value);
     if (value === 2) {
-        useUserStore.logout();
+        useUserStore.doLogout();
     }
 }
 

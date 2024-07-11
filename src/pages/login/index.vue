@@ -54,8 +54,6 @@ const options: ProFormOption[] = [
     }
 ];
 
-const router = useRouter();
-
 const formRef = ref<ProFormRef>()
 
 function request() {
@@ -63,15 +61,7 @@ function request() {
 }
 
 function handleSubmit(data: LoginForm) {
-    login(data).then(res => {
-        if (res) {
-            storeUtil.set(StoreEnum.TOKEN, res.token, 7);
-            useUserStore.setUser(res);
-            router.push('/home');
-        }
-    }).catch(e => {
-        MessagePlugin.error(e);
-    })
+    useUserStore.doLogin(data);
 }
 
 function handleLoginClick() {
