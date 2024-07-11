@@ -46,6 +46,14 @@ export default {
                 title: '描述组件',
                 show: true,
             },
+        },
+        {
+            path: '/component/canvas-editor',
+            name: 'component.canvas-editor',
+            meta: {
+                title: 'CanvasEditor 编辑器',
+                show: true
+            }
         }
     ]
 } as RouteRecordRaw;

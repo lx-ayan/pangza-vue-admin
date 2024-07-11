@@ -34,4 +34,5 @@ const { useThemeStore, BG_COLOR } = useColor();
     </t-layout>
 </template>
 
-<style lang='scss'></style>
+<style lang='scss'>
+</style>

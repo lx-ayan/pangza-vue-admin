@@ -4,7 +4,7 @@ import { computed } from "vue";
 function useColor() {
     const useThemeStore = themeStore();
 
-    const BG_COLOR = computed(() => useThemeStore.theme === 'dark' ? 'bg-[#181818]' : 'bg-[#eff1f7]');
+    const BG_COLOR = computed(() => useThemeStore.theme === 'dark' ? '#181818' : '#f5f5f5');
     const PRO_TABLE_HEADER_COLOR = computed(() => useThemeStore.theme === 'light' ? '#F6F6F6' : '#333');
     const TEXT_COLOR = computed(() => useThemeStore.theme === 'light' ? '#191919' : '#F6F6F6');
 

@@ -25,7 +25,7 @@ export default [
                 code: 200,
                 data: {
                     pageNum: body.pageNum,
-                    total: 100,
+                    total: 1000,
                     list,
                 },
                 message: '请求成功'
