@@ -6,8 +6,7 @@ const val = ref('Hello World');
 
 <template>
     <div>
-        {{ val }}
-        <CanvasEditor v-model:header-value="val" align="center" v-model="val" />
+        <CanvasEditor :tool-bar-config="['font-family', 'text-align']"  v-model="val" />
     </div>
 </template>
 
