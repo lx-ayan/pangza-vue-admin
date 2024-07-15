@@ -54,6 +54,14 @@ export default {
                 title: 'CanvasEditor 编辑器',
                 show: true
             }
+        },
+        {
+            path: '/component/flow',
+            name: 'component.flow',
+            meta: {
+                title: '流程图',
+                show: true
+            }
         }
     ]
 } as RouteRecordRaw;

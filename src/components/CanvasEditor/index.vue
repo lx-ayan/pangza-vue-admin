@@ -5,6 +5,11 @@ import Editor from '@hufe921/canvas-editor';
 import ToolBar from './components/ToolBar/index.vue';
 import { ChangeData } from '@t/canvas-editor';
 
+defineOptions({
+    globalComponent: true,
+    name: 'CanvasEditor'
+})
+
 const props = defineProps(_props);
 
 const emits = defineEmits<{

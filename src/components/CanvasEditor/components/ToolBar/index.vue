@@ -37,10 +37,10 @@ function handleClick(data: ChangeData) {
 </script>
 
 <template>
-    <t-card v-if="props.toolBarConfig.length" size="small" class="mb-5" :bordered="false">
+    <t-card size="small" class="mb-5" :bordered="false">
         <div class="flex items-center">
-            <FontFamily @click="handleClick" v-if="toolBarConfig.includes('font-family')" />
-            <FontSize @click="handleClick" v-if="toolBarConfig.includes('font-family')" />
+            <FontFamily @click="handleClick" />
+            <FontSize @click="handleClick" />
             <t-divider layout="vertical" />
             <FontSizeBig @click="handleClick" />
             <FontSizeSmall @click="handleClick" />
@@ -53,7 +53,7 @@ function handleClick(data: ChangeData) {
             <FontBGColor @click="handleClick" />
             <FormatClear @click="handleClick" />
             <t-divider layout="vertical" />
-            <TextAlign @click="handleClick" v-if="toolBarConfig.includes('text-align')" />
+            <TextAlign @click="handleClick" />
             <t-divider layout="vertical" />
             <ListStyle @click="handleClick" />
             <ListStyleTwo @click="handleClick" />
