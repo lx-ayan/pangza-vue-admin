@@ -52,7 +52,7 @@ export default defineComponent({
 
         return () => <>
             <t-tooltip content="字号">
-                <t-select style="width: 28%; margin-right: 2%;" size="small" onChange={handleClick} options={contentsList} placeholder="字号"></t-select>
+                <t-select style="width: 5%;" size="small" onChange={handleClick} options={contentsList} placeholder="字号"></t-select>
             </t-tooltip>
         </>
     }

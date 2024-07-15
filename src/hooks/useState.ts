@@ -15,7 +15,7 @@ function useState<T = any>(data: T) {
 
     const state = computed(() => innerState.value);
 
-    return [readonly(state), setState, defaultState]
+    return [readonly(state), setState, defaultState] as const;
 }
 
 export default useState;

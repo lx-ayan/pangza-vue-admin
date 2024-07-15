@@ -1,26 +1,30 @@
+import useState from "@/hooks/useState";
 import { defineComponent } from "vue";
 
-export default defineComponent({
+const FontFamily = defineComponent({
     name: 'FontFamily',
     setup(_props, ctx) {
         const { emit } = ctx;
+        const [fontFamily, setFontFamily] = useState('');
 
         const contentsList = [
-            { label: <span style="font-family: '微软雅黑'">微软雅黑</span>, value: '微软雅黑' },
-            { label: <span style="font-family: '宋体'">宋体</span>, value: '宋体' },
-            { label: <span style="font-family: '楷体'">楷体</span>, value: '楷体' },
-            { label: <span style="font-family: Arial">Arial</span>, value: 'Arial' },
-            { label: <span style="font-family: Fantasy">Fantasy</span>, value: 'Fantasy' },
+            { label: '微软雅黑', value: '微软雅黑', content: <span style="font-family: '微软雅黑'">微软雅黑</span> },
+            { label: '宋体', value: '宋体', content: <span style="font-family: '宋体'">宋体</span> },
+            { label: '楷体', value: '楷体', content: <span style="font-family: '楷体'">楷体</span> },
+            { label: 'Arial', value: 'Arial', content: <span style="font-family: Arial">Arial</span> },
+            { label: 'Fantasy', value: 'Fantasy', content: <span style="font-family: Fantasy">Fantasy</span> },
         ];
 
         function handleClick(value: string) {
-            emit('click', { key: 'executeFont', value: value as string })
+            setFontFamily(value);
+            emit('click', { key: 'executeFont', value })
         }
 
         return () => <>
             <t-tooltip content="字体">
-                <t-select style="width: 42%" size="small" onChange={handleClick} options={contentsList} placeholder="请选择字体"></t-select>
+                <t-select value={fontFamily} style="width: 8%" size="small" onChange={handleClick} options={contentsList} placeholder="字体"></t-select>
             </t-tooltip>
         </>
     }
 });
+export default FontFamily;

@@ -61,4 +61,13 @@ initTheme();
 .t-table thead tr div {
   color: v-bind('TEXT_COLOR') !important;
 }
+
+.t-dialog--default {
+    padding: 15px 25px !important;
+    border-radius: 2px !important;
+}
+
+.t-button {
+    border-radius: 1px !important;
+}
 </style>

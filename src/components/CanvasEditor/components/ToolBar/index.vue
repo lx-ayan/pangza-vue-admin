@@ -11,14 +11,21 @@ import FontBold from './components/FontBold/index.vue';
 import FontItalic from './components/FontItalic/index.vue';
 import FontUnderline from './components/FontUnderline/index.vue';
 import FontStrikethrough from './components/FontStrikethrough/index.vue';
-
+import FontColor from './components/FontColor/index.vue';
+import FontBGColor from './components/FontBGColor/index.vue';
+import ListStyle from './components/ListStyle/index.vue';
+import ListStyleTwo from './components/ListStyleTwo/index.vue';
+import RowMargin from './components/RowMargin/index.vue';
+import Table from './components/Table/index.vue';
+import Image from './components/Image/index.vue';
+import Print from './components/Print/index.vue';
 
 const props = defineProps({
     toolBarConfig: {
         type: Array as PropType<ToolBarItem[]>,
         default: () => []
     }
-})
+});
 
 const emits = defineEmits<{
     (e: 'change', data: ChangeData): void
@@ -34,15 +41,28 @@ function handleClick(data: ChangeData) {
         <div class="flex items-center">
             <FontFamily @click="handleClick" v-if="toolBarConfig.includes('font-family')" />
             <FontSize @click="handleClick" v-if="toolBarConfig.includes('font-family')" />
+            <t-divider layout="vertical" />
             <FontSizeBig @click="handleClick" />
             <FontSizeSmall @click="handleClick" />
-            <FormatClear @click="handleClick" />
+            <t-divider layout="vertical" />
             <FontBold @click="handleClick" />
             <FontItalic @click="handleClick" />
             <FontUnderline @click="handleClick" />
             <FontStrikethrough @click="handleClick" />
+            <FontColor @click="handleClick" />
+            <FontBGColor @click="handleClick" />
+            <FormatClear @click="handleClick" />
+            <t-divider layout="vertical" />
             <TextAlign @click="handleClick" v-if="toolBarConfig.includes('text-align')" />
             <t-divider layout="vertical" />
+            <ListStyle @click="handleClick" />
+            <ListStyleTwo @click="handleClick" />
+            <t-divider layout="vertical" />
+            <RowMargin @click="handleClick" />
+            <Table @click="handleClick" />
+            <Image @click="handleClick" />
+            <t-divider layout="vertical" />
+            <Print @click="handleClick" />
             <div>
             </div>
         </div>

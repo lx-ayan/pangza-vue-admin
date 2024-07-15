@@ -79,8 +79,13 @@ function initListener() {
 }
 
 function handleToolBarChange({ key, value }: ChangeData) {
-    //@ts-ignore
-    editorInstance.value!.command[key](value);
+    if (key == 'executeInsertTable') {
+        const { row, col } = value;
+        editorInstance.value!.command[key](row, col);
+    } else {
+        //@ts-ignore
+        editorInstance.value!.command[key](value);
+    }
 }
 
 onUnmounted(() => {

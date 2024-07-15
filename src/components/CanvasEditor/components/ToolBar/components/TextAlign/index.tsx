@@ -1,4 +1,4 @@
-import { DropdownOption } from "tdesign-vue-next";
+import { RowFlex } from "@hufe921/canvas-editor";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -6,21 +6,23 @@ export default defineComponent({
     setup(_props, ctx) {
         const { emit } = ctx;
 
-        const contentsList: DropdownOption[] = [
-            { content: '居左对齐', value: 'left', prefixIcon: () => <t-icon name="format-vertical-align-left"></t-icon> },
-            { content: '居中对齐', value: 'center', prefixIcon: () => <t-icon name="format-vertical-align-center"></t-icon> },
-            { content: '居右对齐', value: 'right', prefixIcon: () => <t-icon name="format-vertical-align-right"></t-icon> }
-        ];
-
-        function handleClick(value: string) {
-            emit('click', { key: 'executeRowFlex', value: value as string })
+        function handleClick(value: RowFlex) {
+            
+            emit('click', { key: 'executeRowFlex', value })
         }
 
         return () => <>
-            <t-tooltip content="对齐方式">
-                <t-dropdown onClick={({ value }) => handleClick(value)} options={contentsList}>
-                    <t-button size="small" variant="text"><t-icon size="17" name="view-list"></t-icon></t-button>
-                </t-dropdown>
+            <t-tooltip content="左对齐">
+                <t-button onClick={() => handleClick(RowFlex.LEFT)} size="small" variant="text"><t-icon name="format-vertical-align-left"></t-icon></t-button>
+            </t-tooltip>
+            <t-tooltip content="居中">
+                <t-button onClick={() => handleClick(RowFlex.CENTER)} size="small" variant="text"><t-icon name="format-vertical-align-center"></t-icon></t-button>
+            </t-tooltip>
+            <t-tooltip content="右对齐">
+                <t-button onClick={() => handleClick(RowFlex.RIGHT)} size="small" variant="text"><t-icon name="format-vertical-align-right"></t-icon></t-button>
+            </t-tooltip>
+            <t-tooltip content="分散对齐">
+                <t-button onClick={() => handleClick(RowFlex.JUSTIFY)} size="small" variant="text"><t-icon name="view-list"></t-icon></t-button>
             </t-tooltip>
         </>
     }
