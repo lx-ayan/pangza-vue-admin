@@ -2,6 +2,7 @@
 import { CSSProperties, computed } from 'vue';
 import useTheme from './hooks/useTheme';
 import useColor from './hooks/useColor';
+import monitor from '@/utils/monitor';
 
 const [initTheme] = useTheme();
 const { useThemeStore, PRO_TABLE_HEADER_COLOR, TEXT_COLOR } = useColor();
@@ -13,6 +14,23 @@ const style = computed<CSSProperties>(() => {
 });
 
 initTheme();
+
+monitor.onPaint(data => {
+  console.log('paint', data)
+})
+
+monitor.onLCP(data => {
+  console.log('LCP', data);
+})
+
+monitor.onFCP(data => {
+  console.log('FCP', data);
+})
+
+monitor.onResources(data => {
+  console.log('Resources', data);
+})
+
 </script>
 
 <template>
@@ -63,11 +81,11 @@ initTheme();
 }
 
 .t-dialog--default {
-    padding: 15px 25px !important;
-    border-radius: 2px !important;
+  padding: 15px 25px !important;
+  border-radius: 2px !important;
 }
 
 .t-button {
-    border-radius: 1px !important;
+  border-radius: 1px !important;
 }
 </style>

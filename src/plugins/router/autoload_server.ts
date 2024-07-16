@@ -1,6 +1,6 @@
 import { ADD_ROUTE_NAME } from "@/common/const";
 import { MenuResult } from "@t/menu";
-import { RouteMeta, RouteRecordRaw, Router } from "vue-router";
+import { RouteRecordRaw, Router } from "vue-router";
 
 const module = import.meta.glob('../../pages/**/*.vue');
 
@@ -13,7 +13,6 @@ function formatRoute(routeList: Array<MenuResult>, parentRoute?: MenuResult) {
         currentRoute.path = path;
         currentRoute.name = name;
         currentRoute.meta = meta;
-        console.log('parentRoute', parentRoute);
         if (parentRoute) {
             currentRoute.meta.parentMeta = {
                 ...parentRoute
