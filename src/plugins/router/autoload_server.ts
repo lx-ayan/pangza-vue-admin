@@ -13,9 +13,10 @@ function formatRoute(routeList: Array<MenuResult>, parentRoute?: MenuResult) {
         currentRoute.path = path;
         currentRoute.name = name;
         currentRoute.meta = meta;
+        console.log('parentRoute', parentRoute);
         if (parentRoute) {
             currentRoute.meta.parentMeta = {
-                ...route
+                ...parentRoute
             }
         }
         currentRoute.component = module[`../../pages${path}/index.vue`];

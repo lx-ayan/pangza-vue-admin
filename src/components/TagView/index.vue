@@ -175,7 +175,10 @@ function handleClickOther() {
         handleRemoveAll();
     } else {
         const arr = useTagStore.tagViewList.filter(item => item.path == currentTag.value?.path);
-        arr.unshift(STATIC_TAGVIEW);
+        if (currentTag.value!.path != '/home') {
+            arr.unshift(STATIC_TAGVIEW);
+        }
+
         useTagStore.setTagViewList(arr);
         router.push(currentTag.value!.path);
     }
