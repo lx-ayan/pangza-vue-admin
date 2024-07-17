@@ -23,7 +23,7 @@ class Monitor {
         return this.entries;
     }
 
-    private getEntiry(name: PerformanceEntry['name']) {
+    private getEntry(name: PerformanceEntry['name']) {
         const entries = this.getEntries();
         return entries?.getEntries().find(entry => entry.name === name);
     }
@@ -40,7 +40,7 @@ class Monitor {
 
     public onPaint(callback?: MonitorCallbackFn) {
         this.instance = this.create(() => {
-            const paintEntry = this.getEntiry('first-paint');
+            const paintEntry = this.getEntry('first-paint');
             if (paintEntry) {
                 const json = paintEntry.toJSON();
                 const reportData = this.getJSONData(json, paintEntry.name);
@@ -58,6 +58,7 @@ class Monitor {
         }
     }
 
+    // 最大内容绘制
     public onLCP(callback?: MonitorCallbackFn) {
         this.instance = this.create(() => {
             const entires = this.getEntries();
@@ -74,9 +75,11 @@ class Monitor {
         this.instance.observe({ type: 'largest-contentful-paint', buffered: true });
     }
 
+    // 首绘
     public onFCP(callback?: MonitorCallbackFn) {
         this.instance = this.create(() => {
-            const paintEntry = this.getEntiry('first-contentful-paint');
+            this.disconnect();
+            const paintEntry = this.getEntry('first-contentful-paint');
             if (paintEntry) {
                 const json = paintEntry.toJSON();
                 const reportData = this.getJSONData(json, paintEntry.name);
@@ -88,7 +91,8 @@ class Monitor {
         this.instance.observe({ type: 'paint', buffered: true });
     }
 
-    public onResources(callback: MonitorCallbackFn) {
+    // 静态资源统计
+    public onResources(callback?: MonitorCallbackFn) {
         this.instance = this.create(() => {
             const entries = this.getEntries();
             const resultMap = new Map();
@@ -101,6 +105,61 @@ class Monitor {
             }
         });
         this.instance.observe({ type: 'resource', buffered: true })
+    }
+
+    public onError(callback?: MonitorCallbackFn) {
+        // source error
+        window.addEventListener('error', function (e) {
+            const target: any = e.target;
+            if (!target) return;
+            if (target.src || target.href) {
+                const url = target.src || target.href;
+                const data = {
+                    type: 'error',
+                    subType: 'resource',
+                    message: e.message,
+                    url,
+                    html: target.outHTML,
+                    pageUrl: window.location.href,
+                    paths: (e as any).path,
+                    time: moment().format(DATE_FORMAT_EN)
+                }
+                if (callback) {
+                    callback(data);
+                }
+            }
+        }, true);
+
+        window.onerror = function (message, url, lineNo, columNo, error) {
+            const data = {
+                type: 'error',
+                subType: 'js',
+                url,
+                message,
+                lineNo,
+                columNo,
+                statck: error?.stack,
+                pageUrl: window.location.href,
+                time: moment().format(DATE_FORMAT_EN)
+
+            }
+            if (callback) {
+                callback(data);
+            }
+        }
+
+        window.addEventListener('unhandledrejection', (e) => {
+            const data = {
+                type: 'error',
+                subType: 'js',
+                message: e.reason,
+                pageUrl: window.location.href,
+                time: moment().format(DATE_FORMAT_EN)
+            }
+            if (callback) {
+                callback(data);
+            }
+        })
     }
 
 }

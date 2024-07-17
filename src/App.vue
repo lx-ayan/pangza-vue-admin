@@ -2,7 +2,9 @@
 import { CSSProperties, computed } from 'vue';
 import useTheme from './hooks/useTheme';
 import useColor from './hooks/useColor';
-import monitor from '@/utils/monitor';
+// import monitor from '@/utils/monitor';
+import MyDB from '@/utils/indexeddb';
+import User from '@m/user';
 
 const [initTheme] = useTheme();
 const { useThemeStore, PRO_TABLE_HEADER_COLOR, TEXT_COLOR } = useColor();
@@ -15,21 +17,28 @@ const style = computed<CSSProperties>(() => {
 
 initTheme();
 
-monitor.onPaint(data => {
-  console.log('paint', data)
-})
+// monitor.onPaint(data => {
+//   console.log('paint', data)
+// })
 
-monitor.onLCP(data => {
-  console.log('LCP', data);
-})
+// monitor.onLCP(data => {
+//   console.log('LCP', data);
+// })
 
-monitor.onFCP(data => {
-  console.log('FCP', data);
-})
+// monitor.onFCP(data => {
+//   console.log('FCP', data);
+// })
 
-monitor.onResources(data => {
-  console.log('Resources', data);
-})
+// monitor.onResources(data => {
+//   console.log('Resources', data);
+// })
+
+// monitor.onError(data => {
+//   console.log('error', data);
+// });
+
+
+
 
 </script>
 

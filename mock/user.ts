@@ -30,9 +30,7 @@ export default [
         url: '/api/login',
         method: 'post',
         response: ({ body }: { body: LoginForm }) => {
-            console.log('body', body);
             const user = userList.find(user => user.username == body.username && user.password == body.password);
-            console.log('user', user);
             if (!user) {
                 return {
                     code: 500,

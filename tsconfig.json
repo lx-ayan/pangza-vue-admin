@@ -17,6 +17,7 @@
     "noEmit": true,
     "noImplicitAny": false,
     "jsx": "preserve",
+    "experimentalDecorators": true,
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -42,7 +43,8 @@
     "vite/**/*.ts",
     "types/**/*.d.ts",
     "./vite",
-    "mock/**/*.ts"
+    "mock/**/*.ts",
+    "model/**/*.ts"
   ],
   "references": [
     {

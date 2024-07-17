@@ -9,3 +9,7 @@ setupPlugins(app);
 setupRouter(app);
 setupDirective(app);
 app.mount('#app');
+
+app.config.errorHandler = () => {
+    console.log('vue error')
+}

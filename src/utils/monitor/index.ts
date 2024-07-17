@@ -1,4 +1,4 @@
-import Monitor from "./Monitor";
+import Monitor from "./monitor";
 
 const monitor = new Monitor();
 
