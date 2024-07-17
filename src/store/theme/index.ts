@@ -42,7 +42,7 @@ const themeStore = defineStore('theme', {
     state: (): ThemeState => ({
         brandColor: '#1867c0',
         layout: 'one',
-        theme: 'dark',
+        theme: 'light',
         isCollapsed: false,
         tagView: true,
         breads: true,
