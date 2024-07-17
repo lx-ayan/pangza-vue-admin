@@ -11,7 +11,7 @@ const { useThemeStore, BG_COLOR } = useColor();
 
 <template>
     <t-layout class="h-scrren overflow-hidden">
-        <t-aside class="w-auto">
+        <t-aside class="w-auto h-screen">
             <Menu />
         </t-aside>
         <t-layout>
