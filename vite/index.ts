@@ -1,8 +1,9 @@
+//@ts-ignore
 import { UserConfig } from "vite";
 import createPlugins from "./plugins";
 import createAlias from "./alias";
 
-function createVite(viteEnv: ViteEnv, isBuild: boolean, option?: UserConfig) {
+function createVite(viteEnv: ViteEnv, isBuild: boolean, _option?: UserConfig) {
 
     const config: UserConfig = {
         plugins: createPlugins(viteEnv, isBuild),

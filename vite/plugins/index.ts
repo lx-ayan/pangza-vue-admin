@@ -5,7 +5,7 @@ import SVGLoader from 'vite-svg-loader';
 import VueJSX from '@vitejs/plugin-vue-jsx';
 import DefinePluginOption from 'unplugin-vue-define-options/vite';
 
-function createPlugins(viteEnv: ViteEnv, isBuild: boolean) {
+function createPlugins(_viteEnv: ViteEnv, isBuild: boolean) {
     const pluginList: PluginOption = [Vue(), SVGLoader(), VueJSX()];
     pluginList.push(setupMockPlugin(isBuild));
     pluginList.push(DefinePluginOption());

@@ -1,5 +1,6 @@
 import useState from "@/hooks/useState";
 import { defineComponent } from "vue";
+import { Tooltip, Select } from "tdesign-vue-next";
 
 const FontFamily = defineComponent({
     name: 'FontFamily',
@@ -21,9 +22,11 @@ const FontFamily = defineComponent({
         }
 
         return () => <>
-            <t-tooltip content="字体">
-                <t-select value={fontFamily} style="width: 8%" size="small" onChange={handleClick} options={contentsList} placeholder="字体"></t-select>
-            </t-tooltip>
+            {/* @ts-ignore */}
+            <Tooltip content="字体">
+                {/* @ts-ignore */}
+                <Select value={fontFamily} style="width: 8%" size="small" onChange={handleClick} options={contentsList} placeholder="字体"></Select>
+            </Tooltip>
         </>
     }
 });

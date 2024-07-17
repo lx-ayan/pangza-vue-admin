@@ -7,7 +7,7 @@ export default defineComponent({
         const { emit } = ctx;
 
         function handleClick(value: RowFlex) {
-            
+
             emit('click', { key: 'executeRowFlex', value })
         }
 
@@ -24,6 +24,6 @@ export default defineComponent({
             <t-tooltip content="分散对齐">
                 <t-button onClick={() => handleClick(RowFlex.JUSTIFY)} size="small" variant="text"><t-icon name="view-list"></t-icon></t-button>
             </t-tooltip>
-        </>
+        </> as any
     }
 })

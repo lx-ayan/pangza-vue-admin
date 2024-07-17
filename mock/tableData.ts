@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-import { ProTableRequest, ProTableResult } from 'procomponent-tdesign-vue';
+import { ProTableRequest } from 'procomponent-tdesign-vue';
 
 const { Random } = Mock;
 
@@ -8,7 +8,7 @@ export default [
         url: '/api/table_data',
         method: 'post',
         response: ({ body }: { body: ProTableRequest }) => {
-            const total = Math.random() * (10 - 1) + 1;
+            // const total = Math.random() * (10 - 1) + 1;
             const list: any[] = [];
             for (let i = 0; i < 10; i++) {
                 list.push({

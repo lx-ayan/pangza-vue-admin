@@ -51,8 +51,11 @@ export default defineComponent({
         }
 
         return () => <>
+            {/* @ts-ignore */}
             <t-tooltip content="字号">
+                {/* @ts-ignore */}
                 <t-select style="width: 5%;" size="small" onChange={handleClick} options={contentsList} placeholder="字号"></t-select>
+                {/* @ts-ignore */}
             </t-tooltip>
         </>
     }

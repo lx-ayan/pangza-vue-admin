@@ -18,7 +18,6 @@ const useThemeStore = themeStore();
                 </div>
             </t-header>
             <t-content class="h-full"  :class="[useThemeStore.theme === 'dark' ? 'bg-[#181818]' : 'bg-[#eff1f7]']">
-                <ThemeDrawer />
                 <div class=" overflow-auto h-full p-3">
                     <router-view class="h-full" #default="{ Component }">
                         <Transition v-if="useThemeStore.animate" :name="useThemeStore.animateName" mode="out-in">

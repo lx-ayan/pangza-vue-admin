@@ -1,4 +1,4 @@
-import { MockMethod, MockConfig } from 'vite-plugin-mock'
+import { MockMethod } from 'vite-plugin-mock'
 import userMock from './user';
 import menuMock from './menu';
 import tableMock from './tableData';
