@@ -3,8 +3,6 @@ import { CSSProperties, computed } from 'vue';
 import useTheme from './hooks/useTheme';
 import useColor from './hooks/useColor';
 // import monitor from '@/utils/monitor';
-import MyDB from '@/utils/indexeddb';
-import User from '@m/user';
 
 const [initTheme] = useTheme();
 const { useThemeStore, PRO_TABLE_HEADER_COLOR, TEXT_COLOR } = useColor();
@@ -47,6 +45,9 @@ initTheme();
 </template>
 
 <style lang="scss">
+* {
+  color: #1867c0;
+}
 .v-contextmenu-inner .v-contextmenu-item {
   color: var(--td-text-color-primary);
   text-align: left;
