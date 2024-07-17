@@ -42,7 +42,6 @@
     "src/**/*.vue",
     "vite/**/*.ts",
     "types/**/*.d.ts",
-    "./vite",
     "mock/**/*.ts",
     "model/**/*.ts"
   ],

@@ -45,9 +45,6 @@ initTheme();
 </template>
 
 <style lang="scss">
-* {
-  color: #1867c0;
-}
 .v-contextmenu-inner .v-contextmenu-item {
   color: var(--td-text-color-primary);
   text-align: left;
