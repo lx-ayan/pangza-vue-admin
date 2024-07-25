@@ -1,10 +1,14 @@
 <script setup lang='tsx'>
+import LoginBG from '@/assets/image/work.jpg';
 import { ProFormOption, ProFormRef } from 'procomponent-tdesign-vue';
+import { login } from '@/api/user';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { MessagePlugin } from 'tdesign-vue-next';
+import storeUtil from '@/utils/store';
 import userStore from '@/store/user';
-import useColor from '@/hooks/useColor';
-import LoginSVG from '@/assets/svg/login.svg';
-import LoginTwoSVG from '@/assets/svg/login2.svg';
+import { StoreEnum } from '@/common/enums';
+
 defineOptions({
     route: {
         name: 'login',
@@ -17,8 +21,6 @@ defineOptions({
 
 const useUserStore = userStore();
 
-const { BG_COLOR, TEXT_COLOR } = useColor();
-
 const options: ProFormOption[] = [
     {
         label: '',
@@ -28,6 +30,7 @@ const options: ProFormOption[] = [
         inputAttrs: {
             //@ts-ignore
             prefixIcon: () => (<t-icon size="18" name="user"></t-icon>),
+            size: 'large'
         },
         rules: [
             { required: true, message: '用户名不能为空' }
@@ -42,6 +45,7 @@ const options: ProFormOption[] = [
             placeholder: '请输入密码',
             //@ts-ignore
             prefixIcon: () => <t-icon size="18" name="lock-on"></t-icon>,
+            size: 'large',
         },
         rules: [
             { required: true, message: '密码不能为空' },
@@ -66,31 +70,24 @@ function handleLoginClick() {
 </script>
 
 <template>
-    <div class="flex h-screen items-center">
-        <div class="bg-[var(--td-brand-color)] w-[40vw] h-full flex items-center">
-            <LoginSVG />
-
-            <LoginTwoSVG />
-        </div>
-        <div class="flex-1  h-full" :class="`bg-[${BG_COLOR}]`">
-            <div class="w-[35%] my-0 mx-auto pt-[30vh]">
-                <div class="mb-5 text-2xl font-bold text-color">
-                    欢迎登录 Pangza Admin
-                </div>
-                <ProForm @submit="handleSubmit" ref="formRef" :requiredMark="false" :request="request"
-                    :options="options">
-                    <template #footer></template>
-                </ProForm>
-                <div class="flex items-center mt-1 mb-3 text-color text-sm">
-                    <t-checkbox></t-checkbox> <span class="text-color"> 记住密码</span>
-                </div>
+    <div class="flex h-screen justify-center items-center bg-slate-300 px-5 md:px-0">
+        <div class="w-[720px] bg-white -translate-y-16 md:grid grid-cols-2 rounded-sm shadow-sm overflow-hidden">
+            <div class="p-6 pt-10">
+                <h2 class="text-gray-700 text-xl font-bold text-center mb-10">
+                    用户名密码登录
+                </h2>
                 <div>
-                    <t-button @click="handleLoginClick" block>登录</t-button>
+                    <ProForm @submit="handleSubmit" ref="formRef" :requiredMark="false" :request="request"
+                        :options="options">
+                        <template #footer></template>
+                    </ProForm>
+                    <div class="mt-8">
+                        <t-button @click="handleLoginClick" size="large" block>登录</t-button>
+                    </div>
                 </div>
-                <div class="flex items-center mt-3 text-sm">
-                    <t-checkbox></t-checkbox> <span class="text-color">同意阅读</span> <router-link
-                        class="ml-2 text-[var(--td-brand-color)]" to="/ogin">用户服务协议</router-link>
-                </div>
+            </div>
+            <div class="hidden md:block">
+                <img :src="LoginBG" class="h-96 w-full object-cover" alt="" />
             </div>
         </div>
     </div>
@@ -100,9 +97,5 @@ function handleLoginClick() {
 .login-bg {
     background-color: red;
     background: linear-gradient(to top right, #e8f0fb, #f0f4fd 40%);
-}
-
-.text-color {
-    color: v-bind('TEXT_COLOR');
 }
 </style>

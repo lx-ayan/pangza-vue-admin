@@ -26,7 +26,9 @@ const userStore = defineStore('userStore', {
                 if (res) {
                     storeUtil.set(StoreEnum.TOKEN, res.token, 7);
                     this.setUser(res);
-                    router.push('/home');
+                    setTimeout(() => {
+                        router.push('/home');
+                    }, 500);
                 }
             }).catch(e => {
                 MessagePlugin.error(e);
