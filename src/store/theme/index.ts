@@ -40,7 +40,7 @@ export interface ThemeState {
 
 const themeStore = defineStore('theme', {
     state: (): ThemeState => ({
-        brandColor: '#0E42D2',
+        brandColor: '#1867c0',
         layout: 'one',
         theme: 'light',
         isCollapsed: false,
