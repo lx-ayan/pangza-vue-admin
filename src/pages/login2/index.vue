@@ -1,13 +1,7 @@
 <script setup lang='tsx'>
-import LoginBG from '@/assets/image/work.jpg';
-import { ProFormOption, ProFormRef } from 'procomponent-tdesign-vue';
-import { login } from '@/api/user';
+import { ProFormOption } from 'tdesign-pro-component/dist/types/components/ProForm';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { MessagePlugin } from 'tdesign-vue-next';
-import storeUtil from '@/utils/store';
 import userStore from '@/store/user';
-import { StoreEnum } from '@/common/enums';
 
 defineOptions({
     route: {
@@ -25,33 +19,38 @@ const options: ProFormOption[] = [
     {
         label: '',
         name: 'username',
-        col: 12,
-        placeholder: '请输入用户名',
-        inputAttrs: {
-            //@ts-ignore
-            prefixIcon: () => (<t-icon size="18" name="user"></t-icon>),
-            size: 'large'
-        },
-        rules: [
-            { required: true, message: '用户名不能为空' }
-        ]
-    },
-    {
-        label: '',
-        name: 'password',
-        col: 12,
-        type: 'password',
-        inputAttrs: {
-            placeholder: '请输入密码',
-            //@ts-ignore
-            prefixIcon: () => <t-icon size="18" name="lock-on"></t-icon>,
-            size: 'large',
-        },
-        rules: [
-            { required: true, message: '密码不能为空' },
-        ]
 
     }
+    // {
+    //     label: '',
+    //     name: 'username',
+    //     col: 12,
+    //     placeholder: '请输入用户名',
+    //     inputAttrs: {
+    //         //@ts-ignore
+    //         prefixIcon: () => (<t-icon size="18" name="user"></t-icon>),
+    //         size: 'large'
+    //     },
+    //     rules: [
+    //         { required: true, message: '用户名不能为空' }
+    //     ]
+    // },
+    // {
+    //     label: '',
+    //     name: 'password',
+    //     col: 12,
+    //     type: 'password',
+    //     inputAttrs: {
+    //         placeholder: '请输入密码',
+    //         //@ts-ignore
+    //         prefixIcon: () => <t-icon size="18" name="lock-on"></t-icon>,
+    //         size: 'large',
+    //     },
+    //     rules: [
+    //         { required: true, message: '密码不能为空' },
+    //     ]
+
+    // }
 ];
 
 const formRef = ref<ProFormRef>()
@@ -77,9 +76,8 @@ function handleLoginClick() {
                     用户名密码登录
                 </h2>
                 <div>
-                    <ProForm @submit="handleSubmit" ref="formRef" :requiredMark="false" :request="request"
+                    <ProForm :request="request"
                         :options="options">
-                        <template #footer></template>
                     </ProForm>
                     <div class="mt-8">
                         <t-button @click="handleLoginClick" size="large" block>登录</t-button>

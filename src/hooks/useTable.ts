@@ -1,4 +1,4 @@
-import { ProTableOption, ProTableRef, ProTableRequest, ProTableResult } from "procomponent-tdesign-vue";
+import { ProTableOption, ProTableRef, ProTableRequest, ProTableResult } from "tdesign-pro-component";
 import { ref } from "vue";
 
 export type ProTableRequestFn<T> = (form: ProTableRequest) => Promise<ProTableResult<T>>;

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ProTableOption } from 'procomponent-tdesign-vue';
+import { ProTableOption } from 'tdesign-pro-component';
 import { computed, onMounted } from 'vue';
 import { PropType, ref } from 'vue';
 

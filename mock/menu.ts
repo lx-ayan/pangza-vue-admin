@@ -181,22 +181,22 @@ const adminMenu: MenuResult[] = [
                     show: true,
                 },
             },
-            {
-                path: '/component/page',
-                name: 'component.page',
-                meta: {
-                    title: '页面容器',
-                    show: true,
-                },
-            },
-            {
-                path: '/component/description',
-                name: 'component.description',
-                meta: {
-                    title: '描述组件',
-                    show: true,
-                },
-            },
+            // {
+            //     path: '/component/page',
+            //     name: 'component.page',
+            //     meta: {
+            //         title: '页面容器',
+            //         show: true,
+            //     },
+            // },
+            // {
+            //     path: '/component/description',
+            //     name: 'component.description',
+            //     meta: {
+            //         title: '描述组件',
+            //         show: true,
+            //     },
+            // },
             {
                 path: '/component/canvas-editor',
                 name: 'component.canvas-editor',

@@ -1,6 +1,5 @@
-import { ProFormOption, ProFormRef } from "procomponent-tdesign-vue";
+import type { ProFormRef } from "tdesign-pro-component";
 import { ref } from "vue";
-
 export type ProFormRequestFn<T> = () => Promise<T>;
 
 function useProForm<T = any>(proFormOptions: ProFormOption[] = [], proTableRequest: ProFormRequestFn<T>) {

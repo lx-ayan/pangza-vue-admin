@@ -7,5 +7,5 @@
     "allowSyntheticDefaultImports": true,
     "strict": true
   },
-  "include": ["vite.config.ts", "./vite", "./types"]
+  "include": ["vite.config.ts", "./vite", "./types", "./mock"]
 }

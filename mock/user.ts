@@ -1,3 +1,4 @@
+//@ts-ignore
 import Mock from 'mockjs';
 
 const { Random } = Mock;
@@ -38,7 +39,7 @@ export default [
                     message: '用户名密码输入错误'
                 }
             } else {
-                const resultUser = {...user};
+                const resultUser = { ...user };
                 resultUser.password = void 0;
                 return {
                     code: 200,

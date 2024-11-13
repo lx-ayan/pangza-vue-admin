@@ -307,6 +307,30 @@
   resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.20.2.tgz"
   integrity sha512-N49X4lJX27+l9jbLKSqZ6bKNjzQvHaT8IIFUy+YIqmXQdjYCToGWwOItDrfby14c78aDd5NHQl29xingXfCdLQ==
 
+"@fortawesome/fontawesome-common-types@6.6.0":
+  version "6.6.0"
+  resolved "https://registry.npmmirror.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.6.0.tgz"
+  integrity sha512-xyX0X9mc0kyz9plIyryrRbl7ngsA9jz77mCZJsUkLl+ZKs0KWObgaEBoSgQiYWAsSmjz/yjl0F++Got0Mdp4Rw==
+
+"@fortawesome/fontawesome-svg-core@^6.5.1", "@fortawesome/fontawesome-svg-core@~1 || ~6":
+  version "6.6.0"
+  resolved "https://registry.npmmirror.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.6.0.tgz"
+  integrity sha512-KHwPkCk6oRT4HADE7smhfsKudt9N/9lm6EJ5BVg0tD1yPA5hht837fB87F8pn15D8JfTqQOjhKTktwmLMiD7Kg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.6.0"
+
+"@fortawesome/free-solid-svg-icons@^6.5.1":
+  version "6.6.0"
+  resolved "https://registry.npmmirror.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.6.0.tgz"
+  integrity sha512-IYv/2skhEDFc2WGUcqvFJkeK39Q+HyPf5GHUrT/l2pKbtgEIv1al1TKd6qStR5OIwQdN1GZP54ci3y4mroJWjA==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.6.0"
+
+"@fortawesome/vue-fontawesome@^3.0.6":
+  version "3.0.8"
+  resolved "https://registry.npmmirror.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-3.0.8.tgz"
+  integrity sha512-yyHHAj4G8pQIDfaIsMvQpwKMboIZtcHTUvPqXjOHyldh1O1vZfH4W03VDPv5RvI9P6DLTzJQlmVgj9wCf7c2Fw==
+
 "@hufe921/canvas-editor@^0.9.85":
   version "0.9.85"
   resolved "https://registry.npmjs.org/@hufe921/canvas-editor/-/canvas-editor-0.9.85.tgz"
@@ -765,6 +789,11 @@ ast-walker-scope@^0.6.1:
   dependencies:
     "@babel/parser" "^7.24.0"
     ast-kit "^0.12.1"
+
+async-validator@^4.2.5:
+  version "4.2.5"
+  resolved "https://registry.npmmirror.com/async-validator/-/async-validator-4.2.5.tgz"
+  integrity sha512-7HhHjtERjqlNbZtqNqy2rckN/SpOOlmDliet+lP7k+eKZEjPk3DgyeU9lIXLdeLz0uBbbVp+9Qdow9wJWgwwfg==
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -1792,11 +1821,6 @@ preact@^10.17.1, preact@>=8:
   resolved "https://registry.npmjs.org/preact/-/preact-10.22.1.tgz"
   integrity sha512-jRYbDDgMpIb5LHq3hkI0bbl+l/TQ9UnkdQ0ww+lp+4MMOdqaUYdFc5qeyP+IV8FAd/2Em7drVPeKdQxsiWCf/A==
 
-procomponent-tdesign-vue@^1.2.46:
-  version "1.2.46"
-  resolved "https://registry.npmjs.org/procomponent-tdesign-vue/-/procomponent-tdesign-vue-1.2.46.tgz"
-  integrity sha512-uM0FGy+T2aa8alRIi7dS5XwMsXugCbVbLeVCmFSXO2AFhOEKSnA1Xr7ElKe4Yihk/3uiMrgFZEPiAZimrnbwwg==
-
 proxy-from-env@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
@@ -2061,6 +2085,11 @@ tdesign-icons-vue-next@^0.2.0, tdesign-icons-vue-next@^0.2.2:
   dependencies:
     "@babel/runtime" "^7.16.3"
 
+tdesign-pro-component@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmmirror.com/tdesign-pro-component/-/tdesign-pro-component-1.0.4.tgz"
+  integrity sha512-3r5Zd6LmD5pfjQkrrld/ietgtLNGlkw+cOwIQ7LmVUfnCn7lBbdUK1mfJ6pG4AGaoQz8dpAol6p6gaoa3ABi3g==
+
 tdesign-vue-next@^1.9.6, tdesign-vue-next@>=1.9.0:
   version "1.9.6"
   resolved "https://registry.npmjs.org/tdesign-vue-next/-/tdesign-vue-next-1.9.6.tgz"
@@ -2110,6 +2139,17 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
+
+toy-element@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmmirror.com/toy-element/-/toy-element-1.0.5.tgz"
+  integrity sha512-eXk8bSRFW4+t43YwXeVfxLRo4lI1Iw+Mg0W1z5s+n+sdMwdyftacWZLV/MJBiaZlyrU+jK7qn79Ju/aeJgPhwA==
+  dependencies:
+    "@fortawesome/fontawesome-svg-core" "^6.5.1"
+    "@fortawesome/free-solid-svg-icons" "^6.5.1"
+    "@fortawesome/vue-fontawesome" "^3.0.6"
+    "@popperjs/core" "^2.11.8"
+    async-validator "^4.2.5"
 
 ts-interface-checker@^0.1.9:
   version "0.1.13"
@@ -2275,7 +2315,7 @@ vue-tsc@^2.0.6:
     "@vue/language-core" "2.0.19"
     semver "^7.5.4"
 
-"vue@^2.6.14 || ^3.3.0", "vue@^2.7.0 || ^3.2.25", vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.2.0, vue@^3.2.25, vue@^3.4.27, vue@>=3.1.0, vue@>=3.2.0, vue@>=3.2.13, vue@3.4.27:
+"vue@^2.6.14 || ^3.3.0", "vue@^2.7.0 || ^3.2.25", vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.2.0, vue@^3.2.25, vue@^3.4.19, vue@^3.4.27, "vue@>= 3.0.0 < 4", vue@>=3.1.0, vue@>=3.2.0, vue@>=3.2.13, vue@3.4.27:
   version "3.4.27"
   resolved "https://registry.npmjs.org/vue/-/vue-3.4.27.tgz"
   integrity sha512-8s/56uK6r01r1icG/aEOHqyMVxd1bkYcSe9j8HcKtr/xTOFWvnzIVTehNW+5Yt89f+DLBe4A569pnZLS5HzAMA==

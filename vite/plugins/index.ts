@@ -7,7 +7,9 @@ import DefinePluginOption from 'unplugin-vue-define-options/vite';
 
 function createPlugins(_viteEnv: ViteEnv, isBuild: boolean) {
     const pluginList: PluginOption = [Vue(), SVGLoader(), VueJSX()];
-    pluginList.push(setupMockPlugin(isBuild));
+    if (_viteEnv.VITE_ENABLE_MOCK) {
+        pluginList.push(setupMockPlugin(isBuild));
+    }
     pluginList.push(DefinePluginOption());
     return pluginList;
 }

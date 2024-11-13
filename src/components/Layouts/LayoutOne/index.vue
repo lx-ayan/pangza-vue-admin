@@ -21,7 +21,7 @@ const { useThemeStore, BG_COLOR } = useColor();
             <t-content class="h-scrren" :style="{background: BG_COLOR}">
                 <ThemeDrawer v-if="!useThemeStore.header" />
                 <TagView />
-                <div style="height: 855px; overflow-y: auto; overflow-x: hidden;" class=" p-3">
+                <div style="overflow-y: auto; overflow-x: hidden;" class=" px-3 pt-3">
                     <router-view class="h-full" #default="{ Component }">
                         <Transition v-if="useThemeStore.animate" :name="useThemeStore.animateName" mode="out-in">
                             <component :is="Component"></component>

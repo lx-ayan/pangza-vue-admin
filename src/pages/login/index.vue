@@ -1,10 +1,10 @@
 <script setup lang='tsx'>
-import { ProFormOption, ProFormRef } from 'procomponent-tdesign-vue';
 import { ref } from 'vue';
 import userStore from '@/store/user';
 import useColor from '@/hooks/useColor';
 import LoginSVG from '@/assets/svg/login.svg';
 import LoginTwoSVG from '@/assets/svg/login2.svg';
+import { ProFormOption } from 'tdesign-pro-component';
 defineOptions({
     route: {
         name: 'login',
@@ -23,11 +23,10 @@ const options: ProFormOption[] = [
     {
         label: '',
         name: 'username',
-        col: 12,
+        span: 12,
         placeholder: '请输入用户名',
-        inputAttrs: {
-            //@ts-ignore
-            prefixIcon: () => (<t-icon size="18" name="user"></t-icon>),
+        formItemProps: {
+            labelWidth: 0
         },
         rules: [
             { required: true, message: '用户名不能为空' }
@@ -35,13 +34,14 @@ const options: ProFormOption[] = [
     },
     {
         label: '',
+        placeholder: '请输入密码',
         name: 'password',
-        col: 12,
-        type: 'password',
-        inputAttrs: {
-            placeholder: '请输入密码',
-            //@ts-ignore
-            prefixIcon: () => <t-icon size="18" name="lock-on"></t-icon>,
+        span: 12,
+        textProps: {
+            type: 'password'
+        },
+        formItemProps: {
+            labelWidth: 0
         },
         rules: [
             { required: true, message: '密码不能为空' },
@@ -52,9 +52,6 @@ const options: ProFormOption[] = [
 
 const formRef = ref<ProFormRef>()
 
-function request() {
-    return Promise.resolve(null);
-}
 
 function handleSubmit(data: LoginForm) {
     useUserStore.doLogin(data);
@@ -77,9 +74,8 @@ function handleLoginClick() {
                 <div class="mb-5 text-2xl font-bold text-color">
                     欢迎登录 Pangza Admin
                 </div>
-                <ProForm @submit="handleSubmit" ref="formRef" :requiredMark="false" :request="request"
-                    :options="options">
-                    <template #footer></template>
+                <ProForm hideFooter @submit="handleSubmit" ref="formRef" :requiredMark="false" :options="options">
+                   
                 </ProForm>
                 <div class="flex items-center mt-1 mb-3 text-color text-sm">
                     <t-checkbox></t-checkbox> <span class="text-color"> 记住密码</span>

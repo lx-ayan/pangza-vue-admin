@@ -1,5 +1,5 @@
 import request from "@/plugins/axios";
-import { ProTableRequest, ProTableResult } from "procomponent-tdesign-vue";
+import { ProTableRequest, ProTableResult } from "tdesign-pro-component";
 
 interface PageDataResult {
     'id|+1': number,

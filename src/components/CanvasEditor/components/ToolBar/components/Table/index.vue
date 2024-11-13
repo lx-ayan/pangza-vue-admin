@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ProFormOption } from 'procomponent-tdesign-vue';
+import { ProFormOption } from 'tdesign-pro-component';
 import { ref } from 'vue';
 
 const emits = defineEmits(['click']);

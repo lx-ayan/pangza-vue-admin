@@ -1,16 +1,25 @@
-<script setup lang='ts'>
+<script setup lang='tsx'>
 import { getTableData } from '@/api/components';
 import { TABLE_SIZE_LABEL_LIST } from '@/common/const';
-import { ProTableOption, ProTableRequest } from 'procomponent-tdesign-vue';
 import { DropdownOption, NotifyPlugin, SizeEnum } from 'tdesign-vue-next';
 import { ref } from 'vue';
 import OptionSetting from '@/components/OptionSetting/index.vue';
 import useProTable from '@/hooks/useTable';
 import useXLSX from '@/hooks/useXLSX';
+import { ProTableOption, ProTableRequest } from 'tdesign-pro-component';
 
 const dataList = ref<any[]>([]);
+interface VO {
+    id?: number;
+    username?: string;
+    title?: string;
+    description?: string;
+    address?: string;
+    code?: string;
+    createtime?: string;
+};
 
-const [options, request, proTableRef] = useProTable<any>([
+const [options, request, proTableRef] = useProTable<VO>([
     {
         key: 'id',
         title: '序号',
@@ -43,7 +52,10 @@ const [options, request, proTableRef] = useProTable<any>([
         key: 'action',
         title: '操作',
         isSlot: true,
-        hideInSearch: true
+        hideInSearch: true,
+        render: ({ row }) => {
+            return <t-button onClick={() => handleRowClick(row)} size={tableSize} theme="primary" variant="text">查看</t-button>
+        }
     }
 ] as ProTableOption[],
     async (data: ProTableRequest) => {
@@ -54,9 +66,11 @@ const [options, request, proTableRef] = useProTable<any>([
 
 const [_xlsx, doExport, doRead] = useXLSX(options.value, { json: true });
 
-const tableSize = ref<SizeEnum>('small');
+const tableSize = ref<SizeEnum>('medium');
 
 const inputRef = ref();
+
+const page = ref({ pageNum: 1, pageSize: 10 });
 
 function handleDropdownClick({ value }: DropdownOption) {
     tableSize.value = value as SizeEnum;
@@ -97,13 +111,13 @@ function handleImportClick() {
 
 <template>
     <div class="flex items-center">
-        <ProTable ref="proTableRef" :size="tableSize" :options="options" :request>
-            <template #tableTitle>
+        <ProTable loading v-model:page="page" ref="proTableRef" :size="tableSize" :options="options" :request>
+            <template #pro-table-title>
                 <div class=" p-2">
                     表格组件
                 </div>
             </template>
-            <template #tableActions>
+            <template #pro-table-actions>
                 <div>
                     <t-button v-permission="'role_ADMIN'">新增数据</t-button>
                     <t-button style="margin-left: 8px;" variant="outline"><t-icon name="more"></t-icon></t-button>
@@ -129,7 +143,7 @@ function handleImportClick() {
                             </template>
                         </t-button>
                     </t-tooltip>
-                    <input @change="handleFileChoose" ref="inputRef" type="file" style="display: none"/>
+                    <input @change="handleFileChoose" ref="inputRef" type="file" style="display: none" />
                     <t-button @click="handleImportClick" theme="default" variant="text">
                         <template #icon>
                             <t-icon name="upload"></t-icon>
@@ -138,12 +152,10 @@ function handleImportClick() {
                 </div>
             </template>
             <template #table-action="{ row }">
-                <t-button @click="handleRowClick(row)" :size="tableSize" theme="primary" variant="text">查看</t-button>
 
             </template>
         </ProTable>
     </div>
 </template>
 
-<style lang='scss'>
-</style>
+<style lang='scss'></style>
