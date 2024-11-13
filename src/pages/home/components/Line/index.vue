@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { nextTick, ref } from 'vue';
+import { nextTick, ref, markRaw } from 'vue';
 import * as echarts from 'echarts';
 import { createOption } from './options';
 
@@ -7,7 +7,7 @@ const chartRef = ref<HTMLDivElement | undefined>();
 const chartInstance = ref<echarts.ECharts | undefined>();
 
 nextTick(() => {
-    chartInstance.value = echarts.init(chartRef.value);
+    chartInstance.value = markRaw(echarts.init(chartRef.value));
     chartInstance.value.setOption(createOption());
 })
 
