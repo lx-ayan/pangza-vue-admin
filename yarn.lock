@@ -2085,10 +2085,10 @@ tdesign-icons-vue-next@^0.2.0, tdesign-icons-vue-next@^0.2.2:
   dependencies:
     "@babel/runtime" "^7.16.3"
 
-tdesign-pro-component@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npmmirror.com/tdesign-pro-component/-/tdesign-pro-component-1.0.6.tgz"
-  integrity sha512-uFoJnpaX5I4nzif51WMbV9c3EwpUr4hg+wK2QqdFh018hpo/kHEkaFj6N3714QU4jhjnZ6HDnz5MUdgRQfmzgw==
+tdesign-pro-component@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.npmjs.org/tdesign-pro-component/-/tdesign-pro-component-1.0.7.tgz"
+  integrity sha512-4o/oQfrmXpLZMuzH7nloEa0CGf16y5nrETJkacrIoKh1yNn3LKTWrkZYZ2jIDPZ//VioS/+WMi9c0M2a8MVBCg==
 
 tdesign-vue-next@^1.9.6, tdesign-vue-next@>=1.9.0:
   version "1.9.6"
