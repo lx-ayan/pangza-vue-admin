@@ -1,5 +1,5 @@
 <script setup lang='tsx'>
-import { ProFormOption } from 'tdesign-pro-component/dist/types/components/ProForm';
+import { ProFormOption } from 'tdesign-pro-component';
 import { ref } from 'vue';
 import userStore from '@/store/user';
 
