@@ -2,6 +2,7 @@
 import { CSSProperties, computed } from 'vue';
 import useTheme from './hooks/useTheme';
 import useColor from './hooks/useColor';
+import { testDemo } from './api/user';
 // import monitor from '@/utils/monitor';
 
 const [initTheme] = useTheme();
@@ -14,6 +15,10 @@ const style = computed<CSSProperties>(() => {
 });
 
 initTheme();
+
+testDemo().then(res => {
+  console.log(res);
+})
 
 // monitor.onPaint(data => {
 //   console.log('paint', data)

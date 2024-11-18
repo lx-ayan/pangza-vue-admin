@@ -32,7 +32,7 @@
         "types/*"
       ],
       "@vite/*": [
-        "vite/*"
+        "vite-config/*"
       ]
     }
   },

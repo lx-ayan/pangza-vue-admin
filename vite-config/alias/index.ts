@@ -9,7 +9,7 @@ function createAlias(): AliasOptions {
     return {
         '@': parseUrl('src'),
         '@t': parseUrl('types'),
-        '@vite': parseUrl('vite'),
+        '@vite': parseUrl('vite-config'),
     }
 }
 

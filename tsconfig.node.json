@@ -7,5 +7,13 @@
     "allowSyntheticDefaultImports": true,
     "strict": true
   },
-  "include": ["vite.config.ts", "./vite", "./types", "./mock"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "vite/**/*.ts",
+    "types/**/*.d.ts",
+    "mock/**/*.ts",
+    "model/**/*.ts"
+  ]
 }

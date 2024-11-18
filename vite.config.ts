@@ -1,6 +1,6 @@
 import { UserConfig, loadEnv } from 'vite'
-import createVite from './vite';
-import parseEnv from './vite/env';
+import createViteConfig from './vite-config';
+import parseEnv from './vite-config/env';
 
 // https://vitejs.dev/config/
 export default ({ command, mode }: any): UserConfig => {
@@ -10,7 +10,7 @@ export default ({ command, mode }: any): UserConfig => {
 
   const env = parseEnv(loadEnv(mode, root));
 
-  const config = createVite(env, command === 'build');
+  const config = createViteConfig(env, command === 'build');
 
   return config;
 
