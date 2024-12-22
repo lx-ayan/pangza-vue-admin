@@ -14,6 +14,7 @@ Pangza Vue Admin 是一款基于 Vue、Typescript、Vite、Pinia、TDesign 开�
 
 ### 项目地址
 - github: https://github.com/lx-ayan/pangza-vue-admin
+- gitee: https://gitee.com/liu-xu-xu/pangza-vue-admin
 
 ### 使用
 
