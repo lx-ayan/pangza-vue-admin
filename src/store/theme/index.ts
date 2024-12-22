@@ -1,70 +1,42 @@
-import piniaPersistedState from "@/config/pinia";
-import useTheme from "@/hooks/useTheme";
+import { piniaSotrageConfig } from "@/config";
+import { setGlobalLanguage } from "@/plugins";
+import { getBrowserLang } from "@/utils";
 import { generateColorMap, insertThemeStylesheet } from "@/utils/color";
 import { defineStore } from "pinia";
 import { Color } from "tvision-color";
 
-export type LayoutOption = 'one' | 'two' | 'three';
-
-export type ThemeMode = 'light' | 'dark';
-
-export type MenuType = 'normal' | 'group';
-
-export type MenuExpandType = 'normal' | 'popup';
-
-export type RouteAnimateName = 'fade' | 'translate' | 'scale';
-
-export interface ThemeState {
-    brandColor: string;
-    layout: LayoutOption;
-    theme: ThemeMode;
-    breads: boolean;
-    collapsed: boolean;
-    tagView: boolean;
-    isCollapsed: boolean;
-    breadsTo: boolean;
-    breadsChildren: boolean;
-    nprogress: boolean;
-    menu: boolean;
-    screen: boolean;
-    header: boolean;
-    logo: boolean;
-    gray: boolean;
-    menuType: MenuType;
-    menuExpandType: MenuExpandType;
-    expandMutex: boolean;
-    loading: boolean;
-    animate: boolean;
-    animateName: RouteAnimateName
-}
-
-const themeStore = defineStore('theme', {
+export const themeStore = defineStore('theme', {
     state: (): ThemeState => ({
-        brandColor: '#1867c0',
-        layout: 'one',
-        theme: 'light',
-        isCollapsed: false,
-        tagView: true,
-        breads: true,
-        collapsed: true,
-        breadsTo: true,
-        breadsChildren: true,
-        nprogress: true,
-        menu: true,
-        screen: true,
-        header: true,
-        logo: true,
-        gray: false,
-        menuType: 'normal',
-        menuExpandType: 'normal',
-        expandMutex: false,
-        loading: true,
+        lang: 'zh',
         animate: true,
-        animateName: 'fade'
+        animateName: 'translate',
+        theme: 'light',
+        tagView: true,
+        brandColor: '#0052d9',
+        screen: true,
+        gray: false,
+        logo: true,
+        collapsed: false,
+        collapsedBtn: true
     }),
+    getters: {
+        getLang(): string {
+            return this.lang;
+        }
+    },
     actions: {
-        setLayout(data: LayoutOption) {
-            this.layout = data;
+        setLang(lang: LangType) {
+            this.lang = lang;
+        },
+        setAnimate(animate: boolean) {
+            this.animate = animate;
+        },
+        initTheme() {
+            const language = this.getLang ?? getBrowserLang();
+            this.setLang(language as unknown as LangType);
+            setGlobalLanguage(language as unknown as LangType);
+            this.initThemeMode();
+            this.changeBrandTheme(this.brandColor || '#0052d9');
         },
         changeBrandTheme(color: string) {
             const { colors, primary } = Color.getColorGradations({
@@ -75,24 +47,46 @@ const themeStore = defineStore('theme', {
             const colorMap = generateColorMap(
                 color,
                 colors,
-                theme,
+                theme!,
                 primary
             );
-            insertThemeStylesheet(color, colorMap, theme);
+            insertThemeStylesheet(color, colorMap, theme!);
             document.documentElement.setAttribute('theme-color', color);
             this.brandColor = color;
         },
-        setThemeByKey<K extends keyof ThemeState, V = ThemeState[K]>(key: K, value: V) {
-            //@ts-ignore
-            this[key] = value;
-        },
-        setTheme(theme: ThemeMode) {
+        setTheme(theme: 'dark' | 'light', e: MouseEvent) {
             this.theme = theme;
-            const [initTheme] = useTheme();
-            initTheme();
+            // 设置暗色模式
+            const transition = document.startViewTransition(() => {
+                this.initThemeMode();
+            });
+
+            transition.ready.then(() => {
+                const { clientX, clientY } = e;
+                const radius = Math.hypot(Math.max(clientX, innerWidth - clientX), Math.max(clientY, innerWidth - clientY));
+                document.documentElement.animate(
+                    {
+                        clipPath: [`circle(0% at ${clientX}px ${clientY}px)`, `circle(${radius}px at ${clientX}px ${clientY}px)`]
+                    },
+                    {
+                        duration: 300,
+                        pseudoElement: '::view-transition-new(root)'
+                    }
+                )
+            })
+
+        },
+        initThemeMode() {
+            if (this.theme === 'dark') {
+                document.documentElement.setAttribute('theme-mode', 'dark');
+            } else {
+                // 重置为浅色模式
+                document.documentElement.removeAttribute('theme-mode');
+            }
+        },
+        setCollapsed(value: boolean) {
+            this.collapsed = value;
         }
     },
-    persist: piniaPersistedState('themeStore')
+    persist: piniaSotrageConfig('theme')
 });
-
-export default themeStore;

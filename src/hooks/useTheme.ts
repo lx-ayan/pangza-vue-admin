@@ -1,10 +1,9 @@
-import themeStore from "@/store/theme";
+import { themeStore } from "@/store";
 
 function useTheme() {
     const useThemeStore = themeStore();
     function initTheme() {
-        useThemeStore.changeBrandTheme(useThemeStore.brandColor || '#0052d9');
-        document.documentElement.setAttribute('theme-mode', useThemeStore.theme);
+        useThemeStore.initTheme();
     }
 
     return [initTheme];

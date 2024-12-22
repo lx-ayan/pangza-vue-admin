@@ -5,12 +5,12 @@ function parseUrl(url: string) {
     return resolve(__dirname, `../../${url}`);
 }
 
-function createAlias(): AliasOptions {
+function setupAlias(): AliasOptions {
     return {
         '@': parseUrl('src'),
         '@t': parseUrl('types'),
-        '@vite': parseUrl('vite-config'),
+        '@v': parseUrl('vite-config'),
     }
 }
 
-export default createAlias;
+export default setupAlias;

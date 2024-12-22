@@ -1,19 +1,25 @@
-import { hideFullLoading, showFullLoading } from "@/config/loading";
-import np from "@/config/nprogress";
-import themeStore from "@/store/theme";
-import { getCurrentUser, getToken, hasPermission } from "@/utils/security";
 import { RouteLocationNormalized, RouteRecordRaw, Router } from "vue-router";
-import { getGlobalEnv } from "@vite/env";
+// 路由自动装载 views 页面
+import { autoloadByViews } from "./autoload/views";
+// 路由自动装载 modules 配置
+import { autoloadByModules } from "./autoload/modules";
+import { APP_NAME } from "@/common/const";
+import { getCurrentUser, getToken, hasPermission } from "@/utils/security";
+import { getGlobalEnv } from "@v/env";
 import { getUserMenu } from "@/api/menu";
-import { addRoute, getRouteList } from "./autoload_server";
-import autoLoadByViews from "./autoload_views";
-import autoloadByModules from "./autoload_modules";
-import { ADD_ROUTE_NAME } from "@/common/const";
+import { addRoute, getServerRouteList } from "./autoload/server";
 import { cloneDeep } from "lodash-es";
+import { removeNProgress, startNProgress } from "@/config/nprogress";
+
 
 class RouterGuard {
-    router: Router | null = null;
-    finish = false;
+
+    router: NullAble<Router> = null;
+
+    autoloadFinish: boolean = false;
+
+    routes: RouteRecordRaw[] = [];
+
     constructor(router: Router) {
         this.router = router;
     }
@@ -24,49 +30,41 @@ class RouterGuard {
     }
 
     private async beforeEach(to: RouteLocationNormalized, from: RouteLocationNormalized) {
+        startNProgress();
+        const env = getGlobalEnv();
+        const serverAble = env.VITE_AUTO_LOAD_MODE;
+        const filterNoPermission = env.VITE_FILTER_PERMISSION_ROUTE;
 
-        if (!this.finish && getToken()) {
-            const serverAble = getGlobalEnv().VITE_AUTO_LOAD_SERVER;
-            if (serverAble) {
-                const menuList = await getUserMenu();
-                const formatList = getRouteList(menuList);
-                formatList!.forEach((item) => {
+        if (!this.autoloadFinish && getToken()) {
+            if (serverAble === 'server') {
+                const userRouters = await getUserMenu();
+                this.routes = getServerRouteList(userRouters);
+                this.routes!.forEach((item) => {
                     addRoute(this.router!, item);
                 });
             } else {
                 const user = getCurrentUser();
-                let _routes = (getGlobalEnv().VITE_AUTO_LOAD ? autoLoadByViews : autoloadByModules)();
-
-                if (getToken()) {
-                    _routes = _routes.map(route => {
+                this.routes = (serverAble === 'module' ? autoloadByModules : autoloadByViews)();
+                if (filterNoPermission) {
+                    this.routes = this.routes.map(route => {
                         if (route.children) {
                             route.children = filterRouterByPermission(route.children, user?.permission!)
                         }
                         return route;
                     })
                 }
-                _routes.forEach(route => {
-                    this.router!.addRoute(ADD_ROUTE_NAME, route);
+                this.routes.forEach(route => {
+                    this.router!.addRoute(APP_NAME, route);
                 })
             }
-            this.finish = true;
+            this.autoloadFinish = true;
         }
 
-        const useThemeStore = themeStore();
-        if (to.path == '/login') {
-            this.finish = false;
-        }
 
-        if (useThemeStore.nprogress) {
-            np.start();
-        }
-
-        if (useThemeStore.loading) {
-            showFullLoading('页面加载中...');
-        }
-
-        if (this.isGuest(to) === false) {
-            return { name: 'home' }
+        if (to.path === '/login') {
+            if (getToken()) return from;
+            this.resetRouters();
+            this.autoloadFinish = false;
         }
 
         if (this.isLogin(to) === false) {
@@ -74,29 +72,34 @@ class RouterGuard {
         }
 
         if (this.isPermission(to) === false) {
-            return { name: '500' }
+            return { name: '403' }
         }
 
     }
 
     private afterEach() {
-        np.done();
-        hideFullLoading();
-    }
-
-    private isGuest(route: RouteLocationNormalized) {
-        return Boolean(!route.meta.guest || (route.meta.guest && !getToken()));
+        removeNProgress()
     }
 
     private isLogin(route: RouteLocationNormalized) {
         return Boolean(!route.meta.auth || (route.meta.auth && getToken()));
     }
 
+    private resetRouters() {
+        this.routes.forEach(route => {
+            const { name } = route;
+            if (name && this.router?.hasRoute(name)) {
+                this.router?.removeRoute(name);
+            }
+        })
+    }
+
     private isPermission(route: RouteLocationNormalized) {
-        if (!route.meta.permission) {
+        if (!route.meta.permission || (route.meta?.permission && !route.meta?.permission.length)) {
             return true;
         }
-        return hasPermission(route.meta.permission);
+
+        return hasPermission(route.meta?.permission || []);
     }
 }
 

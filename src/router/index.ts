@@ -1,17 +1,15 @@
-import guard from "@/plugins/router/RouterGuard";
-import { App } from "vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 import routes from "./routes";
-
+import { App } from "vue";
+import guard from '@/plugins/router/RouterGuard';
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes: routes
-})
+    routes,
+    history: createWebHashHistory()
+});
 
-export async function setupRouter(app: App) {
+export function setupRouter(app: App) {
     app.use(router);
     guard(router);
 }
-
 
 export default router;

@@ -17,3 +17,7 @@ export enum RequestMethodEnum {
 export enum StoreEnum {
     TOKEN = 'token'
 }
+
+export enum VAxiosEnum {
+    TIMEOUT = 5000
+}

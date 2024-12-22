@@ -1,8 +1,7 @@
-//@ts-ignore
 import { ProxyOptions } from "vite";
 
 
-type ViteProxyItem = [string, string, boolean];
+type ViteProxyItem = [string, string, boolean?];
 
 type ViteProxyList = ViteProxyItem[];
 
@@ -29,4 +28,6 @@ function createProxy(list: ViteProxyList = []): VitePrxoyTarget {
     return proxyOptions;
 }
 
-export default createProxy;
+export {
+    createProxy
+};

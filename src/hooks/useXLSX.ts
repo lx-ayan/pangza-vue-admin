@@ -1,13 +1,7 @@
-import { ref } from 'vue';
+import { ref } from "vue";
 import * as XLSX from 'xlsx';
 
-interface UseXLSXOption {
-    json?: boolean;
-    needHeader?: boolean;
-    emptyText?: string;
-}
-
-function useXLSX(titleOptions: Array<{ title: string, key: string }>, option: UseXLSXOption = {}) {
+export function useXLSX(titleOptions: Array<{ title: string, key: string }>, option: UseXLSXOption = {}) {
 
     const xlsx = ref<XLSX.XLSX$Utils>(XLSX.utils);
 
@@ -69,5 +63,3 @@ function useXLSX(titleOptions: Array<{ title: string, key: string }>, option: Us
 
     return [xlsx, doExport, doReadData] as const;
 }
-
-export default useXLSX;

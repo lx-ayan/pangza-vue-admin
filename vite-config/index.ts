@@ -1,24 +1,18 @@
-//@ts-ignore
 import { UserConfig } from "vite";
-import createPlugins from "./plugins";
-import createAlias from "./alias";
-import {ViteEnv} from '../types/vite-env';
-import createServer from "./server";
-function createViteConfig(viteEnv: ViteEnv, isBuild: boolean, _option?: UserConfig) {
+import setupPlugins from "./plugins";
+import setupServer from "./server";
+import setupAlias from "./alias";
+import createBuild from "./build";
 
-    const config: UserConfig = {
-        plugins: createPlugins(viteEnv, isBuild),
+export default function createConfig(env: ViteEnv, buildAble: boolean): UserConfig {
+    const viteConfig: UserConfig = {
+        plugins: setupPlugins(env, buildAble),
         resolve: {
-            alias: createAlias()
+            alias: setupAlias()
         },
-        server: createServer(viteEnv),
-        define: {
-            // enable hydration mismatch details in production build
-            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false
-        }
+        server: setupServer(env),
+        build: createBuild(),
+        base: './'
     }
-
-    return config;
+    return viteConfig;
 }
-
-export default createViteConfig;

@@ -9,11 +9,11 @@
             <div ref="tagRefs" @contextmenu="currentTag = item" v-contextmenu:contextmenu
                 v-for="item in useTagStore.tagViewList" class="tag-view-item"
                 :class="[$route.fullPath == item.path ? 'is-active' : '', useThemeStore.theme === 'dark' ? ' border-[#393939]' : '']">
-                <template v-if="item.title.length >= 6">
-                    <t-tooltip :content="item.title">
+                <template v-if=" t(item.title).length >= 6">
+                    <t-tooltip :content=" t(item.title)">
                         <div class="tag-view-item-inner">
                             <div @click="handleToPage(item)" class=" text-nowrap">
-                                {{ item.title.slice(0, 6) + '...' }}
+                                {{ t(item.title).slice(0, 6) + '...' }}
                             </div>
                             <div @click="handleClickClose(item)" v-if="item.close" class="ml-2 pb-[2px] cursor-pointer">
                                 <t-icon size="16" name="close"></t-icon>
@@ -24,7 +24,7 @@
                 <template v-else>
                     <div class="tag-view-item-inner">
                         <div @click="handleToPage(item)" class=" text-nowrap">
-                            {{ item.title }}
+                            {{ t(item.title) }}
                         </div>
                         <div @click="handleClickClose(item)" v-if="item.close" class="ml-2 pb-[2px] cursor-pointer">
                             <t-icon size="16" name="close"></t-icon>
@@ -78,14 +78,13 @@
 </template>
 
 <script setup lang="tsx">
-import tagStore from '@/store/tag';
-import themeStore from '@/store/theme';
-import { TagView } from '@t/global';
+import { t } from '@/plugins';
+import {themeStore, tagStore} from '@/store';
 import { NotifyPlugin } from 'tdesign-vue-next';
 import { ref, computed, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const STATIC_TAGVIEW = { title: '控制台', close: false, path: '/home' };
+const STATIC_TAGVIEW = { title: 'router.home', close: false, path: '/home' };
 
 const useThemeStore = themeStore();
 
@@ -115,12 +114,12 @@ const contextmenu = ref();
 const currentTag = ref<TagView | undefined>();
 
 nextTick(() => {
-    if (clickIndex.value != -1) {
-        const offsetLeft = (tagRefs.value[clickIndex.value] as HTMLDivElement).offsetLeft;
-        if (offsetLeft) {
-            containerRef.value.scrollLeft = offsetLeft;
-        }
-    }
+    // if (clickIndex.value != -1) {
+    //     const offsetLeft = (tagRefs.value[clickIndex.value] as HTMLDivElement).offsetLeft;
+    //     if (offsetLeft) {
+    //         containerRef.value.scrollLeft = offsetLeft;
+    //     }
+    // }
 })
 
 function handleClickClose(tag: TagView) {
@@ -152,7 +151,7 @@ function handleRefresh() {
 }
 
 function handleCloseCurrent() {
-    if (currentTag.value.path == '/home') {
+    if (currentTag.value?.path == '/home') {
         NotifyPlugin.error({
             title: '系统提示',
             content: '当前标签不可关闭',
@@ -193,7 +192,7 @@ function clickHandler(data: any) {
 
 const clickIndex = computed(() => {
     return useTagStore.tagViewList.findIndex(tag => tag.path == route.fullPath);
-})
+});
 
 </script>
 
@@ -248,4 +247,5 @@ const clickIndex = computed(() => {
 .tag-view-more {
     @apply absolute right-8 w-8 flex items-center justify-center cursor-pointer h-8 border-r border-t border-b;
 }
+
 </style>

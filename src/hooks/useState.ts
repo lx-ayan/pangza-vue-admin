@@ -1,21 +1,19 @@
-import { UnwrapRef, computed, reactive, readonly } from "vue";
+import { computed, reactive, readonly, ref, UnwrapRef } from "vue";
 
-function useState<T = any>(data: T) {
-
-    const innerState = reactive<{ value: T }>({
+export function useState<T>(data: T) {
+    const innerState = reactive({
         value: data
     });
 
-    const defaultState = readonly(innerState);
+    const defaultValue = readonly(ref(innerState));
 
-    function setState(_value: T) {
-        if (innerState.value == _value) return;
-        innerState.value = _value as UnwrapRef<T>;
+    function setState(value: T) {
+        if(value != innerState.value) {
+            innerState.value = value as UnwrapRef<T>;
+        }
     }
 
     const state = computed(() => innerState.value);
 
-    return [readonly(state), setState, defaultState] as const;
+    return [readonly(state), setState, defaultValue];
 }
-
-export default useState;

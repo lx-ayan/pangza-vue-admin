@@ -2,29 +2,22 @@ import { RouteRecordRaw } from "vue-router";
 
 export default {
     path: '/role',
-    component: () => import('@/layouts/role/index.vue'),
     meta: {
-        title: '权限管理',
-        icon: 'tools',
-        show: true,
-        auth: true
+        title: '权限预览',
+        auth: true,
+        show: true
     },
     children: [
         {
-            path: '/role/web',
-            component: () => import('@/pages/role/web/index.vue'),
+            path: '/role/page',
             meta: {
-                title: '页面权限',
-                show: true
-            }
+                permission: ['ROLE_ADMIN']
+            },
+            component: () => import('@/views/role/page/index.vue')
         },
         {
             path: '/role/button',
-            component: () => import('@/pages/role/button/index.vue'),
-            meta: {
-                title: '按钮权限',
-                show: true
-            }
+            component: () => import('@/views/role/button/index.vue')
         }
     ]
 } as RouteRecordRaw

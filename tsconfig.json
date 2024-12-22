@@ -1,15 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "baseUrl": ".",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "skipLibCheck": true,
-    /* Bundler mode */
+    "target": "ESNext",
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
@@ -23,7 +17,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./",
+    "skipLibCheck": true,
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "paths": {
       "@/*": [
         "src/*"
@@ -31,18 +30,21 @@
       "@t/*": [
         "types/*"
       ],
-      "@vite/*": [
+      "@v/*": [
         "vite-config/*"
       ]
-    }
+    },
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
     "src/**/*.vue",
-    "vite/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    "vite-config/*.ts",
+    "vite-config/**/*.ts",
     "types/**/*.d.ts",
-    "mock/**/*.ts",
-    "model/**/*.ts"
-  ]
+    "vite.config.ts",
+    "mock/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
 }

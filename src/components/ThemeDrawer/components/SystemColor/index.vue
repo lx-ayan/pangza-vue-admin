@@ -1,15 +1,16 @@
 <script setup lang='ts'>
-import themeStore from '@/store/theme';
+import { themeStore } from '@/store';
 const useThemeStore = themeStore();
 </script>
 
 <template>
     <div class="flex items-center ">
-        <div class="bg-white flex  mr-6 h-20 w-28 rounded-lg"  @click="() => useThemeStore.setTheme('light')" :class="useThemeStore.theme == 'light' ? ' border-2 border-[var(--td-brand-color)]': ''">
+        <div class="bg-white flex  mr-6 h-20 w-28 rounded-lg" @click="(e) => useThemeStore.setTheme('light', e)"
+            :class="useThemeStore.theme == 'light' ? ' border-2 border-[var(--td-brand-color)]' : ''">
             <div class="w-5 border-r">
 
             </div>
-            <div class="h-5 w-full border-b"  >
+            <div class="h-5 w-full border-b">
                 <div>
 
                 </div>
@@ -19,7 +20,8 @@ const useThemeStore = themeStore();
             </div>
         </div>
 
-        <div class="bg-[#333] flex  h-20 w-28 rounded-lg" @click="() => useThemeStore.setTheme('dark')" :class="useThemeStore.theme == 'dark' ? ' border-2 border-[var(--td-brand-color)]': ''">
+        <div class="bg-[#333] flex  h-20 w-28 rounded-lg" @click="(e) => useThemeStore.setTheme('dark', e)"
+            :class="useThemeStore.theme == 'dark' ? ' border-2 border-[var(--td-brand-color)]' : ''">
             <div class="w-5 border-r border-gray-500">
 
             </div>

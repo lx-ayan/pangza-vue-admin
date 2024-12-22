@@ -1,12 +1,10 @@
-import piniaPersistedState from "@/config/pinia";
+import { piniaSotrageConfig } from "@/config";
 import router from "@/router";
-import { TagView } from "@t/global";
 import { defineStore } from "pinia";
 
-
-const tagStore = defineStore('tag', {
+export const tagStore = defineStore('tag', {
     state: () => ({
-        tagViewList: [{ title: '控制台', close: false, path: '/home' }] as TagView[]
+        tagViewList: [{ title: 'router.home', close: false, path: '/home' }] as TagView[]
     }),
     actions: {
         addTag(tag: TagView) {
@@ -20,7 +18,7 @@ const tagStore = defineStore('tag', {
             this.tagViewList = data;
         },
         removeAll() {
-            this.tagViewList = [{ title: '控制台', close: false, path: '/home' }] as TagView[]
+            this.tagViewList = [{ title: 'router.home', close: false, path: '/home' }] as TagView[]
         },
         removeTag(tag: TagView) {
             const index = this.tagViewList.findIndex(t => t.path === tag.path);
@@ -37,7 +35,5 @@ const tagStore = defineStore('tag', {
             }
         }
     },
-    persist: piniaPersistedState('tagStore')
-});
-
-export default tagStore;
+    persist: piniaSotrageConfig('tagStore')
+})

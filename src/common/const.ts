@@ -1,4 +1,4 @@
-import { LabelOptionList } from "@t/global";
+export const APP_NAME = 'app';
 
 export const ADD_ROUTE_NAME = 'app';
 

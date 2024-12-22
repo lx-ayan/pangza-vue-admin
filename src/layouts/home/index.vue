@@ -1,15 +1,12 @@
-<script setup lang='ts'>
-defineOptions({
-    route: {
-        meta: {
-            auth: true
-        }
-    }
-})
+<script setup lang='tsx'>
+import { RouterView } from 'vue-router';
+
+
 </script>
+
 <template>
-    <div >
-        <router-view />
+    <div>
+        <RouterView/>
     </div>
 </template>
 

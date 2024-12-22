@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family:  Inter, -apple-system, BlinkMacSystemFont, PingFang SC, Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+html, body, #app {
+    height: 100%;
+}
+
+.v-contextmenu-inner .v-contextmenu-item {
+    color: var(--td-text-color-primary);
+    text-align: left;
+    padding: 0;
+    border-radius: 2px;
+  }
+  
+  .v-contextmenu-item--hover {
+    background-color: var(--td-bg-color-component) !important;
+  }
+  
+  .v-contextmenu {
+    background-color: var(--td-bg-color-container) !important;
+    border: none !important;
+    box-shadow: none !important;
+  }

@@ -1,56 +1,46 @@
 import { RouteRecordRaw } from "vue-router";
 import router from ".";
-const routes: RouteRecordRaw[] = [
+import { APP_NAME } from "@/common/const";
+import { t } from "@/plugins";
+import { ROUTER_HOME, ROUTER_LOGIN } from "@/common/lang";
+
+export default [
     {
         path: '/login',
-        component: () => import('@/pages/login/index.vue'),
+        component: () => import('@/views/Login.vue'),
         name: 'login',
         meta: {
-            guest: true
+            auth: false,
+            title: t(ROUTER_LOGIN)
         }
     },
     {
         path: '/',
-        component: () => import('@/pages/home.vue'),
-        name: 'app',
+        name: APP_NAME,
         redirect: '/home',
+        component: () => import('@/views/home.vue'),
         meta: {
-            auth: true
+            auth: true,
+            title: t(ROUTER_HOME)
         },
         children: [
             {
-                path: '/home',
-                name: 'home',
-                component: () => import('@/pages/home/index.vue'),
-                meta: {
-                    title: '控制台',
-                    auth: true
-                }
-            },
-            {
-                name: '500',
-                path: '/error',
-                component: () => import('@/pages/result/NotFound.vue'),
-                meta: {
-                    title: '错误了'
-                }
+                path: '/403',
+                name: '403',
+                component: () => import('@/views/result/nopermission/index.vue')
             },
             {
                 path: '/:pathMatch(.*)',
-                component: () => import('@/pages/result/NotFound.vue'),
+                component: () => import('@/views/result/notfound/index.vue'),
                 meta: {},
                 beforeEnter: (to) => {
-                    const toRoute = router
-                        .getRoutes()
-                        .find((item) => to.path == item.path);
+                    const toRoute = router.getRoutes()
+                        .find((item) => to.path.toLowerCase() == item.path.toLowerCase());
                     if (toRoute) {
                         return to;
                     }
                 }
             }
         ]
-    },
-
-];
-
-export default routes;
+    }
+] as RouteRecordRaw[]

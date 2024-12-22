@@ -1,23 +1,15 @@
 import { isFunction } from "@/utils/is";
-import { Nullable, TimeoutHandle } from "@t/global";
+import { error } from "@/utils/log";
 
-export interface DebounceOption {
-    once?: boolean;
-    immediate?: boolean;
-    debounce?: boolean;
-}
-
-export type CancelFn = () => void;
-
-export type DebounceFn<T extends unknown[]> = (...args: T) => void;
-
-export type UseDebounceFnResult<T extends unknown[]> = (handle: DebounceFn<T>, wait: number, option?: DebounceOption) => [DebounceFn<T>, CancelFn];
-
-function useDebounce<T extends unknown[]>(handle: DebounceFn<T>, wait: number, options: DebounceOption = {}) {
-    if (!isFunction(handle)) throw new Error('handle is not Function');
-    let { immediate = false } = options;
-    const { debounce = false, once = false } = options;
-    let timeout: Nullable<TimeoutHandle>;
+export function useDebounce<T extends unknown[]>(handle: DebounceFn<T>, wait: number, option: DebounceOption = {}) {
+    if(!isFunction(handle)) {
+        error('handle is not function')
+        return;
+    }
+    let { immediate = false } = option;
+    const { debounce = false, once = false } = option;
+    let timeout: NullAble<TimeoutHandle>;
+    //@ts-ignore
     let cancelAble: boolean | null = false;
 
     function clearTime() {
@@ -60,5 +52,3 @@ function useDebounce<T extends unknown[]>(handle: DebounceFn<T>, wait: number, o
 
     return [fn, cancel];
 }
-
-export default useDebounce;

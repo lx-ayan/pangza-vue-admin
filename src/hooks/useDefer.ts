@@ -1,5 +1,6 @@
-import { onUnmounted, ref } from 'vue';
-function useDefer(max: number) {
+import { onUnmounted, ref } from "vue";
+
+export function useDefer(max: number) {
 
     const frameCount = ref(1);
 
@@ -24,5 +25,3 @@ function useDefer(max: number) {
         return frameCount.value >= n
     }
 }
-
-export default useDefer

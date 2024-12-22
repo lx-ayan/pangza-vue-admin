@@ -1,19 +1,9 @@
-import { StoreEnum } from "@/common/enums";
-import storeUtil from "./store";
-import userStore from "@/store/user";
-
-export function getToken() {
-    return storeUtil.get<string>(StoreEnum.TOKEN);
-}
-
-export function getCurrentUser(): LoginResult | undefined {
-    const useUserStore = userStore();
-    return useUserStore.getUser;
-}
+import { userStore } from "@/store";
 
 export function hasPermission(permission: string | string[]) {
     const user = getCurrentUser();
     if (!user) return false;
+    if (!user.permission) return false;
     if (!permission) return true;
     let innerPermission: string[] = [];
 
@@ -27,6 +17,17 @@ export function hasPermission(permission: string | string[]) {
 
     innerPermission.forEach(_permission => {
         result.push(user.permission!.includes(_permission));
-    })
+    });
+
     return result.some(item => item);
+}
+
+export function getCurrentUser(): User {
+    const useUserStore = userStore();
+    return useUserStore.getUser;
+}
+
+export function getToken() {
+    const useUserStore = userStore();
+    return useUserStore.getToken;
 }

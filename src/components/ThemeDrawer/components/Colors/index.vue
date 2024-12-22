@@ -1,12 +1,12 @@
 <script setup lang='ts'>
-import themeStore from '@/store/theme';
+import {themeStore} from '@/store';
 import { generateColorMap, insertThemeStylesheet } from '@/utils/color';
 import { Color } from 'tvision-color';
 import { ref, watch } from 'vue';
 const useThemeStore = themeStore();
 
 const colorList = [
-    '#1867c0',
+    '#0052d9',
     '#67C23A',
     '#E6A23C',
     '#F56C6C',

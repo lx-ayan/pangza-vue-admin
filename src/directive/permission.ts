@@ -2,9 +2,9 @@ import { isArray } from "@/utils/is";
 import { hasPermission } from "@/utils/security";
 import { Directive } from "vue";
 
-const permissionDirective = {
+const permission = {
     name: 'permission',
-    mounted(el, binding) {
+    mounted: (el, binding) => {
         const bValue = binding.value;
         let permission: string[] = [];
         if (isArray(bValue)) {
@@ -16,6 +16,6 @@ const permissionDirective = {
             el.remove();
         }
     }
-} as Directive
+} as Directive;
 
-export default permissionDirective;
+export default permission;

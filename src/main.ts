@@ -1,15 +1,21 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import App from './App.vue';
 import { setupRouter } from './router';
-import '@/assets/index.css';
+import { hello } from './utils/log';
+import 'animate.css';
+import '@/assets/css/index.css';
+import '@/assets/css/router-animate.css';
 import { setupPlugins } from './plugins';
 import setupDirective from './directive';
-const app = createApp(App);
-setupPlugins(app);
-setupRouter(app);
-setupDirective(app);
-app.mount('#app');
+hello();
 
-app.config.errorHandler = () => {
-    console.log('vue error')
+function bootstrap() {
+    const app = createApp(App);
+    setupRouter(app);
+    setupPlugins(app);
+    setupDirective(app);
+    return app;
 }
+
+bootstrap().mount('#app');
+

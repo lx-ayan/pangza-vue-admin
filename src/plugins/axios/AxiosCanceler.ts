@@ -31,7 +31,6 @@ class AxiosCanceler {
         pendingMap.forEach(cancel => {
             cancel && isFunction(cancel) && cancel();
         })
-
         pendingMap.clear();
     }
 

@@ -1,30 +1,34 @@
-import _ from 'lodash-es';
-function parseEnv(env: Record<string, any>): ViteEnv {
-    const cloneEnv = _.cloneDeep(env);
+const IS_NUMBER_REG = /^\d+$/;
+const IS_SINGLE_QUTATION_MARK_REG = /'/g;
+const BOOL_VALUE = ['true', 'false'];
 
-    Object.entries(cloneEnv).forEach(([key, value]) => {
-        if (['true', 'false'].includes(value)) {
-            cloneEnv[key] = value === 'true';
-        } else if (/^\d+$/.test(value)) {
-            cloneEnv[key] = Number(value);
+function parseEnv(env: Record<string, string>): ImportMetaEnv {
+    const innerEnv = JSON.parse(JSON.stringify(env));
+    Object.entries(innerEnv).forEach((item) => {
+        let [key, value] = item as [keyof ViteEnv, string];
+        if (key === 'VITE_PROXY') {
+            value = value.replace(IS_SINGLE_QUTATION_MARK_REG, '"');
+            innerEnv[key] = JSON.parse(value);
+        } else if (BOOL_VALUE.includes(value)) {
+            innerEnv[key] = value === 'true';
         } else if (value === 'undefined') {
-            cloneEnv[key] = undefined;
+            innerEnv[key] = undefined;
         } else if (value === 'null') {
-            cloneEnv[key] = null;
-        } else if (key === 'VITE_PROXY') {
-            cloneEnv[key] = JSON.parse(value.replace(/'/g, '"'));
+            innerEnv[key] = null;
+        } else if (IS_NUMBER_REG.test(value)) {
+            innerEnv[key] = Number(value);
         } else {
-            cloneEnv[key] = value;
+            innerEnv[key] = value;
         }
     })
-
-    return cloneEnv as unknown as ViteEnv;
+    return innerEnv
 }
 
-export default parseEnv;
-
-
-
-export function getGlobalEnv() {
+function getGlobalEnv() {
     return parseEnv(import.meta.env);
+}
+
+export {
+    parseEnv,
+    getGlobalEnv
 }
