@@ -20,6 +20,8 @@ Pangza Vue Admin 是一款基于 Vue、Typescript、Vite、Pinia、TDesign 开�
 
 #### clone
 > git clone https://github.com/lx-ayan/pangza-vue-admin.git
+or
+> git clone https://gitee.com/liu-xu-xu/pangza-vue-admin.git
 
 #### install
 > npm install
@@ -93,6 +95,7 @@ Pangza Vue Admin 是一款基于 Vue、Typescript、Vite、Pinia、TDesign 开�
 如果你正在使用这个项目或者喜欢这个项目的，可以通过以下方式支持我：
 
 Star、Fork、Watch 一键三连 🚀
+
 通过微信、支付宝一次性捐款 ❤
 
 |                                        微信                                        |                                       支付宝                                       |
