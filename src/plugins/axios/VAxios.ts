@@ -4,11 +4,10 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { isUndefined } from "lodash-es";
 import AxiosCanceler from "./AxiosCanceler";
 import { hideFullScreenLoading, showFullScreenLoading } from "@/config/loading";
-import { MessagePlugin } from "tdesign-vue-next";
-import router from "@/router";
 import { t } from "../locales";
-import { AXIOS_RESULT_400, AXIOS_RESULT_401, AXIOS_RESULT_403, AXIOS_RESULT_404, AXIOS_RESULT_405, AXIOS_RESULT_408, AXIOS_RESULT_500, AXIOS_RESULT_502, AXIOS_RESULT_503, AXIOS_RESULT_504, AXIOS_RESULT_DEFAULT } from "@/common/lang";
 import { removeNProgress, startNProgress } from "@/config/nprogress";
+import axiosEmiter from "./AxiosEmitter";
+import { AXIOS_RESULT_DEFAULT } from "@/common/lang";
 const axiosCanceler = new AxiosCanceler();
 
 class VAxios {
@@ -49,12 +48,14 @@ class VAxios {
             return new Promise((resolve, reject) => {
                 axiosCanceler.removePending(response.config);
                 if (response.data.code == ResponseCodeEnum.SUCCESS) {
-                    hideFullScreenLoading();
                     removeNProgress();
                     resolve(response.data.data);
                 } else {
+                    axiosEmiter.codeErrorHandler(response, true, response.data.message);
                     reject(t(response.data.message) || t(AXIOS_RESULT_DEFAULT))
                 }
+                hideFullScreenLoading();
+
             })
         }, (error) => this.errorHandler(error));
 
@@ -63,45 +64,7 @@ class VAxios {
     private async errorHandler(error: AxiosError) {
         removeNProgress();
         hideFullScreenLoading();
-        const { response } = error;
-        if (error.message.indexOf("timeout") !== -1) MessagePlugin.error(t(AXIOS_RESULT_408));
-        if (error.message.indexOf("Network Error") !== -1) MessagePlugin.error(t(AXIOS_RESULT_DEFAULT));
-        switch (response?.status) {
-            case 400:
-                MessagePlugin.error(t(AXIOS_RESULT_400));
-                break;
-            case 401:
-                MessagePlugin.error(t(AXIOS_RESULT_401));
-                break;
-            case 403:
-                MessagePlugin.error(t(AXIOS_RESULT_403));
-                break;
-            case 404:
-                MessagePlugin.error(t(AXIOS_RESULT_404));
-                break;
-            case 405:
-                MessagePlugin.error(t(AXIOS_RESULT_405));
-                break;
-            case 408:
-                MessagePlugin.error(t(AXIOS_RESULT_408));
-                break;
-            case 500:
-                MessagePlugin.error(t(AXIOS_RESULT_500));
-                break;
-            case 502:
-                MessagePlugin.error(t(AXIOS_RESULT_502));
-                break;
-            case 503:
-                MessagePlugin.error(t(AXIOS_RESULT_503));
-                break;
-            case 504:
-                MessagePlugin.error(t(AXIOS_RESULT_504));
-                break;
-            default:
-                MessagePlugin.error(t(AXIOS_RESULT_DEFAULT));
-                break
-        }
-        if (!window.navigator.onLine) router.replace("/500");
+        axiosEmiter.errorHandler(error);
         return Promise.reject(error);
     }
 
