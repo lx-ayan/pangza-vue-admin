@@ -51,25 +51,25 @@ let data: CRUDData[] = [
 
 const options = ref<ProTableOption[]>([
     {
-        title: 'id',
+        title: '序号',
         key: 'id',
         hideInSearch: true
     },
     {
-        title: 'method',
+        title: '方法',
         key: 'method'
     },
     {
-        title: 'data',
+        title: '请求数据',
         key: 'data'
     },
     {
-        title: 'createtime',
+        title: '请求时间',
         key: 'createtime',
         type: 'datepicker'
     },
     {
-        title: 'extra',
+        title: '操作',
         key: 'actions',
         hideInSearch: true,
         isSlot: true
