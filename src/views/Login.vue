@@ -1,47 +1,34 @@
 <script setup lang='ts'>
 import { ProForm, ProFormOption, ProFormRef } from 'tdesign-pro-component';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { userStore } from '@/store';
-import { t } from '@/plugins';
-import { LOGIN_REMEMBER, LOGIN_BTN, LOGIN_PASSWORD, LOGIN_PASSWORD_PLACEHOLDER, LOGIN_TIP, LOGIN_USERNAME, LOGIN_USERNAME_PLACEHOLDER, LOGIN_OR, LOGIN_WEIXIN, LOGIN_PHONE } from '@/common/lang';
 import { useColor } from '@/hooks';
 import ThemeButton from '@/components/ThemeButton/index.vue';
 import ThemeDrawer from '@/components/ThemeDrawer/index.vue';
 
 const { BG_COLOR, LOGIN_BG_COLOR, TEXT_COLOR } = useColor();
 
-const lan = computed(() => {
-    return {
-        remember: t(LOGIN_REMEMBER),
-        tip: t(LOGIN_TIP),
-        loginBtn: t(LOGIN_BTN),
-        weixin: t(LOGIN_WEIXIN),
-        phone: t(LOGIN_PHONE),
-        or: t(LOGIN_OR),
-        username: t(LOGIN_USERNAME),
-        usernamePlaceholder: t(LOGIN_USERNAME_PLACEHOLDER),
-        password: t(LOGIN_PASSWORD),
-        passwordPlaceholder: t(LOGIN_PASSWORD_PLACEHOLDER),
-    }
-})
-
 const options: ProFormOption[] = [
-    {
+{
         name: 'username',
-        label: lan.value.username,
-        placeholder: lan.value.usernamePlaceholder,
+        label: '用户名',
+        textProps: {
+            placeholder: '请输入 user 或 admin'
+        },
+        rules: [
+            {
+                required: true, message: '请输入用户名', trigger: 'blur'
+            }
+        ],
         span: 12,
         formItemProps: {
             labelAlign: 'top'
-        },
-        rules: [
-            { message: lan.value.usernamePlaceholder, required: true, trigger: 'blur' }
-        ]
+        }
     },
     {
         name: 'password',
-        label: lan.value.password,
-        placeholder: lan.value.passwordPlaceholder,
+        label: '密码',
+        placeholder: '请输入密码',
         span: 12,
         formItemProps: {
             labelAlign: 'top'
@@ -50,7 +37,7 @@ const options: ProFormOption[] = [
             type: 'password'
         },
         rules: [
-            { message: lan.value.passwordPlaceholder, required: true, trigger: 'blur' }
+            { message: '请输入密码', required: true, trigger: 'blur' }
         ]
     }
 ]
@@ -78,7 +65,7 @@ function handleLoginClick() {
             </div>
             <div class="login-card">
                 <div class="mb-6 text-center mt-6 font-bold text-2xl">
-                    {{ lan.tip }}
+                    用户名密码登录
                 </div>
                 <div class="w-[80%] mx-auto">
                     <ProForm :margin-y="20" :form-props="{ requiredMark: false }" ref="proFormRef" hide-footer
@@ -86,26 +73,26 @@ function handleLoginClick() {
                 </div>
 
                 <div class="w-[80%] mx-auto mb-2">
-                    <t-checkbox>{{ lan.remember }}</t-checkbox>
+                    <t-checkbox>保存用户名密码</t-checkbox>
                 </div>
 
                 <div class="w-[80%] mx-auto mt-4 mb-4">
-                    <t-button @click="handleLoginClick" block>{{ lan.loginBtn }}</t-button>
+                    <t-button @click="handleLoginClick" block>登录</t-button>
                 </div>
 
-                <t-divider>{{ lan.or }}</t-divider>
+                <t-divider>或</t-divider>
                 <div class="px-10 py-4 flex mb-5 justify-around">
                     <t-button variant="outline">
                         <template #icon>
                             <t-icon size="17" name="logo-wechat-stroke"></t-icon>
                         </template>
-                        {{ lan.weixin }}
+                        微信登录
                     </t-button>
                     <t-button variant="outline">
                         <template #icon>
                             <t-icon size="17" name="mobile"></t-icon>
                         </template>
-                        {{ lan.phone }}
+                        手机登录
                     </t-button>
                 </div>
             </div>

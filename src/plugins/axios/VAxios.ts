@@ -4,10 +4,8 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { isUndefined } from "lodash-es";
 import AxiosCanceler from "./AxiosCanceler";
 import { hideFullScreenLoading, showFullScreenLoading } from "@/config/loading";
-import { t } from "../locales";
 import { removeNProgress, startNProgress } from "@/config/nprogress";
 import axiosEmiter from "./AxiosEmitter";
-import { AXIOS_RESULT_DEFAULT } from "@/common/lang";
 const axiosCanceler = new AxiosCanceler();
 
 class VAxios {
@@ -52,7 +50,7 @@ class VAxios {
                     resolve(response.data.data);
                 } else {
                     axiosEmiter.codeErrorHandler(response, true, response.data.message);
-                    reject(t(response.data.message) || t(AXIOS_RESULT_DEFAULT))
+                    reject(response.data.message || '未知错误！')
                 }
                 hideFullScreenLoading();
 

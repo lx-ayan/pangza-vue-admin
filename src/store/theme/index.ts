@@ -1,5 +1,4 @@
 import { piniaSotrageConfig } from "@/config";
-import { setGlobalLanguage } from "@/plugins";
 import { getBrowserLang } from "@/utils";
 import { generateColorMap, insertThemeStylesheet } from "@/utils/color";
 import { defineStore } from "pinia";
@@ -25,16 +24,10 @@ export const themeStore = defineStore('theme', {
         }
     },
     actions: {
-        setLang(lang: LangType) {
-            this.lang = lang;
-        },
         setAnimate(animate: boolean) {
             this.animate = animate;
         },
         initTheme() {
-            const language = this.getLang ?? getBrowserLang();
-            this.setLang(language as unknown as LangType);
-            setGlobalLanguage(language as unknown as LangType);
             this.initThemeMode();
             this.changeBrandTheme(this.brandColor || '#0052d9');
         },

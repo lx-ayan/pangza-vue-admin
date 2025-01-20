@@ -1,20 +1,18 @@
 <script setup lang='ts'>
 import { RowContainer } from 'tdesign-pro-component';
-import { DATA_ADDRESS, DATA_DESCRIPTION, DATA_EDIT, DATA_FULLTWO, DATA_LIKE, DATA_SALE, DATA_SUBWAY, DATA_TALK, DATA_TITLE, DATA_VIEWS } from '@/common/lang';
-import { t } from '@/plugins';
 import {computed} from 'vue';
 
 const data = computed(() => ({
-    dataTitle: t(DATA_TITLE),
-    dataDescription: t(DATA_DESCRIPTION),
-    dataViews: t(DATA_VIEWS),
-    dataLike: t(DATA_LIKE),
-    dataTalk: t(DATA_TALK),
-    dataEdit: t(DATA_EDIT),
-    dataSale: t(DATA_SALE),
-    dataSubway: t(DATA_SUBWAY),
-    dataFullTwo: t(DATA_FULLTWO),
-    dataAddress: t(DATA_ADDRESS),
+    dataTitle: '恒大雅苑精品房',
+    dataDescription: '高层/共33层 / 2019 年建 / 2室2厅1厨1卫2阳台 / 120 ㎡ / 南北通透 / 精装',
+    dataViews: '10 人关注 / 1天前挂牌 / 近15天带看3次 /  5天前跟进',
+    dataLike: '关注',
+    dataTalk: '约谈',
+    dataEdit: '编辑',
+    dataSale: '在售',
+    dataSubway: '近地铁',
+    dataFullTwo: '满二',
+    dataAddress: '相山区--人民中路 / 望江西路199号',
 }))
 </script>
 
@@ -134,7 +132,7 @@ const data = computed(() => ({
                 </template>
             </RowContainer>
         </div>
-
+ 
     </div>
 </template>
 

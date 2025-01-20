@@ -1,8 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import router from ".";
 import { APP_NAME } from "@/common/const";
-import { t } from "@/plugins";
-import { ROUTER_HOME, ROUTER_LOGIN } from "@/common/lang";
 
 export default [
     {
@@ -11,7 +9,7 @@ export default [
         name: 'login',
         meta: {
             auth: false,
-            title: t(ROUTER_LOGIN)
+            title: '登录'
         }
     },
     {
@@ -21,7 +19,7 @@ export default [
         component: () => import('@/views/home.vue'),
         meta: {
             auth: true,
-            title: t(ROUTER_HOME)
+            title: '首页'
         },
         children: [
             {

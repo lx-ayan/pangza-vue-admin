@@ -1,13 +1,11 @@
 <script setup lang='ts'>
-import { HOME_PROJECT_DATE, HOME_PROJECT_DESCRIPTION, HOME_PROJECT_PROJECTNAME } from '@/common/lang';
-import { t } from '@/plugins';
 import { computed } from 'vue';
 
 const data = computed(() => ({
-    projectName: t(HOME_PROJECT_PROJECTNAME),
-    description: t(HOME_PROJECT_DESCRIPTION),
-    date: t(HOME_PROJECT_DATE),
-}))
+    projectName: '采购合同审批',
+    description: '业务审批',
+    date: '2024-12-18 11:16截止',
+})); 
 </script>
 
 <template>

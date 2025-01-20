@@ -1,5 +1,3 @@
-import { ROUTER_SYSTEM, ROUTER_SYSTEM_LOG } from "@/common/lang";
-import { t } from "@/plugins";
 import { RouteRecordRaw } from "vue-router";
 
 export default {
@@ -7,7 +5,7 @@ export default {
     name: 'system',
     redirect: '/system/log',
     meta: {
-        title: t(ROUTER_SYSTEM),
+        title: '系统管理',
         auth: true,
         show: true
     },
@@ -16,7 +14,7 @@ export default {
             path: '/system/log',
             name: 'system.log',
             meta: {
-                title: t(ROUTER_SYSTEM_LOG),
+                title: '日志管理',
                 auth: true,
                 show: true
             },

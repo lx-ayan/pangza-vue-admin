@@ -1,6 +1,4 @@
 <script setup lang='tsx'>
-import { ROUTER_COMPONENTDOCS, ROUTER_COMPONENTPERMISSIONS, ROUTER_COMPONENTS, ROUTER_COMPONENTS_PAGECONTAINER, ROUTER_COMPONENTS_PROBUTTON, ROUTER_COMPONENTS_PROFORM, ROUTER_COMPONENTS_PROTABLE, ROUTER_COMPONENTS_ROWCONTAINER, ROUTER_HOME, ROUTER_PAGEPERMISSIONS, ROUTER_PERMISSIONPREVIEW, ROUTER_RESULTERROR, ROUTER_RESULTNOPERMISSION, ROUTER_RESULTNOTFOUND, ROUTER_RESULTPAGE, ROUTER_RESULTSUCCESS, ROUTER_SYSTEM, ROUTER_SYSTEM_LOG } from '@/common/lang';
-import { t } from '@/plugins';
 import { tagStore, themeStore, userStore } from '@/store';
 import { ProLayout } from 'tdesign-pro-component';
 import { useRoute, useRouter } from 'vue-router';
@@ -45,103 +43,86 @@ const useUserSotre = userStore();
 const routes = computed<IProLayoutRoute[]>(() => [
     {
         path: '/home',
-        title: t(ROUTER_HOME),
+        title: '首页',
         icon: 'home',
-        tagTitle: ROUTER_HOME,
     },
     {
         path: '/components',
-        title: t(ROUTER_COMPONENTS),
-        tagTitle: ROUTER_COMPONENTS,
+        title: '组件预览',
         icon: 'logo-windows',
         children: [
             {
                 path: '/components/docs',
-                title: t(ROUTER_COMPONENTDOCS),
-                tagTitle: ROUTER_COMPONENTDOCS
+                title: '组件文档',
             },
             {
                 path: '/components/proform',
-                title: t(ROUTER_COMPONENTS_PROFORM),
-                tagTitle: ROUTER_COMPONENTS_PROFORM,
+                title: '高级表单',
             },
             {
                 path: '/components/protable',
-                title: t(ROUTER_COMPONENTS_PROTABLE),
-                tagTitle: ROUTER_COMPONENTS_PROTABLE,
+                title: '高级表格',
             },
             {
                 path: '/components/probutton',
-                title: t(ROUTER_COMPONENTS_PROBUTTON),
-                tagTitle: ROUTER_COMPONENTS_PROBUTTON,
+                title: '操作按钮',
             },
             {
                 path: '/components/rowcontainer',
-                title: t(ROUTER_COMPONENTS_ROWCONTAINER),
-                tagTitle: ROUTER_COMPONENTS_ROWCONTAINER,
+                title: '行容器',
             },
             {
                 path: '/components/pagecontainer',
-                title: t(ROUTER_COMPONENTS_PAGECONTAINER),
-                tagTitle: ROUTER_COMPONENTS_PAGECONTAINER,
+                title: '页容器',
             }
         ]
     },
     {
         path: '/result',
-        title: t(ROUTER_RESULTPAGE),
+        title: '响应结果',
         icon: 'system-interface',
         children: [
             {
                 path: '/result/success',
-                title: t(ROUTER_RESULTSUCCESS),
-                tagTitle: ROUTER_RESULTSUCCESS
+                title: '成功结果',
             },
             {
                 path: '/result/error',
-                title: t(ROUTER_RESULTERROR),
-                tagTitle: ROUTER_RESULTERROR
+                title: '错误结果',
             },
             {
                 path: '/result/notfound',
-                title: t(ROUTER_RESULTNOTFOUND),
-                tagTitle: ROUTER_RESULTNOTFOUND
+                title: '404 结果',
             },
             {
                 path: '/result/nopermission',
-                title: t(ROUTER_RESULTNOPERMISSION),
-                tagTitle: ROUTER_RESULTNOPERMISSION
+                title: '无权限结果',
             }
         ]
     },
     {
         path: '/role',
-        title: t(ROUTER_PERMISSIONPREVIEW),
-        tagTitle: ROUTER_PERMISSIONPREVIEW,
+        title: '权限预览',
         icon: 'assignment-checked',
         children: [
             {
                 path: '/role/page',
-                title: t(ROUTER_PAGEPERMISSIONS),
-                tagTitle: ROUTER_PAGEPERMISSIONS,
+                title: '页面权限',
             },
             {
                 path: '/role/button',
-                title: t(ROUTER_COMPONENTPERMISSIONS),
-                tagTitle: ROUTER_COMPONENTPERMISSIONS,
+                title: '组件权限',
             }
         ]
     },
     {
         path: '/system',
-        title: t(ROUTER_SYSTEM),
-        tagTitle: ROUTER_SYSTEM,
+        title: '系统管理',
         icon: 'setting-1',
         children: [
             {
                 path: '/system/log',
-                title: t(ROUTER_SYSTEM_LOG),
-                tagTitle: ROUTER_SYSTEM_LOG,
+                title: '日志管理',
             }
         ]
     }
@@ -152,7 +133,7 @@ function handleMenuClick(path: string, route: any) {
     useTagStore.addTag({
         close: true,
         path,
-        title: route.tagTitle as any,
+        title: route.title as any,
         icon: route.icon as string,
     });
     router.push(path);

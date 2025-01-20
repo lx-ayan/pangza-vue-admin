@@ -1,17 +1,15 @@
 <script setup lang='ts'>
-import { HOME_CARD_ONE, HOME_CARD_DAYS, HOME_CARD_THREE, HOME_CARD_TWO, HOME_CARD_FOUR, HOME_CARD_ONE_DESCRIPTION } from '@/common/lang';
-import { t } from '@/plugins';
 import MyChart from '@/components/MyChart/index.vue';
 import { computed } from 'vue';
 import * as echarts from 'echarts';
 
 const cardI18n = computed(() => ({
-    days: t(HOME_CARD_DAYS).split(','),
-    one: t(HOME_CARD_ONE),
-    oneDesc: t(HOME_CARD_ONE_DESCRIPTION),
-    two: t(HOME_CARD_TWO),
-    three: t(HOME_CARD_THREE),
-    four: t(HOME_CARD_FOUR)
+    days: ['近三天', '近七天', '近一月'],
+    one: '数据一',
+    oneDesc: '数据一，新增20%',
+    two:  '数据二',
+    three:  '数据三',
+    four:'数据四',
 }));
 
 const option1 = {
@@ -339,7 +337,7 @@ const option3 = {
                     <div class="flex items-center text-[--td-success-color]">
                         <span class="mr-1">7% </span><t-icon size="22" name="trending-up"></t-icon>
                     </div>
-                </template>
+                </template> 
                 <template #title>
                     <div class="flex justify-between items-center">
                         <div>

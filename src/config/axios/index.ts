@@ -1,12 +1,10 @@
 import { Router } from "vue-router";
 import { MessagePlugin } from "tdesign-vue-next";
 import axiosEmitter from "@/plugins/axios/AxiosEmitter";
-import { AXIOS_RESULT_400, AXIOS_RESULT_401, AXIOS_RESULT_403, AXIOS_RESULT_404, AXIOS_RESULT_500, AXIOS_RESULT_502, AXIOS_RESULT_DEFAULT } from "@/common/lang";
-import { t } from "@/plugins";
 
 export function axiosHandler(router: Router) {
     axiosEmitter.listen('SERVER_ERROR', (msg?: string) => {
-        const message = msg || t(AXIOS_RESULT_500);
+        const message = msg || '服务端异常！';
         router.push({
             path: '/500',
             query: {
@@ -17,7 +15,7 @@ export function axiosHandler(router: Router) {
     });
 
     axiosEmitter.listen('NOT_FOUND', () => {
-        const message = t(AXIOS_RESULT_404);
+        const message = '未找到访问资源！';
         router.push({
             path: '/404',
             query: {
@@ -28,7 +26,7 @@ export function axiosHandler(router: Router) {
     })
 
     axiosEmitter.listen('NO_PERMISSION', () => {
-        const message = t(AXIOS_RESULT_403);
+        const message = '权限不足！';
         router.push({
             path: '/403',
             query: {
@@ -39,7 +37,7 @@ export function axiosHandler(router: Router) {
     })
 
     axiosEmitter.listen('GATEWAY_ERROR', () => {
-        const message = t(AXIOS_RESULT_502);
+        const message = '网关异常！';
         router.push({
             path: '/500',
             query: {
@@ -50,12 +48,12 @@ export function axiosHandler(router: Router) {
     })
 
     axiosEmitter.listen('PARAM_ERROR', () => {
-        const message = t(AXIOS_RESULT_400);
+        const message = '参数异常！';
         MessagePlugin.error(message);
     })
 
     axiosEmitter.listen('INVALID_TOKEN', () => {
-        const message = t(AXIOS_RESULT_401);
+        const message = '登录失效，请重新登录！';
         localStorage.removeItem('user')
         router.push({
             path: '/login',
@@ -67,7 +65,7 @@ export function axiosHandler(router: Router) {
     })
 
     axiosEmitter.listen('DEFAULT', () => {
-        const message = t(AXIOS_RESULT_DEFAULT);
+        const message = '未知错误！';
         MessagePlugin.error(message);
     })
 }

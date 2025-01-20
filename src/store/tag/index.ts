@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 
 export const tagStore = defineStore('tag', {
     state: () => ({
-        tagViewList: [{ title: 'router.home', close: false, path: '/home' }] as TagView[]
+        tagViewList: [{ title: '首页', close: false, path: '/home' }] as TagView[]
     }),
     actions: {
         addTag(tag: TagView) {
@@ -18,7 +18,7 @@ export const tagStore = defineStore('tag', {
             this.tagViewList = data;
         },
         removeAll() {
-            this.tagViewList = [{ title: 'router.home', close: false, path: '/home' }] as TagView[]
+            this.tagViewList = [{ title: '首页', close: false, path: '/home' }] as TagView[]
         },
         removeTag(tag: TagView) {
             const index = this.tagViewList.findIndex(t => t.path === tag.path);

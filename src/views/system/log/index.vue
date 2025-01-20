@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { DATA_DELETE, DATA_DELETEBTN, DATA_EDIT } from '@/common/lang';
-import { t } from '@/plugins';
 import { ModalFormRef, ProFormOption, ProTableOption, ProTableRef, ProTableRequest } from 'tdesign-pro-component';
 import { ref } from 'vue';
 
@@ -173,13 +171,13 @@ function handleSubmit(submitData: CRUDData) {
                 <div>
                     <t-link @click="() => handleClick(row.id)" style="margin-right: 20px;" theme="primary"
                         hover="color">
-                        {{ t(DATA_EDIT) }}
+                        编辑
                     </t-link>
                     <ProButton @confirm="() => handleDelete(row.id)" theme="link" action="popup">
                         <template #content>
-                            <t-space>{{ t(DATA_DELETE) }}</t-space>
+                            <t-space>是否删除该数据？</t-space>
                         </template>
-                        <t-space>{{ t(DATA_DELETEBTN) }}</t-space>
+                        <t-space>删除</t-space>
                     </ProButton>
                 </div>
             </template>

@@ -1,7 +1,5 @@
 <script setup lang='ts'>
 import { getTableData } from '@/api/table';
-import { DATA_DELETE, DATA_DELETEBTN } from '@/common/lang';
-import { t } from '@/plugins';
 import { ProTableOption, ProTableRequest } from 'tdesign-pro-component';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { ref } from 'vue';
@@ -44,7 +42,7 @@ const options = ref<ProTableOption[]>([
 
 async function request(data: ProTableRequest<TableData>) {
     const result = await getTableData(data);
-    result.list = result.list.map(v => ({ ...v, title: t(v.title), description: t(v.description), views: t(v.views) }))
+    result.list = result.list.map(v => ({ ...v, title: v.title, description: v.description, views: v.views }))
 
     return result;
 }
@@ -69,9 +67,9 @@ function handleDelete(row: TableData) {
                 <div>
                     <ProButton @confirm="() => handleDelete(row)" theme="link" action="popup">
                         <template #content>
-                            <t-space>{{ t(DATA_DELETE) }}</t-space>
+                            <t-space>是否删除当前数据？</t-space>
                         </template>
-                        <t-space>{{ t(DATA_DELETEBTN) }}</t-space>
+                        <t-space>删除</t-space>
                     </ProButton>
                 </div>
             </template>

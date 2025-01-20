@@ -1,31 +1,21 @@
 <script setup lang='ts'>
-import { setGlobalLanguage, t } from '@/plugins';
 import { themeStore, userStore } from '@/store';
 import { getCurrentUser } from '@/utils/security';
-import { DialogPlugin, DropdownOption } from 'tdesign-vue-next';
-import { useI18n } from 'vue-i18n';
+import { DialogPlugin } from 'tdesign-vue-next';
 import { computed } from 'vue';
-import { ACTIONS_USER_CENTER, ACTIONS_LOGOUT } from '@/common/lang';
 import ThemeButton from '@/components/ThemeButton/index.vue';
 import ThemeDrawer from '../ThemeDrawer/index.vue';
 import ScreenButton from '../ScreenButton/index.vue';
 import { useRouter } from 'vue-router';
-const i18n = useI18n();
 const useThemeStore = themeStore();
 const user = getCurrentUser();
 const useUserStore = userStore();
 const router = useRouter();
 
 const userActions = computed(() => ({
-    userCenter: t(ACTIONS_USER_CENTER),
-    logout: t(ACTIONS_LOGOUT)
+    userCenter: '用户中心',
+    logout: '退出登录'
 }))
-
-function handleLangClick(data: DropdownOption) {
-    useThemeStore.setLang(data.value == 2 ? 'en' : 'zh');
-    setGlobalLanguage(data.value == 2 ? 'en' : 'zh');
-    i18n.locale.value = data.value == 2 ? 'en' : 'zh';
-}
 
 
 
@@ -48,7 +38,7 @@ const dropdownObj = {
 
 function handleClick({ value }: any) {
     dropdownObj[value]();
-}
+} 
 
 </script>
 
@@ -57,12 +47,6 @@ function handleClick({ value }: any) {
         <ScreenButton v-if="useThemeStore.screen" />
         <ThemeDrawer />
         <ThemeButton />
-        <t-dropdown @click="handleLangClick" trigger="click"
-            :options="[{ content: '简体中文', value: 1 }, { content: 'English', value: 2 }]">
-            <t-button variant="text">
-                <t-icon name="translate"></t-icon>
-            </t-button>
-        </t-dropdown>
         <t-dropdown trigger="click" @click="handleClick"
             :options="[{ content: userActions.userCenter, value: 1 }, { content: userActions.logout, value: 2 }]">
 

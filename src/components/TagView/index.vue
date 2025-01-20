@@ -9,11 +9,11 @@
             <div ref="tagRefs" @contextmenu="currentTag = item" v-contextmenu:contextmenu
                 v-for="item in useTagStore.tagViewList" class="tag-view-item"
                 :class="[$route.fullPath == item.path ? 'is-active' : '', useThemeStore.theme === 'dark' ? ' border-[#393939]' : '']">
-                <template v-if=" t(item.title).length >= 6">
-                    <t-tooltip :content=" t(item.title)">
+                <template v-if=" item.title.length >= 6">
+                    <t-tooltip :content="item.title">
                         <div class="tag-view-item-inner">
                             <div @click="handleToPage(item)" class=" text-nowrap">
-                                {{ t(item.title).slice(0, 6) + '...' }}
+                                {{ item.title.slice(0, 6) + '...' }}
                             </div>
                             <div @click="handleClickClose(item)" v-if="item.close" class="ml-2 pb-[2px] cursor-pointer">
                                 <t-icon size="16" name="close"></t-icon>
@@ -24,7 +24,7 @@
                 <template v-else>
                     <div class="tag-view-item-inner">
                         <div @click="handleToPage(item)" class=" text-nowrap">
-                            {{ t(item.title) }}
+                            {{ item.title }}
                         </div>
                         <div @click="handleClickClose(item)" v-if="item.close" class="ml-2 pb-[2px] cursor-pointer">
                             <t-icon size="16" name="close"></t-icon>
@@ -78,13 +78,12 @@
 </template>
 
 <script setup lang="tsx">
-import { t } from '@/plugins';
 import {themeStore, tagStore} from '@/store';
 import { NotifyPlugin } from 'tdesign-vue-next';
 import { ref, computed, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const STATIC_TAGVIEW = { title: 'router.home', close: false, path: '/home' };
+const STATIC_TAGVIEW = { title: '首页', close: false, path: '/home' };
 
 const useThemeStore = themeStore();
 

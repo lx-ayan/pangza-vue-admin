@@ -1,24 +1,13 @@
 <script setup lang='tsx'>
-import { computed } from 'vue';
 import DataCard from './components/DataCard/index.vue';
 import Project from './components/Project/index.vue';
 import Client from './components/Client/index.vue';
 import News from './components/News/index.vue';
-import { t } from '@/plugins';
-import { HOME_MORE, HOME_PROJECT_ACTIONS, HOME_PROJECT_CLIENTTITLE, HOME_PROJECT_NEWS, HOME_PROJECT_TITLE } from '@/common/lang';
 defineOptions({
     route: {
         name: 'asdasd'
     }
 });
-
-const data = computed(() => ({
-    projectTitle: t(HOME_PROJECT_TITLE),
-    clientTitle: t(HOME_PROJECT_CLIENTTITLE),
-    newsTitle: t(HOME_PROJECT_NEWS),
-    actionsTitle: t(HOME_PROJECT_ACTIONS),
-    more: t(HOME_MORE)
-}))
 
 </script>
 
@@ -27,11 +16,11 @@ const data = computed(() => ({
         <DataCard />
         <div class="w-full grid grid-cols-4 gap-4 mt-4">
             <div>
-                <t-card :title="data.clientTitle">
+                <t-card title="客户匹配度">
                     <Client />
                 </t-card>
                 <div class="mt-3">
-                    <t-card :title="data.projectTitle">
+                    <t-card title="我的项目">
                         <Project />
                     </t-card>
                 </div>
@@ -39,10 +28,10 @@ const data = computed(() => ({
 
             <div class=" col-span-3">
                 <div class="mb-3">
-                    <t-card :title="data.newsTitle">
+                    <t-card title="新闻资讯">
                         <template #actions>
                             <t-button variant="text">
-                                {{ data.more }}
+                                更多详情
                                 <template #suffix>
                                     <t-icon name="chevron-right"></t-icon>
                                 </template>
@@ -51,7 +40,7 @@ const data = computed(() => ({
                         <News />
                     </t-card>
                 </div>
-                <t-card :title="data.actionsTitle">
+                <t-card title="操作">
                     <t-progress :percentage="22.76" />
                 </t-card>
             </div>
