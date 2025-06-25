@@ -56,6 +56,10 @@ const useThemeStore = themeStore();
                         <span>Logo</span>
                         <t-switch v-model="useThemeStore.logo" />
                     </div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span>水印</span>
+                        <t-switch v-model="useThemeStore.watermark" />
+                    </div>
                 </div>
 
                 <div class="mt-5 mb-2">

@@ -43,7 +43,7 @@ const useUserSotre = userStore();
 const routes = computed<IProLayoutRoute[]>(() => [
     {
         path: '/home',
-        title: '首页',
+        title: '仪表盘',
         icon: 'home',
     },
     {
@@ -128,7 +128,7 @@ const routes = computed<IProLayoutRoute[]>(() => [
     }
 ]);
 
-const asideRender = () => <div></div>
+const asideRender = () => <div>123</div>
 function handleMenuClick(path: string, route: any) {
     useTagStore.addTag({
         close: true,
@@ -145,7 +145,7 @@ function handleMenuClick(path: string, route: any) {
         :menuProps="{ value: route.path, expandType: useThemeStore.menuExpandType, expandMutex: useThemeStore.expandMutex }"
         :routes :asideRender :headerRender="HeaderRender">
         <TagView></TagView>
-        <t-watermark :watermark-content="{ text: useUserSotre.user.username }" :y="80" :x="80" :width="120" :height="0">
+        <t-watermark v-if="useThemeStore.watermark" :watermark-content="{ text: useUserSotre.user.username }" :y="80" :x="80" :width="120" :height="0">
             <div class="pangza-vue-admin-body px-3 pt-3">
                 <router-view class="h-full" #default="{ Component }">
                     <Transition v-if="useThemeStore.animate" :name="useThemeStore.animateName" mode="out-in">
@@ -155,8 +155,14 @@ function handleMenuClick(path: string, route: any) {
                 </router-view>
             </div>
         </t-watermark>
-
-
+        <div v-else class="pangza-vue-admin-body px-3 pt-3">
+                <router-view class="h-full" #default="{ Component }">
+                    <Transition v-if="useThemeStore.animate" :name="useThemeStore.animateName" mode="out-in">
+                        <component :is="Component"></component>
+                    </Transition>
+                    <component v-else :is="Component"></component>
+                </router-view>
+            </div>
         <template #actions>
             <Actions />
         </template>

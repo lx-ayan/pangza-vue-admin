@@ -4,6 +4,6 @@
 
 <template>
     <div class="w-full h-full">
-        <iframe class="w-full h-[94vh]" src="https://pangzablog.cn:20000" frameborder="0"></iframe>
+        <iframe class="w-full h-[94vh]" src="https://pangzablog.cn/tdesign-pro-component/" frameborder="0"></iframe>
     </div>
 </template>

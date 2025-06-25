@@ -9,7 +9,7 @@ const page = ref({
     total: 10
 })
 
-const options = ref<ProTableOption[]>([
+const options = ref<ProTableOption<any>[]>([
     {
         key: 'id',
         title: 'id',
@@ -29,13 +29,12 @@ const options = ref<ProTableOption[]>([
     {
         key: 'description',
         title: 'description',
-        ellipsis: true
+        ellipsis: true,
     },
     {
         key: 'actions',
         title: 'action',
         width: 120,
-        isSlot: true,
         hideInSearch: true
     }
 ]);

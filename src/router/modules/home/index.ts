@@ -5,7 +5,7 @@ export default {
     meta: {
         auth: true,
         show: true,
-        title: '首页'
+        title: '仪表盘'
     },
     component: () => import('@/layouts/home/index.vue'),
     children: [

@@ -1,5 +1,4 @@
 import { piniaSotrageConfig } from "@/config";
-import { getBrowserLang } from "@/utils";
 import { generateColorMap, insertThemeStylesheet } from "@/utils/color";
 import { defineStore } from "pinia";
 import { Color } from "tvision-color";
@@ -16,7 +15,8 @@ export const themeStore = defineStore('theme', {
         gray: false,
         logo: true,
         collapsed: false,
-        collapsedBtn: true
+        collapsedBtn: true,
+        watermark: false
     }),
     getters: {
         getLang(): string {

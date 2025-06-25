@@ -37,7 +37,8 @@ const option1 = {
                 color: '#0052d9'
             },
             areaStyle: {
-                color: '#0052d9'
+                color: '#0052d9',
+                opacity:0.1
             }
         }
     ]

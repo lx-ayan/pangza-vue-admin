@@ -4,7 +4,6 @@ import { ProFormOption, ProForm } from 'tdesign-pro-component';
 const options = ref<ProFormOption[]>([
     {
         name: 'username',
-        initalValue: '',
         label: '用户名',
         type: 'text',
     },
@@ -49,9 +48,8 @@ const options = ref<ProFormOption[]>([
     {
         name: 'submitDate',
         label: '交款日期',
-        type: 'datepicker',
-        initalValue: '',
-        datepickerProps: {
+        type: 'date',
+        datePickerProps: {
             format: 'YYYY-MM-DD',
             style: {
                 width: '100%'
@@ -69,38 +67,10 @@ const options = ref<ProFormOption[]>([
         }
     },
     {
-        name: 'address',
-        label: '地区',
-        type: 'treeSelect',
-        valueName: 'valueName',
-        data: [{
-            label: '广东省',
-            valueName: 'guangdong',
-            children: [{
-                label: '广州市',
-                valueName: 'guangzhou',
-            }, {
-                label: '深圳市',
-                valueName: 'shenzhen',
-            }],
-        }, {
-            label: '江苏省',
-            valueName: 'jiangsu',
-            children: [{
-                label: '南京市',
-                valueName: 'nanjing',
-            }, {
-                label: '苏州市',
-                valueName: 'suzhou',
-            }],
-        }]
-    },
-    {
         name: 'description',
         label: '备注',
         type: 'textarea',
         span: 12,
-        initalValue: ''
     },
     {
         name: 'upload',
@@ -121,8 +91,9 @@ const options = ref<ProFormOption[]>([
     }
 ]);
 
-function handleSubmit(value) {
+async function handleSubmit(value) {
     console.log('value', value);
+    return true
 }
 </script>
 

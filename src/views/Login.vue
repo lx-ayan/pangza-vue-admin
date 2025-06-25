@@ -46,12 +46,14 @@ const proFormRef = ref<ProFormRef>();
 
 const useUserStore = userStore();
 
-function handleSubmit(value: LoginRequest) {
+async function handleSubmit(value: LoginRequest) {
     useUserStore.login(value);
+    return true;
 }
 
 function handleLoginClick() {
     proFormRef.value?.submit();
+    return true
 }
 
 </script>

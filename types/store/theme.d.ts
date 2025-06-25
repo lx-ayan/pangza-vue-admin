@@ -14,4 +14,5 @@ interface ThemeState {
     animateName?: 'fade' | 'translate';
     theme?: 'dark' | 'light';
     tagView?: boolean;
+    watermark?: boolean;
 }

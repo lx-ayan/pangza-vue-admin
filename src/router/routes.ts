@@ -19,7 +19,7 @@ export default [
         component: () => import('@/views/home.vue'),
         meta: {
             auth: true,
-            title: '首页'
+            title: '仪表盘'
         },
         children: [
             {
