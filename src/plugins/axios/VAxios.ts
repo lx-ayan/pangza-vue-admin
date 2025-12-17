@@ -1,128 +1,130 @@
-import { RequestMethodEnum, ResponseCodeEnum } from "@/common/enums";
-import { IAxiosConfig, IAxiosRequestConfig, RequestConfig } from "@t/common/axios";
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-import { isUndefined } from "lodash-es";
+import { hideFullLoading, showFullLoading } from "@/components/Loading";
+import AXIOS_CONFIG from "@/config/axios.config";
+import { RequestMethod } from "@/utils/data/enums";
+import ObjectUtil from "@/utils/clz/ObjectUtil";
+import type {
+  AxiosInstance,
+  AxiosRequestConfig,
+  CreateAxiosDefaults,
+} from "axios";
+import axios from "axios";
 import AxiosCanceler from "./AxiosCanceler";
-import { hideFullScreenLoading, showFullScreenLoading } from "@/config/loading";
-import { removeNProgress, startNProgress } from "@/config/nprogress";
-import axiosEmiter from "./AxiosEmitter";
+import { axiosErrorHandler } from "./AxiosError";
+import useUserStore from "@/store/userStore";
+
 const axiosCanceler = new AxiosCanceler();
 
 class VAxios {
-    readonly option: IAxiosConfig | null = null;
+  private instance: Nullable<AxiosInstance> = null;
 
-    private static instance: AxiosInstance | null = null;
+  private constructor(config: CreateAxiosDefaults) {
+    this.createAxios(config);
+  }
 
-    private constructor(config: IAxiosConfig) {
-        this.option = config;
-        this.createAxiosInstance(config);
-        this.setInterceptors();
+  private createAxios(config: CreateAxiosDefaults) {
+    if (ObjectUtil.isEmpty(this.instance)) {
+      this.instance = axios.create(config);
+      this.setInterceptors();
     }
+  }
 
-    private createAxiosInstance(config: IAxiosConfig) {
-        VAxios.instance = axios.create(config);
-    }
+  private setInterceptors() {
+    this.instance?.interceptors.request.use(
+      AXIOS_CONFIG.requestInterceptor
+        ? (AXIOS_CONFIG.requestInterceptor as any)
+        : (config: IAxiosRequestConfig) => {
+          if (config.loading) {
+            showFullLoading(config.loadingText);
+          }
+          if (config.cancel) {
+            axiosCanceler.addPending(config as AxiosRequestConfig);
+          }
 
-    private setInterceptors() {
-        VAxios.instance?.interceptors.request.use((config: IAxiosRequestConfig) => {
-            startNProgress();
-            config.cancel = isUndefined(config.cancel) || false;
-            if (config.cancel) {
-                axiosCanceler.addPending(config);
+          const userStore = useUserStore();
+          if (userStore.token) {
+            config['headers']['Authorization'] = userStore.token;
+          }
+          return config;
+        },
+      () => {
+        hideFullLoading();
+      }
+    );
+
+    this.instance!.interceptors.response.use(
+      AXIOS_CONFIG.responseInterceptor
+        ? (AXIOS_CONFIG.responseInterceptor as any)
+        : (response) => {
+          return new Promise((resolve, reject) => {
+            axiosCanceler.removePending(response.config);
+            const result = axiosErrorHandler(response, false);
+            hideFullLoading();
+            if (result) {
+              reject(result);
+              return;
             }
-
-            if (config.loading) {
-                showFullScreenLoading(config.loadingText);
-            }
-
-            return config;
-        }, (error) => {
-            hideFullScreenLoading();
-            removeNProgress();
-            return Promise.reject(error);
-        })
-
-        VAxios.instance?.interceptors.response.use((response) => {
-            return new Promise((resolve, reject) => {
-                axiosCanceler.removePending(response.config);
-                if (response.data.code == ResponseCodeEnum.SUCCESS) {
-                    removeNProgress();
-                    resolve(response.data.data);
-                } else {
-                    axiosEmiter.codeErrorHandler(response, true, response.data.message);
-                    reject(response.data.message || '未知错误！')
-                }
-                hideFullScreenLoading();
-
-            })
-        }, (error) => this.errorHandler(error));
-
-    }
-
-    private async errorHandler(error: AxiosError) {
-        removeNProgress();
-        hideFullScreenLoading();
-        axiosEmiter.errorHandler(error);
-        return Promise.reject(error);
-    }
-
-    public static createVAxios(config: IAxiosConfig): VAxios {
-        let vAxios: NullAble<VAxios> = null;
-        if (!vAxios && !VAxios.instance) {
-            vAxios = new VAxios(config);
+            resolve(response.data.data);
+          });
+        },
+      AXIOS_CONFIG.errorHandler
+        ? AXIOS_CONFIG.errorHandler
+        : (error) => {
+          axiosErrorHandler(error);
+          hideFullLoading();
         }
-        return vAxios!;
-    }
+    );
+  }
 
-    request<T = any, D = ResponseData<T>>(config: AxiosRequestConfig): Promise<T> {
-        return new Promise((resolve, reject) => {
-            VAxios.instance!.request<D>(config).then(res => {
-                resolve(res as unknown as T);
-            }).catch(err => {
-                reject(err);
-            })
-        })
-    }
+  public static createVAxios(config: CreateAxiosDefaults) {
+    const vAxios = new VAxios(config);
+    return vAxios;
+  }
 
-    post<T = any>(url: string, data?: any, option?: RequestConfig) {
-        return this.request<T>({
-            method: RequestMethodEnum.POST,
-            url,
-            data,
-            ...option
-        })
-    }
+  public request<T, D = ResponseData<T>>(config: AxiosRequestConfig): Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.instance!.request<D>(config).then(res => {
+        resolve(res as T);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  }
 
-    get<T = any>(url: string, data?: any, option?: RequestConfig) {
-        return this.request<T>({
-            method: RequestMethodEnum.GET,
-            url,
-            params: data,
-            ...option
-        })
-    }
+  public post<T>(url: string, data: any, options: AxiosRequestConfig = {}) {
+    return this.request<T>({
+      ...options,
+      url,
+      data,
+      method: RequestMethod.POST,
+    });
+  }
 
-    put<T = any>(url: string, data?: any, option?: RequestConfig) {
-        return this.request<T>({
-            method: RequestMethodEnum.PUT,
-            url,
-            data,
-            ...option
-        })
-    }
+  public get<T>(url: string, data: any, options: AxiosRequestConfig = {}) {
+    return this.request<T>({
+      ...options,
+      url,
+      params: data,
+      method: RequestMethod.GET,
+    });
+  }
 
-    delete<T = any>(url: string, params: any, option?: RequestConfig) {
-        return this.request<T>({
-            url,
-            params,
-            method: RequestMethodEnum.DELETE,
-            ...option
-        })
-    }
+  public put<T>(url: string, data: any, options: AxiosRequestConfig = {}) {
+    return this.request<T>({
+      ...options,
+      url,
+      data,
+      method: RequestMethod.PUT,
+    });
+  }
 
-    download(url: string, params?: object, _object = {}): Promise<BlobPart> {
-        return VAxios.instance!.post(url, params, { ..._object, responseType: "blob" });
-    }
+  public delete<T>(url: string, data: any, options: AxiosRequestConfig = {}) {
+    return this.request<T>({
+      ...options,
+      url,
+      params: data,
+      method: RequestMethod.DELETE,
+    });
+  }
 }
 
 export default VAxios;

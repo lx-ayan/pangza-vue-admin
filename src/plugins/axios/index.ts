@@ -1,8 +1,9 @@
-import { getGlobalEnv } from "@v/env";
+import AXIOS_CONFIG from "@/config/axios.config";
 import VAxios from "./VAxios";
 
-const env = getGlobalEnv();
-
-const request = VAxios.createVAxios({ timeout: env.VITE_AXIOS_TIMEOUT, baseURL: env.VITE_BASE_API });
+const request = VAxios.createVAxios({
+    timeout: 10000,
+    ...AXIOS_CONFIG
+});
 
 export default request;

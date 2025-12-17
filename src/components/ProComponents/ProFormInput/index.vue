@@ -1,0 +1,81 @@
+<script setup lang='ts'>
+import type { FormItemProps, InputValue, TdInputAdornmentProps, TdInputProps } from "tdesign-vue-next";
+import { FormItem, Input, InputAdornment } from 'tdesign-vue-next';
+import { getCurrentInstance, h } from 'vue';
+
+export interface ProFormInputProps {
+    name: string;
+    inputProps?: TdInputProps;
+    disabled?: boolean;
+    readonly?: boolean;
+    placeholder?: string;
+    label?: FormItemProps['label'];
+    rules?: FormItemProps['rules'];
+    formProps?: FormItemProps;
+    inputAdornmentProps?: TdInputAdornmentProps;
+}
+
+export interface ProFormInputInstance {
+    focus: () => void;
+    blur: () => void;
+    clear: () => void;
+}
+
+const vm = getCurrentInstance();
+
+const props = defineProps<ProFormInputProps>();
+
+const modelValue = defineModel<InputValue>('modelValue');
+
+function getRef(inputRef: any) {
+    const expose = inputRef ? {
+        focus: inputRef.focus,
+        blur: inputRef.blur,
+        clear: () => {
+            modelValue.value = ''
+        }
+    } : {};
+
+    vm.exposeProxy = expose;
+    vm.exposed = expose;
+}
+
+defineOptions({
+    name: 'ProFormInput',
+    globalComponent: true,
+    inheritAttrs: false
+});
+
+defineExpose({} as ProFormInputInstance);
+
+</script>
+<template>
+    <FormItem :label="props.label" :rules="props.rules" :name="props.name" v-bind="{ ...props.formProps }">
+        <template #label>
+            <slot name="label"></slot>
+        </template>
+
+        <InputAdornment v-bind="{ ...props.inputAdornmentProps }" style="width: 100%">
+            <template #prepend>
+                <slot name="prepend"></slot>
+            </template>
+
+            <template #append>
+                <slot name="append"></slot>
+            </template>
+
+            <component v-model="modelValue" :ref="getRef"
+                :is="h(Input, { ...$attrs, ...props.inputProps, disabled: props.disabled, readonly: props.readonly, placeholder: props.placeholder })">
+
+                <template v-for="item in Object.keys($slots)" #[item]>
+                    <slot v-if="item != 'label'" :name="item"></slot>
+                </template>
+
+                <template #label>
+                    <slot name="input-label"></slot>
+                </template>
+            </component>
+        </InputAdornment>
+
+    </FormItem>
+</template>

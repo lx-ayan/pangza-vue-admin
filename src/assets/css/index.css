@@ -1,26 +1,39 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family:  Inter, -apple-system, BlinkMacSystemFont, PingFang SC, Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@custom-variant dark (&:where([theme-mode=dark], [theme-mode=dark] *));
+
+:root {
+  --text-primary: blue;
+  --td-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-html, body, #app {
-    height: 100%;
+:root[theme-mode='light'] {
+  --td-component-border: #ebeef5;
+  --td-text-color-primary: #1D2129;
+  --td-bg-color-secondarycontainer: #FAFAFA;
 }
 
-.v-contextmenu-inner .v-contextmenu-item {
-    color: var(--td-text-color-primary);
-    text-align: left;
-    padding: 0;
-    border-radius: 2px;
-  }
-  
-  .v-contextmenu-item--hover {
-    background-color: var(--td-bg-color-component) !important;
-  }
-  
-  .v-contextmenu {
-    background-color: var(--td-bg-color-container) !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
+html,
+body,
+#app {
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #DDDEE0;
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #DDDEE0;
+}

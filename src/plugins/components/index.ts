@@ -1,19 +1,17 @@
-import { App } from "vue";
+import type { App } from "vue";
+import 'md-editor-v3/lib/style.css';
+const components = import.meta.glob("../../components/**/*[.vue, .tsx]", {
+  eager: true,
+});
 
-const modules = import.meta.glob('../../components/**/*.vue', { eager: true });
-
-export function setupGobalComponents(app: App) {
-    Object.entries(modules).forEach(([file, module]: any) => {
-        if (module.default.globalComponent) {
-            if (module.default.name) {
-                app.component(module.default.name, module.default);
-            } else {
-                const fileNameArr = file.split('/');
-                const idx = fileNameArr.findIndex(fileName => fileName == 'index.vue');
-                if (idx != 0) {
-                    app.component(fileNameArr[idx - 1], (module[file] as any).default);
-                }
-            }
-        }
-    })
+/**
+ * @description 系统自动注册全局组件
+ */
+export function setupComponents(app: App) {
+  Object.entries(components).forEach(([_, module]: [string, any]) => {
+    const component = module.default;
+    if (component && component.name && component.globalComponent) {
+      app.component(component.name, component);
+    }
+  });
 }

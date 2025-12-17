@@ -1,20 +1,18 @@
-import { setupPinia } from './pinia';
+import type { App } from 'vue';
+import { setupRouter } from './router';
+import { setupComponents } from './components';
 import { setupTailwindcss } from './tailwindcss';
 import { setupTdesign } from './tdesign';
-import { setupContextMenu } from './contextmenu';
-import { App } from 'vue';
-import { setupGobalComponents } from './components';
-
+import { setupPinia } from './pinia';
+import setupDirective from '@/directive';
+import { setupContextMenu } from "./contextmenu";
 
 export function setupPlugins(app: App) {
-    setupPinia(app);
-    setupTdesign(app);
     setupTailwindcss();
+    setupPinia(app);
+    setupDirective(app);
+    setupRouter(app);
+    setupTdesign(app);
+    setupComponents(app);
     setupContextMenu(app);
-    setupGobalComponents(app);
 }
-
-export * from './pinia';
-export * from './tailwindcss';
-export * from './tdesign';
-export * from './components'; 

@@ -1,6 +1,8 @@
-import request from "@/plugins/axios";
-import { MenuResult } from "@t/api/menu";
+import useRequest from "@/hooks/core/useRequest";
+import type { MenuResult } from "@/types/api/menu";
 
-export function getUserMenu() {
-    return request.get<MenuResult[]>('/api/menu');
+const request = useRequest('/api/user')
+
+export function getUserRouter() {
+    return request.post<MenuResult[]>('/router');
 }

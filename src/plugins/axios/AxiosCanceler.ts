@@ -1,43 +1,38 @@
-import axios, { AxiosRequestConfig, Canceler } from "axios";
-import { isFunction } from "lodash-es";
+import type { AxiosRequestConfig, Canceler } from "axios";
+import axios from "axios";
 
-let pendingMap = new Map<string, Canceler>();
+let cancelMap: Map<string, Canceler> = new Map<string, Canceler>();
 
-export const getPendingUrl = (config: AxiosRequestConfig) => [config.method, config.url].join('&');
-
+const getPeddingConfig = (config: AxiosRequestConfig) => [config.method, config.url].join('&');
 
 class AxiosCanceler {
-
     addPending(config: AxiosRequestConfig) {
         this.removePending(config);
-        const url = getPendingUrl(config);
-        config.cancelToken = config.cancelToken || new axios.CancelToken(c => {
-            if (!pendingMap.has(url)) {
-                pendingMap.set(url, c);
+        const key = getPeddingConfig(config);
+        config.cancelToken = config.cancelToken || new axios.CancelToken((cancel) => {
+            if (!cancelMap.has(key)) {
+                cancelMap.set(key, cancel);
             }
         })
     }
 
     removePending(config: AxiosRequestConfig) {
-        const url = getPendingUrl(config);
-        if (pendingMap.has(url)) {
-            const cancel = pendingMap.get(url);
-            cancel && cancel(url);
-            pendingMap.delete(url);
-        }
+        const key = getPeddingConfig(config);
+        const canceler = cancelMap.get(key);
+        canceler && canceler(key);
+        cancelMap.delete(key);
     }
 
     removeAllPending() {
-        pendingMap.forEach(cancel => {
-            cancel && isFunction(cancel) && cancel();
+        cancelMap.forEach(cancel => {
+            cancel && cancel();
         })
-        pendingMap.clear();
+        cancelMap.clear();
     }
 
     reset() {
-        pendingMap = new Map<string, Canceler>();
+        cancelMap = new Map<string, Canceler>();
     }
-
 }
 
 export default AxiosCanceler;

@@ -1,17 +1,11 @@
-import { isArray } from "@/utils/is";
 import { hasPermission } from "@/utils/security";
-import { Directive } from "vue";
+import type { Directive } from "vue";
 
 const permission = {
     name: 'permission',
     mounted: (el, binding) => {
         const bValue = binding.value;
-        let permission: string[] = [];
-        if (isArray(bValue)) {
-            permission = [...bValue] as string[];
-        } else {
-            permission = bValue.split(',');
-        }
+        let permission: string[] = bValue;
         if (!hasPermission(permission)) {
             el.remove();
         }

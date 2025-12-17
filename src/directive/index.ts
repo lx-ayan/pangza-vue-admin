@@ -1,4 +1,4 @@
-import { App } from "vue";
+import type { App } from "vue";
 import getDirectiveList from "./util";
 
 export default function setupDirective(app: App) {

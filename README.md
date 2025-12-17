@@ -1,110 +1,151 @@
 # Pangza Vue Admin
-### 介绍
-Pangza Vue Admin 是一款基于 Vue、Typescript、Vite、Pinia、TDesign 开源的后台管理模板。使用最新技术开发，并且涵盖本人封装的 TDesign 高级组件，在一定程度上提高了您的开发效率。另外本项目封装了一些指令，hook，动态路由，路由自动注册，权限控制等功能。
 
-### 预览地址
-- [预览地址](https://pangzablog.cn:20000/pangzavueadmin) : https://pangzablog.cn:20000/pangzavueadmin
+一个基于 Vue 3 + TypeScript 的现代化权限管理系统，提供完整的用户权限控制、主题切换和响应式界面。
 
-### 项目功能
-- 使用 Vue3.4 + TypeScript 开发，单文件组件**＜script setup＞**
-- 使用 Pinia 替代 Vuex，轻量、简单、易用，集成 Pinia 持久化插件
-- 使用 TypeScript 对 Axios 整个二次封装（请求拦截、取消、常用请求封装…）
-- 使用 VueRouter 配置动态路由权限拦截、路由懒加载，支持页面按钮权限控制
-- 三种路由自动注册方式
+## ✨ 特性
 
-### 项目地址
-- github: https://github.com/lx-ayan/pangza-vue-admin
-- gitee: https://gitee.com/liu-xu-xu/pangza-vue-admin
+- 🚀 **Vue 3 + TypeScript**：采用最新的 Vue 3 组合式 API 和 TypeScript 开发，提供更好的类型安全和开发体验
+- 🎨 **TDesign UI 组件库**：使用字节跳动开源的 TDesign Vue Next 组件库，提供丰富的 UI 组件
+- 💡 **Tailwind CSS**：集成 Tailwind CSS，实现灵活的样式定制
+- 🔒 **完整的权限管理**：支持角色权限控制、动态路由生成
+- 🌓 **明暗主题切换**：支持亮色和暗色主题，提升用户体验
+- 📱 **响应式设计**：适配各种屏幕尺寸，提供良好的移动端体验
+- 🔄 **状态管理**：使用 Pinia 进行状态管理，支持持久化存储
 
-### 使用
+## 📸 项目截图
 
-#### clone
-> git clone https://github.com/lx-ayan/pangza-vue-admin.git
+### 登录
 
-or
+![亮色主题首页](./screenshots/login.png)
 
-> git clone https://gitee.com/liu-xu-xu/pangza-vue-admin.git
+### 亮色主题
 
-#### install
-> npm install
+![亮色主题首页](./screenshots/light-home.png)
 
+### 暗色主题
 
-#### run dev
-> npm run dev
+![暗色主题首页](./screenshots/dark-home.png)
 
-### 项目截图
+### 列表
 
-#### 登录
-![login](https://ooo.0x0.ooo/2024/12/22/OETtn1.png)
+![权限管理页面](./screenshots/table.png)
 
-#### 首页
-![login](https://ooo.0x0.ooo/2024/12/22/OET44I.png)
+### 表单
 
-#### CRUD 列表
-![login](https://ooo.0x0.ooo/2024/12/22/OETD6D.png)
+![404页面](./screenshots/form.png)
 
-#### 个人中心
-![login](https://ooo.0x0.ooo/2024/12/22/OETLkF.png)
+## 🛠️ 技术栈
 
-### 目录结构
+- **框架**：Vue 3.5.18
+- **语言**：TypeScript 5.8.3
+- **UI 组件库**：TDesign Vue Next 1.15.5
+- **样式框架**：Tailwind CSS 3.4.17
+- **状态管理**：Pinia 3.0.3
+- **路由**：Vue Router 4.5.1
+- **构建工具**：Vite 7.1.2
 
-```
-|--.vscode # VSCode相关配置文件夹
-|-- public # 公共资源文件夹
-|-- src # 项目主要源代码目录
-    |-- api # 接口文件夹
-    |-- assets # 静态资源文件夹
-    |-- common # 通用工具和常量文件夹
-    |-- components # Vue组件文件夹
-    |-- config # 项目配置文件夹
-    |-- directive # 自定义指令文件夹
-    |-- hooks # 自定义钩子函数文件夹
-    |-- layouts # 页面布局组件文件夹
-    |-- plugins # 插件相关文件夹
-    |-- router # 路由相关文件夹
-    |-- store # 状态管理相关文件夹（如果使用状态管理库）
-    |-- utils # 工具函数和实用程序文件夹
-    |-- views # 页面级别的Vue组件文件夹
-    |-- App.vue # Vue应用程序根组件
-    |-- main.ts # 项目主入口文件
-    |-- vite - env.d.ts # Vite环境相关类型声明文件
-    |-- types # 自定义类型声明文件夹
-|-- vite-config # Vite构建工具配置文件夹
-    |-- alias # 别名配置文件夹（可能用于路径别名）
-    |-- build # 构建相关配置文件夹
-    |-- env # 环境配置文件夹
-    |-- plugins # 插件配置文件夹
-    |-- proxy # 代理配置文件夹
-    |-- server # 开发服务器配置文件夹
-    |-- index.ts # 可能是Vite配置的主入口文件（TypeScript）
-|--.env # 环境变量配置文件
-|--.gitignore # Git版本控制忽略文件
-|-- index.html # 项目主HTML文件
-|-- LICENSE # 项目开源许可证文件
-|-- package - lock.json # npm依赖版本锁定文件
-|-- package.json # 项目依赖管理文件
-|-- postcss.config.cjs # PostCSS配置文件
-|-- README.md # 项目说明文档
-|-- tailwind.config.js # Tailwind CSS配置文件
-|-- tsconfig.json # TypeScript配置文件
-|-- tsconfig.node.json # 可能是Node.js环境的TypeScript配置文件
-|-- tsconfig.tsbuildinfo # 可能是TypeScript构建信息文件
-|-- vite.config.ts # Vite构建工具的TypeScript配置文件
-|-- yarn.lock # 如果使用Yarn，这是依赖版本锁定文件
+## 📦 安装
+
+### 环境要求
+
+- Node.js >= 22.0.0
+
+### 安装依赖
+
+```bash
+npm install
 ```
 
-## 捐赠
-如果你正在使用这个项目或者喜欢这个项目的，可以通过以下方式支持我：
+## 🚀 快速开始
 
-Star、Fork、Watch 一键三连 🚀
+### 开发环境
 
-通过微信、支付宝一次性捐款 ❤
+```bash
+npm run dev
+```
 
-|                                        微信                                        |                                       支付宝                                       |
-| :--------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
-| <img src="https://ooo.0x0.ooo/2024/12/22/OETEm6.jpg" alt="Alipay QRcode" width=170> | <img src="https://ooo.0x0.ooo/2024/12/22/OETGYP.jpg" alt="Wechat QRcode" width=170> |
+启动开发服务器后，访问 `http://localhost:5173` 即可查看项目。
 
-### 画饼
-- 使用文档正在更新中。。。
-- 优化 TDesign-pro-component
-- 增加系统监控模块
+### 构建生产版本
+
+```bash
+npm run build
+```
+
+构建产物将输出到 `dist` 目录。
+
+### 预览生产构建
+
+```bash
+npm run preview
+```
+
+## 📁 项目结构
+
+```
+src/
+├── assets/           # 静态资源
+├── components/       # 全局组件
+├── config/           # 配置文件
+├── hooks/            # 自定义钩子
+├── router/           # 路由配置
+├── store/            # 状态管理
+├── utils/            # 工具函数
+├── views/            # 页面组件
+├── App.vue           # 应用根组件
+└── main.ts           # 应用入口文件
+```
+
+## 🎯 主要功能
+
+### 1. 权限管理
+
+- 角色权限控制：支持超级管理员、管理员、普通用户等多种角色
+- 动态路由生成：根据用户权限动态加载路由
+- 权限切换演示：提供直观的权限切换界面
+
+### 2. 主题系统
+
+- 明暗主题切换：支持亮色和暗色主题
+- 自定义主题色：可配置系统主题颜色
+- 响应式设计：适配不同屏幕尺寸
+
+### 3. 页面组件
+
+- **登录页面**：提供用户登录功能
+- **权限切换页面**：演示不同角色权限的差异
+- **404 页面**：优雅的页面不存在提示
+- **403 页面**：权限不足提示
+- **成功页面**：操作成功反馈
+- **错误页面**：操作失败反馈
+
+## 🔧 开发指南
+
+### 组件开发
+
+项目采用 Vue 3 的组合式 API 开发组件，建议按照以下规范：
+
+```vue
+<script setup lang='ts'>
+// 组件逻辑
+</script>
+
+<template>
+  <!-- 组件模板 -->
+</template>
+
+<style scoped>
+/* 组件样式 */
+</style>
+```
+## 📝 许可证
+
+MIT License
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+---
+
+**Pangza Vue Admin** - 一个现代化的权限管理系统

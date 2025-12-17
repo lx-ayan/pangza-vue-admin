@@ -1,18 +1,37 @@
-import { UserConfig } from "vite";
+import { loadEnv, type UserConfigFnObject } from "vite";
+import userConfig from "./config";
+import alias from "./alias";
 import setupPlugins from "./plugins";
-import setupServer from "./server";
-import setupAlias from "./alias";
-import createBuild from "./build";
+import { parseEnv } from "./env";
+import buildProxy from "./proxy";
+import { setupViteBuild } from "./build";
 
-export default function createConfig(env: ViteEnv, buildAble: boolean): UserConfig {
-    const viteConfig: UserConfig = {
-        plugins: setupPlugins(env, buildAble),
+const buildViteConfig: UserConfigFnObject = ({ mode }) => {
+    if (userConfig) return userConfig;
+    const root = process.cwd();
+    const env = parseEnv(loadEnv(mode, root));
+    const proxy = buildProxy(env);
+    return {
+        plugins: setupPlugins(env, mode === 'production'),
         resolve: {
-            alias: setupAlias()
+            alias
         },
-        server: setupServer(env),
-        build: createBuild(),
-        base: './'
+        build: setupViteBuild(env),
+        server: {
+            port: env.VITE_PORT,
+            proxy
+        },
+        optimizeDeps: {
+            include: [
+                'vue',
+                'vue-router',
+                'tdesign-vue-next',
+                'echarts',
+                'axios',
+                'pinia'
+            ]
+        }
     }
-    return viteConfig;
 }
+
+export default buildViteConfig;
