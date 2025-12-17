@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import type { ProTableOption } from '@/components/ProComponents/ProTable/index.vue';
 import { computed, ref } from 'vue';
 import TablePropsButton from '@/components/business/TablePropsButton/index.vue';
 import TableOptionButton from '@/components/business/TableOptionButton/index.vue';
@@ -8,6 +7,7 @@ import TableShowSearchButton from '@/components/business/TableShowSearchButton/i
 import ArticleCard from './components/ArticleCard/index.vue';
 import { useRouter } from 'vue-router';
 import useTabStore from '@/store/tabStore';
+import type { ProTableOption } from '@/components/ProComponents/ProTable/types';
 
 const tabStore = useTabStore();
 

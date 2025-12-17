@@ -3,7 +3,9 @@ import type { FormItemProps, InputValue, TdInputAdornmentProps, TdInputNumberPro
 import { FormItem, InputAdornment, InputNumber } from 'tdesign-vue-next';
 import { getCurrentInstance, h } from 'vue';
 
-export interface ProFormInputNumberProps {
+const vm = getCurrentInstance();
+
+const props = defineProps<{
     name: string;
     disabled?: boolean;
     readonly?: boolean;
@@ -13,17 +15,7 @@ export interface ProFormInputNumberProps {
     formProps?: FormItemProps;
     inputAdornmentProps?: TdInputAdornmentProps;
     inputNumberProps?: TdInputNumberProps;
-}
-
-export interface ProFormInputInstance {
-    focus: () => void;
-    blur: () => void;
-    clear: () => void;
-}
-
-const vm = getCurrentInstance();
-
-const props = defineProps<ProFormInputNumberProps>();
+}>();
 
 const modelValue = defineModel<InputValue>('modelValue');
 
@@ -42,11 +34,8 @@ function getRef(inputRef: any) {
 
 defineOptions({
     name: 'ProFormInputNumber',
-    globalComponent: true,
     inheritAttrs: false
 });
-
-defineExpose({} as ProFormInputInstance);
 
 </script>
 <template>

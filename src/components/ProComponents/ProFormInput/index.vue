@@ -2,8 +2,11 @@
 import type { FormItemProps, InputValue, TdInputAdornmentProps, TdInputProps } from "tdesign-vue-next";
 import { FormItem, Input, InputAdornment } from 'tdesign-vue-next';
 import { getCurrentInstance, h } from 'vue';
+import type { ProFormInputInstance } from "./types";
 
-export interface ProFormInputProps {
+const vm = getCurrentInstance();
+
+const props = defineProps<{
     name: string;
     inputProps?: TdInputProps;
     disabled?: boolean;
@@ -13,17 +16,7 @@ export interface ProFormInputProps {
     rules?: FormItemProps['rules'];
     formProps?: FormItemProps;
     inputAdornmentProps?: TdInputAdornmentProps;
-}
-
-export interface ProFormInputInstance {
-    focus: () => void;
-    blur: () => void;
-    clear: () => void;
-}
-
-const vm = getCurrentInstance();
-
-const props = defineProps<ProFormInputProps>();
+}>();
 
 const modelValue = defineModel<InputValue>('modelValue');
 
@@ -42,7 +35,6 @@ function getRef(inputRef: any) {
 
 defineOptions({
     name: 'ProFormInput',
-    globalComponent: true,
     inheritAttrs: false
 });
 

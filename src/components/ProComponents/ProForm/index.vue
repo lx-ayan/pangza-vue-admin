@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, h, onMounted, ref, unref, useTemplateRef, watch, type VNode } from "vue";
+import { computed, h, onMounted, ref, unref, useTemplateRef, watch } from "vue";
 import ProFormInput from '@/components/ProComponents/ProFormInput/index.vue';
 import ProFormSelect from '@/components/ProComponents/ProFormSelect/index.vue';
 import ProFormRadio from '@/components/ProComponents/ProFormRadio/index.vue';
@@ -8,12 +8,13 @@ import ProFormDatePicker from '@/components/ProComponents/ProFormDatePicker/inde
 import ProFormTextarea from '@/components/ProComponents/ProFormTextarea/index.vue';
 import ProFormDateRangePicker from '@/components/ProComponents/ProFormDateRangePicker/index.vue';
 import ProFormInputNumber from '@/components/ProComponents/ProFormInputNumber/index.vue';
-import Grid from '@/components/ProComponents/Grid/index.vue';
-import GridItem from '@/components/ProComponents/GridItem/index.vue';
+import Grid from '@/components/public/Grid/index.vue';
+import GridItem from '@/components/public/GridItem/index.vue';
 import { createNameSpace } from "@/utils/core/css";
-import { Form, type FormRule, Button, type TdButtonProps, Space, type FormInstanceFunctions, type TdFormProps, type FormValidateResult, type Data } from "tdesign-vue-next";
+import { Form, Button, type TdButtonProps, Space, type FormInstanceFunctions, type TdFormProps } from "tdesign-vue-next";
 import { cloneDeep, isFunction, isObject, isString } from "lodash-es";
 import ObjectUtil from "@/utils/clz/ObjectUtil";
+import type { ProFormOption } from "./types";
 
 const COMPONENT_NAME = 'pro-form';
 
@@ -30,7 +31,7 @@ const COMPONENT_MAP = {
     'inputNumber': ProFormInputNumber
 }
 
-export interface ProFormProps {
+const props = defineProps<{
     options: ProFormOption[];
     cols?: number;
     gap?: { x?: number, y?: number };
@@ -46,38 +47,7 @@ export interface ProFormProps {
     submit?: (data: any) => any;
     fail?: (e: any) => any;
     modelValue?: Record<string, any>;
-}
-
-export interface ProFormOption {
-    name: string;
-    type?: keyof typeof COMPONENT_MAP | Function;
-    label?: string | Function;
-    data?: OptionDataProps;
-    props?: any;
-    disabled?: boolean;
-    readonly?: boolean;
-    slots?: any;
-    rules?: FormRule[];
-    hidden?: boolean | ((formModel: any, key: string) => boolean);
-    placeholder?: string;
-    defaultValue?: any;
-    gridProps?: {
-        colSpan?: number;
-    };
-    render?: (model: any, key: string, option: ProFormOption) => VNode;
-}
-
-export interface ProFormInstance {
-    submit: () => any;
-    validate: () => Promise<FormValidateResult<Data>>;
-    reset: () => void;
-    setFormItem: (key: string, value: any) => void;
-    getFormItem: (key: string) => any;
-    getFormValue: () => any;
-    request: () => void;
-}
-
-const props = defineProps<ProFormProps>();
+}>();
 
 const emits = defineEmits(['update:modelValue']);
 
@@ -208,7 +178,6 @@ defineExpose({
 
 defineOptions({
     name: 'ProForm',
-    globalComponent: true
 })
 
 watch(() => props.modelValue, (newVal) => {
@@ -236,8 +205,10 @@ watch(innerModelValue, (value) => {
                             </slot>
                         </template>
                         <template v-else>
+
                             <component v-if="!item.render" :model-value="getNestedValue(innerModelValue, item.name)"
-                                :placeholder="item.placeholder || item.props?.placeholder" :data="item.data || []"
+                                :placeholder="item.placeholder || (item.props as any)?.placeholder"
+                                :data="item.data || []"
                                 @update:model-value="(value: any) => setNestedValue(innerModelValue, item.name, value)"
                                 :label="item.label" :name="item.name" :disabled="item.disabled"
                                 :readonly="item.readonly" :rules="item.rules" :is="h(isString(item.type || 'input') ? COMPONENT_MAP[item.type as string || 'input'] :
@@ -256,7 +227,7 @@ watch(innerModelValue, (value) => {
                         <Space style="float: right;">
                             <Button :loading="loading" type="submit" v-bind="{ ...props.submitButtonProps }">{{
                                 props.submitText || '提交'
-                                }}</Button>
+                            }}</Button>
                             <Button v-if="!props.hideReset" type="reset" @click="reset"
                                 v-bind="{ variant: 'outline', ...props.resetButtonProps }">{{ props.resetText || '重置'
                                 }}</Button>

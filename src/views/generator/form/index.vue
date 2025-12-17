@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import type { ProFormOption } from '@/components/ProComponents/ProForm/index.vue';
-import type { ProTableOption } from '@/components/ProComponents/ProTable/index.vue';
+import type { ProFormOption } from '@/components/ProComponents/ProForm/types';
+import type { ProTableOption } from '@/components/ProComponents/ProTable/types';
 import { Checkbox, Input, MessagePlugin, Select } from 'tdesign-vue-next';
 import { MdPreview } from 'md-editor-v3';
 import { computed, ref } from 'vue';

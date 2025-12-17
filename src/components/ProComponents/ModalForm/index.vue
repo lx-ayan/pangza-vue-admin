@@ -1,16 +1,7 @@
 <script setup lang='ts'>
 import { Dialog, type TdDialogProps } from 'tdesign-vue-next';
-import type { ProFormInstance, ProFormOption, ProFormProps } from '../ProForm/index.vue';
+import type { ProFormInstance, ProFormOption, ProFormProps } from '../ProForm/types';
 import { useTemplateRef, watch } from 'vue';
-
-export interface ModalFormProps {
-    options: ProFormOption[];
-    request?: ProFormProps['request'];
-    formProps?: Optional<ProFormProps, 'options'>;
-    header?: TdDialogProps['header'];
-    width?: TdDialogProps['width'];
-    dialogProps?: TdDialogProps;
-}
 
 const proFormRef = useTemplateRef<ProFormInstance>('proFormRef');
 
@@ -18,7 +9,14 @@ const emits = defineEmits<{
     (e: 'submit', data: any): void;
 }>();
 
-const props = withDefaults(defineProps<ModalFormProps>(), {
+const props = withDefaults(defineProps<{
+    options: ProFormOption[];
+    request?: ProFormProps['request'];
+    formProps?: Optional<ProFormProps, 'options'>;
+    header?: TdDialogProps['header'];
+    width?: TdDialogProps['width'];
+    dialogProps?: TdDialogProps;
+}>(), {
     options: () => [],
     formProps: () => ({
         formProps: {
@@ -43,7 +41,6 @@ function handleSubmit(data: any) {
 
 defineOptions({
     name: 'ModalForm',
-    globalComponent: true
 })
 
 watch(visible, (value) => {

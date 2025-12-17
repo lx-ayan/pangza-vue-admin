@@ -4,7 +4,9 @@ import { FormItem, Radio, RadioGroup } from 'tdesign-vue-next';
 import { getCurrentInstance, onMounted, ref, watch } from 'vue';
 import { buildOptionData } from '@/utils/components';
 
-export interface ProFormRadioProps {
+const vm = getCurrentInstance();
+
+const props = withDefaults(defineProps<{
     name: string;
     disabled?: boolean;
     readonly?: boolean;
@@ -15,11 +17,7 @@ export interface ProFormRadioProps {
     valuename?: string;
     data?: OptionData[] | (() => OptionData[]) | (() => Promise<OptionData[]>);
     radioProps?: TdRadioGroupProps;
-}
-
-const vm = getCurrentInstance();
-
-const props = withDefaults(defineProps<ProFormRadioProps>(), {
+}>(), {
     keyname: 'label',
     valuename: 'value',
     data: () => []
@@ -48,7 +46,6 @@ function getRef(radioRef) {
 
 defineOptions({
     name: 'ProFormRadio',
-    globalComponent: true,
     inheritAttrs: false
 });
 

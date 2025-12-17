@@ -1,17 +1,31 @@
 <script setup lang='tsx'>
 import { createNameSpace } from '@/utils/core/css';
-import { Card, Table, type BaseTableCol, type BaseTableProps, Pagination, type PageInfo, type TdFormItemProps, type BaseTableColumns, type TableCol, type DragSortContext, type TableProps, type SelectOptions, type TableInstanceFunctions, type TdPaginationProps } from 'tdesign-vue-next';
+import { Card, Table, type BaseTableCol, Pagination, type PageInfo, type BaseTableColumns, type TableCol, type DragSortContext, type TableProps, type SelectOptions, type TableInstanceFunctions, type TdPaginationProps } from 'tdesign-vue-next';
 import { computed, onMounted, ref, useSlots, useTemplateRef, watch } from 'vue';
-import type { ProFormInstance, ProFormOption, ProFormProps } from '../ProForm/index.vue';
 import ProForm from '../ProForm/index.vue';
 import { ChevronDownIcon, ChevronUpIcon, MoveIcon } from 'tdesign-icons-vue-next';
 import { isFunction } from 'lodash-es';
+import type { ProFormInstance, ProFormOption, ProFormProps } from '../ProForm/types';
+import type { ProTableOption, ProTableResult } from './types';
 
 const COMPONENT_NAME = 'pro-table';
 
 const proTableBEM = createNameSpace(COMPONENT_NAME);
 
-const props = withDefaults(defineProps<ProTableProps>(), {
+const props = withDefaults(defineProps<{
+    options: ProTableOption[];
+    data?: any[];
+    request?: (data: any) => (ProTableResult | Promise<ProTableResult>);
+    formProps?: Optional<ProFormProps, 'options'>;
+    hideForm?: boolean;
+    hidePage?: boolean;
+    draggAble?: boolean;
+    selectAble?: boolean;
+    tableProps?: TableProps;
+    rowKey?: string;
+    selectType?: 'multiple' | 'single';
+    pageProps?: TdPaginationProps;
+}>(), {
     rowKey: 'id',
     options: () => []
 });
@@ -50,65 +64,6 @@ const slots = useSlots();
 
 const emits = defineEmits(['update:data']);
 
-export interface ProTableProps {
-    options: ProTableOption[];
-    data?: any[];
-    request?: (data: any) => (ProTableResult | Promise<ProTableResult>);
-    formProps?: Optional<ProFormProps, 'options'>;
-    hideForm?: boolean;
-    hidePage?: boolean;
-    draggAble?: boolean;
-    selectAble?: boolean;
-    tableProps?: TableProps;
-    rowKey?: string;
-    selectType?: 'multiple' | 'single';
-    pageProps?: TdPaginationProps;
-}
-
-export interface ProTableResult<T = any> {
-    list: T[];
-    total: number;
-    pageSize?: number;
-    pageNum?: number;
-    pages?: number;
-    [key: string]: any;
-}
-
-export interface ProTableOption<T = any> {
-    key: string;
-    label?: string;
-    formLabel?: TdFormItemProps['label'];
-    tableTitle?: BaseTableProps['columns'][number]['title'];
-    span?: number;
-    type?: ProFormOption['type'];
-    data?: ProFormOption['data'];
-    hideInSearch?: boolean | (() => boolean);
-    hideInTable?: boolean | (() => boolean);
-    tableProps?: BaseTableCol;
-    formProps?: any;
-    formSlots?: any;
-    defaultValue?: any;
-    edit?: TableCol['edit'];
-    render?: (row: T, rowIndex: number) => any;
-}
-
-export interface ProTableInstance {
-    getFormValue: () => any;
-    reset: () => void;
-    reload: () => void;
-    validate: TableInstanceFunctions['validateTableData'],
-    clearValidate: TableInstanceFunctions['clearValidateData'],
-    getFormInstance: () => ProFormInstance,
-    getTableInstance: () => TableInstanceFunctions
-}
-
-export interface ProTableRequest<T = any> {
-    pageNum: number;
-    pageSize: number;
-    form: T;
-    sort?: Record<string, 'asc' | 'desc'>
-}
-
 onMounted(() => {
     buildOptions();
     buildTableColumns();
@@ -117,6 +72,7 @@ onMounted(() => {
 })
 
 function buildOptions() {
+    //@ts-ignore
     proFormOptions.value = props.options.filter(item => isFunction(item.hideInSearch) ? !item.hideInSearch() : !item.hideInSearch
     ).map((item, index) => {
         if (item.defaultValue) {
@@ -292,8 +248,7 @@ const colSpan = computed(() => {
 })
 
 defineOptions({
-    name: 'ProTable',
-    globalComponent: true
+    name: 'ProTable'
 })
 
 watch(() => props.options, () => {

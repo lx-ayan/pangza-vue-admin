@@ -2,7 +2,7 @@
 import { DateRangePicker, type FormItemProps, type TdDateRangePickerProps, FormItem } from 'tdesign-vue-next';
 import { getCurrentInstance } from 'vue';
 
-export interface ProFormDatePicker {
+const props = defineProps<{
     name: string;
     disabled?: boolean;
     readonly?: boolean;
@@ -11,9 +11,7 @@ export interface ProFormDatePicker {
     rules?: FormItemProps['rules'];
     formProps?: FormItemProps;
     datePickerProps?: TdDateRangePickerProps;
-}
-
-const props = defineProps<ProFormDatePicker>();
+}>();
 
 const modelValue = defineModel<string[]>({
     default: () => []
@@ -31,7 +29,6 @@ function getRef(datePicerRef) {
 
 defineOptions({
     name: 'ProFormDateRangePicker',
-    globalComponent: true,
     inheritAttrs: false
 });
 </script>

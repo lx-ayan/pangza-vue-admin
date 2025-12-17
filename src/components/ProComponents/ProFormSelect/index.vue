@@ -1,10 +1,13 @@
 <script setup lang='ts'>
-import type { FormItemProps, TdInputAdornmentProps, TdSelectProps } from 'tdesign-vue-next';
+import type { FormItemProps, TdSelectProps } from 'tdesign-vue-next';
 import { FormItem, Select, Option } from 'tdesign-vue-next';
 import { getCurrentInstance, onMounted, ref, watch } from 'vue';
 import { buildOptionData } from '@/utils/components';
 
-export interface ProFormSelectProps {
+
+const vm = getCurrentInstance();
+
+const props = withDefaults(defineProps<{
     name: string;
     disabled?: boolean;
     readonly?: boolean;
@@ -16,13 +19,7 @@ export interface ProFormSelectProps {
     valuename?: string;
     data?: OptionData[] | (() => OptionData[]) | (() => Promise<OptionData[]>);
     selectProps?: TdSelectProps;
-    inputAdornmentProps?: TdInputAdornmentProps;
-
-}
-
-const vm = getCurrentInstance();
-
-const props = withDefaults(defineProps<ProFormSelectProps>(), {
+}>(), {
     keyname: 'label',
     valuename: 'value',
     data: () => []
@@ -51,7 +48,6 @@ function getRef(selectRef) {
 
 defineOptions({
     name: 'ProFormSelect',
-    globalComponent: true,
     inheritAttrs: false
 });
 

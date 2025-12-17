@@ -3,8 +3,9 @@ import type { FormItemProps, TdCheckboxGroupProps } from 'tdesign-vue-next';
 import { Checkbox, CheckboxGroup, FormItem, } from 'tdesign-vue-next';
 import { getCurrentInstance, onMounted, ref, watch } from 'vue';
 import { buildOptionData } from '@/utils/components';
+const vm = getCurrentInstance();
 
-export interface ProFormCheckProps {
+const props = withDefaults(defineProps<{
     name: string;
     disabled?: boolean;
     readonly?: boolean;
@@ -15,11 +16,7 @@ export interface ProFormCheckProps {
     valuename?: string;
     data?: OptionDataProps;
     checkboxProps?: TdCheckboxGroupProps;
-}
-
-const vm = getCurrentInstance();
-
-const props = withDefaults(defineProps<ProFormCheckProps>(), {
+}>(), {
     keyname: 'label',
     valuename: 'value',
     data: () => []
@@ -48,7 +45,6 @@ function getRef(checkProps) {
 
 defineOptions({
     name: 'ProFormCheckbox',
-    globalComponent: true,
     inheritAttrs: false
 });
 

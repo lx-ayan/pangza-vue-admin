@@ -1,5 +1,5 @@
 <script setup lang='tsx'>
-import type { ProTableOption } from '@/components/ProComponents/ProTable/index.vue';
+import type { ProTableOption } from '@/components/ProComponents/ProTable/types';
 import { Progress } from 'tdesign-vue-next';
 interface TableData { id: number, name: string, area: string, count: number, progress: number, avatar: string };
 

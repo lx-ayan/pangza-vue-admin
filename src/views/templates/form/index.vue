@@ -1,5 +1,5 @@
 <script setup lang='tsx'>
-import type { ProFormOption } from '@/components/ProComponents/ProForm/index.vue';
+import type { ProFormOption } from '@/components/ProComponents/ProForm/types';
 import { MessagePlugin } from 'tdesign-vue-next';
 
 const formOptions: ProFormOption[] = [

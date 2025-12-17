@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { Drawer, type TdDrawerProps, } from 'tdesign-vue-next';
-import type { ProFormInstance, ProFormOption, ProFormProps } from '../ProForm/index.vue';
+import type { ProFormInstance, ProFormOption, ProFormProps } from '../ProForm/types';
 import { useTemplateRef, watch } from 'vue';
 
 export interface ModalFormProps {
@@ -43,7 +43,6 @@ function handleSubmit(data: any) {
 
 defineOptions({
     name: 'DrawerForm',
-    globalComponent: true
 })
 
 watch(visible, (value) => {

@@ -44,7 +44,6 @@ function handleClick() {
 
 defineOptions({
     name: 'DialogButton',
-    globalComponent: true
 })
 
 </script>

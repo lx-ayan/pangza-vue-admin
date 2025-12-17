@@ -1,11 +1,10 @@
 <script setup lang='tsx'>
-import type { ProFormInputProps } from '@/components/ProComponents/ProFormInput/index.vue';
 import { Lock } from 'lucide-vue-next';
 import { ref } from 'vue';
 import { MessagePlugin } from 'tdesign-vue-next';
-import type { ProFormOption } from '@/components/ProComponents/ProForm/index.vue';
 import useUserStore from '@/store/userStore';
 import { useDebounce } from '@/hooks/core/useDebounce';
+import type { ProFormOption } from '@/components/ProComponents/ProForm/types';
 
 const userStore = useUserStore();
 
@@ -38,7 +37,7 @@ const options = ref<ProFormOption[]>([
             inputProps: {
                 size: 'large'
             }
-        } as ProFormInputProps
+        }
     },
     {
         name: 'password',
@@ -58,7 +57,7 @@ const options = ref<ProFormOption[]>([
                 size: 'large',
                 type: 'password'
             }
-        } as ProFormInputProps
+        }
     }
 ]);
 

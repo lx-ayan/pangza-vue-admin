@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { ProTableOption } from '@/components/ProComponents/ProTable/index.vue';
+import type { ProTableOption } from '@/components/ProComponents/ProTable/types';
 import { MoveIcon } from 'tdesign-icons-vue-next';
 import { onUnmounted } from 'vue';
 import { useDraggable, type UseDraggableReturn } from 'vue-draggable-plus';

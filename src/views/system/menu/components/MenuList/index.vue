@@ -4,10 +4,9 @@ import type { MenuResult } from '@/types/api/menu';
 import ArrayUtil from '@/utils/clz/ArrayUtil';
 import { onMounted, ref } from 'vue';
 import { MessagePlugin, type DialogInstance, type TreeNodeModel } from 'tdesign-vue-next';
-import type { ProFormOption } from '@/components/ProComponents/ProForm/index.vue';
 import MyIcon from '@/components/public/MyIcon/index.vue';
-import type { ProFormInputProps } from '@/components/ProComponents/ProFormInput/index.vue';
 import { YES_OR_NO_BOOL } from '@/utils/data/constant';
+import type { ProFormOption } from '@/components/ProComponents/ProForm/types';
 
 
 const emits = defineEmits<{
@@ -22,9 +21,17 @@ const options = ref<ProFormOption[]>([
     {
         name: 'title',
         label: '菜单名称',
+        type: 'input',
         rules: [
             { required: true, message: '请输入菜单名称', trigger: 'blur' },
         ],
+        props: {
+            formProps: {
+
+            },
+            disabled: true,
+            readonly: true
+        },
         gridProps: {
             colSpan: 12
         }
@@ -38,6 +45,9 @@ const options = ref<ProFormOption[]>([
             { label: '菜单', value: 'menu' },
             { label: '按钮', value: 'button' }
         ],
+        props: {
+
+        },
         gridProps: {
             colSpan: 12
         }
@@ -52,7 +62,7 @@ const options = ref<ProFormOption[]>([
             formProps: {
                 tips: '前端路由名称，可让前端跳转'
             }
-        } as ProFormInputProps,
+        },
         gridProps: {
             colSpan: 12
         }
@@ -66,8 +76,8 @@ const options = ref<ProFormOption[]>([
         props: {
             formProps: {
                 tips: '匹配前端的路由地址，保持自动映射'
-            }
-        } as ProFormInputProps,
+            },
+        },
         gridProps: {
             colSpan: 12
         }

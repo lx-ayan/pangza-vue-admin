@@ -1,4 +1,4 @@
-import type { ProTableRequest, ProTableResult } from "@/components/ProComponents/ProTable/index.vue";
+import type { ProTableRequest, ProTableResult } from "@/components/ProComponents/ProTable/types";
 import useRequest from "@/hooks/core/useRequest";
 
 const request = useRequest('/api/user');

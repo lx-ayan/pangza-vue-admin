@@ -44,7 +44,6 @@ function handleClick() {
 
 defineOptions({
     name: 'DialogLink',
-    globalComponent: true
 })
 
 </script>

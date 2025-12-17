@@ -1,4 +1,4 @@
-import type { ProTableOption } from "@/components/ProComponents/ProTable/index.vue";
+import type { ProTableOption } from "@/components/ProComponents/ProTable/types";
 
 export function buidCode(tableOptions: ProTableOption[], tableProps: Record<string, any>) {
     let buildPropsStr = '';

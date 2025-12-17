@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import type { ProFormOption } from '@/components/ProComponents/ProForm/index.vue';
-import type { ProFormInputProps } from '@/components/ProComponents/ProFormInput/index.vue';
+import type { ProFormOption } from '@/components/ProComponents/ProForm/types';
+import type { ProFormInputProps } from '@/components/ProComponents/ProFormInput/types';
 import useColor from '@/hooks/components/useColor';
 import { ref } from 'vue';
 

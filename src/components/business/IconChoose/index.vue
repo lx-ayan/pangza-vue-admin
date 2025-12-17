@@ -1,11 +1,11 @@
 <script setup lang='ts'>
 import { getIconMap } from '@/utils/components';
 import { ref, useTemplateRef } from 'vue';
-import type { ProTableInstance, ProTableOption, ProTableRequest } from '@/components/ProComponents/ProTable/index.vue';
 import useCopy from '@/hooks/core/useCopy';
 import { MessagePlugin } from 'tdesign-vue-next';
 import useLight from '@/hooks/components/useLight';
 import ArrayUtil from '@/utils/clz/ArrayUtil';
+import type { ProTableInstance, ProTableOption, ProTableRequest } from '@/components/ProComponents/ProTable/types';
 const iconMap = Object.values(getIconMap());
 const showIcon = ref(iconMap);
 const visible = ref(false);

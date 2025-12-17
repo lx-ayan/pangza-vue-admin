@@ -1,6 +1,5 @@
 <script setup lang='tsx'>
 import { getUserList } from '@/api/user';
-import type { ProTableOption, ProTableRequest } from '@/components/ProComponents/ProTable/index.vue';
 import CircleTag from '@/components/public/CircleTag/index.vue';
 import { getCssVar } from '@/utils/core/css';
 import TablePropsButton from '@/components/business/TablePropsButton/index.vue';
@@ -9,6 +8,7 @@ import TableSizeButton from '@/components/business/TableSizeButton/index.vue';
 import TableShowSearchButton from '@/components/business/TableShowSearchButton/index.vue';
 import { computed, ref } from 'vue';
 import { MessagePlugin } from 'tdesign-vue-next';
+import type { ProTableOption, ProTableRequest } from '@/components/ProComponents/ProTable/types';
 const hideForm = ref(false);
 const tablePropsButton = ref<string[]>([]);
 const size = ref('medium');

@@ -3,17 +3,6 @@ import type { FormItemProps, InputValue, TdTextareaProps } from "tdesign-vue-nex
 import { FormItem, Textarea } from 'tdesign-vue-next';
 import { getCurrentInstance, h } from 'vue';
 
-export interface ProFormTextareaProps {
-    name: string;
-    disabled?: boolean;
-    readonly?: boolean;
-    placeholder?: string;
-    label?: FormItemProps['label'];
-    rules?: FormItemProps['rules'];
-    formProps?: FormItemProps;
-    textareaProps?: TdTextareaProps;
-}
-
 export interface ProFormTextareaInstance {
     focus: () => void;
     blur: () => void;
@@ -22,7 +11,16 @@ export interface ProFormTextareaInstance {
 
 const vm = getCurrentInstance();
 
-const props = defineProps<ProFormTextareaProps>();
+const props = defineProps<{
+    name: string;
+    disabled?: boolean;
+    readonly?: boolean;
+    placeholder?: string;
+    label?: FormItemProps['label'];
+    rules?: FormItemProps['rules'];
+    formProps?: FormItemProps;
+    textareaProps?: TdTextareaProps;
+}>();
 
 const modelValue = defineModel<InputValue>('modelValue');
 
@@ -41,7 +39,6 @@ function getRef(inputRef: any) {
 
 defineOptions({
     name: 'ProFormTextarea',
-    globalComponent: true,
     inheritAttrs: false
 });
 

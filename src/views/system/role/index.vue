@@ -1,6 +1,5 @@
 <script setup lang='tsx'>
 import { getRoleList } from '@/api/user';
-import type { ProTableOption, ProTableRequest } from '@/components/ProComponents/ProTable/index.vue';
 import CircleTag from '@/components/public/CircleTag/index.vue';
 import { getCssVar } from '@/utils/core/css';
 import TablePropsButton from '@/components/business/TablePropsButton/index.vue';
@@ -10,6 +9,7 @@ import TableShowSearchButton from '@/components/business/TableShowSearchButton/i
 import { computed, ref } from 'vue';
 import { MessagePlugin } from 'tdesign-vue-next';
 import BindMenu from './components/BindMenu/index.vue';
+import type { ProTableOption, ProTableRequest } from '@/components/ProComponents/ProTable/types';
 
 const hideForm = ref(false);
 const tablePropsButton = ref<string[]>([]);

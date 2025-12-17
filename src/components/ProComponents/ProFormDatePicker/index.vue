@@ -1,7 +1,9 @@
 <script setup lang='ts'>
 import { DatePicker, FormItem, type FormItemProps, type TdDatePickerProps } from 'tdesign-vue-next';
 import { getCurrentInstance } from 'vue';
-export interface ProFormDatePicker {
+
+
+const props = defineProps<{
     name: string;
     disabled?: boolean;
     readonly?: boolean;
@@ -10,9 +12,7 @@ export interface ProFormDatePicker {
     rules?: FormItemProps['rules'];
     formProps?: FormItemProps;
     datePickerProps?: TdDatePickerProps;
-}
-
-const props = defineProps<ProFormDatePicker>();
+}>();
 
 const modelValue = defineModel<string>();
 
@@ -28,7 +28,6 @@ function getRef(datePicerRef) {
 
 defineOptions({
     name: 'ProFormDatePicker',
-    globalComponent: true,
     inheritAttrs: false
 });
 </script>

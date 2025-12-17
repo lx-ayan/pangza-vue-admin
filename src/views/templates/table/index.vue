@@ -1,5 +1,5 @@
 <script setup lang='tsx'>
-import type { ProTableOption } from '@/components/ProComponents/ProTable/index.vue';
+import type { ProTableOption } from '@/components/ProComponents/ProTable/types';
 import CircleTag from '@/components/public/CircleTag/index.vue';
 
 const options: ProTableOption[] = [
