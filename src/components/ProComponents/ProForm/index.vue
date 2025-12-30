@@ -199,13 +199,14 @@ watch(innerModelValue, (value) => {
                     <GridItem
                         v-if="isFunction(item.hidden) ? item.hidden(unref(innerModelValue), item.name) != true : item.hidden != true"
                         :class="nameSpace.e('item')" :colSpan="item.gridProps?.colSpan || 24">
+
                         <template v-if="$slots[`form-${item.name}`]">
                             <slot :name="`form-${item.name}`" :data="unref(innerModelValue)" :key="item.name"
                                 :option="item">
                             </slot>
                         </template>
-                        <template v-else>
 
+                        <template v-else>
                             <component v-if="!item.render" :model-value="getNestedValue(innerModelValue, item.name)"
                                 :placeholder="item.placeholder || (item.props as any)?.placeholder"
                                 :data="item.data || []"
@@ -227,7 +228,7 @@ watch(innerModelValue, (value) => {
                         <Space style="float: right;">
                             <Button :loading="loading" type="submit" v-bind="{ ...props.submitButtonProps }">{{
                                 props.submitText || '提交'
-                            }}</Button>
+                                }}</Button>
                             <Button v-if="!props.hideReset" type="reset" @click="reset"
                                 v-bind="{ variant: 'outline', ...props.resetButtonProps }">{{ props.resetText || '重置'
                                 }}</Button>

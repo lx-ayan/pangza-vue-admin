@@ -6,7 +6,7 @@ import { ref } from 'vue';
 const themeStore = useThemeStore();
 const visible = ref(false);
 
-const BRAND_COLOR = ['#3355ff', '#18A058', '#F0A020', '#8A2BE2', '#101d37'];
+const BRAND_COLOR = ['#4C6FFF', '#18A058', '#F0A020', '#8A2BE2', '#101d37'];
 
 
 function handleClick(key: string, state: any) {

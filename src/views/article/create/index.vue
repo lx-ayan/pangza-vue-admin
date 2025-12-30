@@ -10,7 +10,7 @@ const content = ref('');
             <GridItem :colSpan="12">
                 <t-input class="mb-3" placeholder="请输入文章标题"></t-input>
 
-                <MdEditor v-model="content" />
+                <MdEditor :single="true" :preview="false" :preview-only="true" v-model="content" />
 
                 <t-card :bordered="false" class="mt-6">
                     <div class=" font-bold text-base mb-3">

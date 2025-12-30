@@ -16,7 +16,7 @@ class JsonToTypesConverter {
      * @returns 包含 TS 接口和 Java 类的对象
      * @throws 当 JSON 格式非法时抛出错误
      */
-    convert(jsonStr: string): { ts: string; java: string } {
+    convert(jsonStr: string, isUndefined?: boolean): { ts: string; java: string } {
         // 解析 JSON 并校验根类型（必须是对象，符合 { key: value } 格式）
         let json: unknown;
         try {
@@ -33,7 +33,7 @@ class JsonToTypesConverter {
         this.typeId = 0;
 
         // 生成 TS 代码
-        const tsResult = this.generateTsTypes(json as Record<string, unknown>);
+        const tsResult = this.generateTsTypes(json as Record<string, unknown>, isUndefined);
         // 生成 Java 代码
         const javaResult = this.generateJavaClasses(json as Record<string, unknown>);
 
@@ -43,20 +43,17 @@ class JsonToTypesConverter {
     /**
      * 生成 TypeScript 接口（直接导出，无根包装）
      */
-    private generateTsTypes(rootObj: Record<string, unknown>): string {
+    private generateTsTypes(rootObj: Record<string, unknown>, isUndefined?: boolean): string {
         const interfaces: Record<string, string> = {};
         const rootProperties: string[] = [];
 
-        // 处理根对象的每个属性
         for (const [key, value] of Object.entries(rootObj)) {
             const propType = this.processTsValue(value, this.getNextTypeId(key), interfaces);
-            rootProperties.push(`  ${key}: ${propType};`);
+            rootProperties.push(`  ${key}${isUndefined ? '?' : ''}: ${propType}; `);
         }
 
-        // 根接口直接导出（无额外 Root 包装，直接用核心逻辑命名）
-        const rootInterface = `export interface JsonToTsResult {\n${rootProperties.join('\n')}\n}`;
+        const rootInterface = `export interface JsonToTsResult { \n${rootProperties.join('\n')} \n}`;
 
-        // 拼接所有接口（根接口 + 嵌套接口）
         const allInterfaces = [rootInterface, ...Object.values(interfaces)].join('\n\n');
         return this.formatTsCode(allInterfaces);
     }
@@ -73,36 +70,33 @@ class JsonToTypesConverter {
 
         const type = typeof value;
 
-        // 基础类型
         if (type === 'string') return 'string';
         if (type === 'number') return 'number';
         if (type === 'boolean') return 'boolean';
 
-        // 数组类型
         if (Array.isArray(value)) {
             if (value.length === 0) return 'unknown[]';
             const nonNullItem = value.find(item => item !== null);
             const itemType = nonNullItem
-                ? this.processTsValue(nonNullItem, `${typeName}Item`, interfaces)
+                ? this.processTsValue(nonNullItem, `${typeName} Item`, interfaces)
                 : 'null';
             const hasMixedTypes = value.some(
                 item => item !== null && this.processTsValue(item, '', interfaces) !== itemType
             );
-            return hasMixedTypes ? `(${itemType} | null)[]` : `${itemType}[]`;
+            return hasMixedTypes ? `(${itemType} | null)[]` : `${itemType} []`;
         }
 
-        // 对象类型（生成嵌套接口）
         if (type === 'object') {
             if (interfaces[typeName]) return typeName;
 
             const obj = value as Record<string, unknown>;
             const properties: string[] = [];
             for (const [key, val] of Object.entries(obj)) {
-                const propType = this.processTsValue(val, this.getNextTypeId(`${typeName}${key}`), interfaces);
-                properties.push(`  ${key}: ${propType};`);
+                const propType = this.processTsValue(val, this.getNextTypeId(`${typeName}${key} `), interfaces);
+                properties.push(`  ${key}: ${propType}; `);
             }
 
-            const interfaceStr = `export interface ${typeName} {\n${properties.join('\n')}\n}`;
+            const interfaceStr = `export interface ${typeName} { \n${properties.join('\n')} \n } `;
             interfaces[typeName] = interfaceStr;
             return typeName;
         }
@@ -116,14 +110,12 @@ class JsonToTypesConverter {
     private generateJavaClasses(rootObj: Record<string, unknown>): string {
         const classes: Record<string, string> = {};
 
-        // 处理根对象（生成主类 JsonToJavaResult）
         const rootClassName = 'JsonToJavaResult';
         this.processJavaValue(rootObj, rootClassName, classes);
 
-        // 拼接导入语句和所有类
-        const importStr = `import java.util.List;\nimport java.util.ArrayList;\n`;
+        const importStr = `import java.util.List; \nimport java.util.ArrayList; \n`;
         const allClasses = Object.values(classes).join('\n\n');
-        return `${importStr}\n${allClasses}`;
+        return `${importStr} \n${allClasses} `;
     }
 
     /**
@@ -138,27 +130,24 @@ class JsonToTypesConverter {
 
         const type = typeof value;
 
-        // 基础类型映射（使用包装类支持 null）
         if (type === 'string') return 'String';
         if (type === 'number') {
             return Number.isInteger(value as number) ? 'Integer' : 'Double';
         }
         if (type === 'boolean') return 'Boolean';
 
-        // 数组类型
         if (Array.isArray(value)) {
             if (value.length === 0) return 'List<Object>';
             const nonNullItem = value.find(item => item !== null);
             const itemType = nonNullItem
-                ? this.processJavaValue(nonNullItem, `${className}Item`, classes)
+                ? this.processJavaValue(nonNullItem, `${className} Item`, classes)
                 : 'Object';
             const hasMixedTypes = value.some(
                 item => item !== null && this.processJavaValue(item, '', classes) !== itemType
             );
-            return hasMixedTypes ? 'List<Object>' : `List<${itemType}>`;
+            return hasMixedTypes ? 'List<Object>' : `List < ${itemType}> `;
         }
 
-        // 对象类型（生成 Java Bean）
         if (type === 'object') {
             if (classes[className]) return className;
 
@@ -167,34 +156,32 @@ class JsonToTypesConverter {
             const getters: string[] = [];
             const setters: string[] = [];
 
-            // 处理对象属性
             for (const [key, val] of Object.entries(obj)) {
-                const fieldType = this.processJavaValue(val, this.getNextTypeId(`${className}${key}`), classes);
+                const fieldType = this.processJavaValue(val, this.getNextTypeId(`${className}${key} `), classes);
                 const fieldName = this.normalizeFieldName(key); // 标准化字段名（兼容简单键名）
 
-                // 字段定义
-                fields.push(`  private ${fieldType} ${fieldName};`);
+                fields.push(`  private ${fieldType} ${fieldName}; `);
 
-                // Getter 方法（首字母大写处理）
-                const getterName = `get${this.capitalizeFirstLetter(fieldName)}`;
+                const getterName = `get${this.capitalizeFirstLetter(fieldName)} `;
                 getters.push(
-                    `  public ${fieldType} ${getterName}() {`,
-                    `    return this.${fieldName};`,
+                    `  public ${fieldType} ${getterName} () {
+    `,
+                    `    return this.${fieldName}; `,
                     `  }`
                 );
 
-                // Setter 方法
-                const setterName = `set${this.capitalizeFirstLetter(fieldName)}`;
+                const setterName = `set${this.capitalizeFirstLetter(fieldName)} `;
                 setters.push(
-                    `  public void ${setterName}(${fieldType} ${fieldName}) {`,
-                    `    this.${fieldName} = ${fieldName};`,
-                    `  }`
+                    `  public void ${setterName} (${fieldType} ${fieldName}) {
+    `,
+                    `    this.${fieldName} = ${fieldName}; `,
+                    `  } `
                 );
             }
 
-            // 生成完整 Java 类
             const classStr = [
-                `public class ${className} {`,
+                `public class $ { className } {
+    `,
                 '',
                 ...fields,
                 '',

@@ -52,7 +52,7 @@ const name = createNameSpace('login');
         <div :class="name.e('container-right')">
             <div :class="name.e('container-right-box')">
                 <div class="lg:hidden flex items-center gap-2 mb-8 justify-center">
-                    <div class="w-10 h-10 rounded-lg bg-[#3355ff] flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-lg bg-[var(--td-brand-color)] flex items-center justify-center">
                         <BarChart3 class="size-6 text-white" />
                     </div>
                     <span class="text-2xl text-foreground">管理后台</span>
@@ -69,7 +69,7 @@ const name = createNameSpace('login');
     @apply min-h-screen flex;
 
     &-left {
-        @apply hidden lg:flex lg:w-1/2 bg-[#3355ff] relative overflow-hidden;
+        @apply hidden lg:flex lg:w-1/2 bg-[var(--td-brand-color)] relative overflow-hidden;
     }
 
     &-right {

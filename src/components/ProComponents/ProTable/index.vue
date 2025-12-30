@@ -1,7 +1,7 @@
 <script setup lang='tsx'>
 import { createNameSpace } from '@/utils/core/css';
 import { Card, Table, type BaseTableCol, Pagination, type PageInfo, type BaseTableColumns, type TableCol, type DragSortContext, type TableProps, type SelectOptions, type TableInstanceFunctions, type TdPaginationProps } from 'tdesign-vue-next';
-import { computed, onMounted, ref, useSlots, useTemplateRef, watch } from 'vue';
+import { computed, h, onMounted, ref, useSlots, useTemplateRef, watch } from 'vue';
 import ProForm from '../ProForm/index.vue';
 import { ChevronDownIcon, ChevronUpIcon, MoveIcon } from 'tdesign-icons-vue-next';
 import { isFunction } from 'lodash-es';
@@ -335,9 +335,11 @@ watch(() => [props.selectAble, props.draggAble], () => getColumnsProps(props.opt
                 :drag-sort="(props.draggAble ? (props.tableProps?.dragSort || 'row-handler') : undefined) as unknown as any"
                 :data="innerData" :columns="tableColumns" v-bind="{ ...$attrs, ...props.tableProps }"
                 :row-key="props.rowKey">
+
                 <template v-for="key in slotsKeyArr" #[key]="args">
                     <slot :name="`table-${key}`" v-bind="{ ...args }"></slot>
                 </template>
+
             </Table>
 
             <slot v-else name="card" :list="innerData"></slot>

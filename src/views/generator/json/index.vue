@@ -17,7 +17,7 @@ function handleGenerator() {
         return;
     }
     try {
-        resultContent.value = jsonConvert.convert(content.value);
+        resultContent.value = jsonConvert.convert(content.value, isUndefined.value);
     } catch (e) {
         MessagePlugin.error(e.message);
     }
@@ -54,7 +54,7 @@ function handleCopy(code: string) {
                 <t-collapse-panel header="TS 代码">
                     <t-card :bordered="false">
                         <template #actions>
-                            <span @click="handleCopy(resultContent.ts)">复制代码</span>
+                            <span class="cursor-pointer" @click="handleCopy(resultContent.ts)">复制代码</span>
                         </template>
                         <MdPreview v-model="resultContent.ts" />
                     </t-card>
@@ -62,7 +62,7 @@ function handleCopy(code: string) {
                 <t-collapse-panel header="Java 代码">
                     <t-card :bordered="false">
                         <template #actions>
-                            <span @click="handleCopy(resultContent.java)">复制代码</span>
+                            <span class="cursor-pointer" @click="handleCopy(resultContent.java)">复制代码</span>
                         </template>
                         <MdPreview v-model="resultContent.java" />
                     </t-card>

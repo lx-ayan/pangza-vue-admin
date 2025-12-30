@@ -39,7 +39,7 @@ const options: ProTableOption<TableData>[] = [
                 if (data > 75) {
                     return '#20A867';
                 } else if (data > 50) {
-                    return '#3355ff';
+                    return 'var(--td-brand-color)';
                 } else if (data > 30) {
                     return '#F0A020';
                 } else {

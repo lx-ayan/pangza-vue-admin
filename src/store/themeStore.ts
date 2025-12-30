@@ -12,7 +12,7 @@ const useThemeStore = defineStore('theme', () => {
 
     const layout = ref<'1' | '2'>('1');
 
-    const brandColor = ref('#3355FF');
+    const brandColor = ref('#4C6FFF');
 
     const successColor = ref('#20A867');
 

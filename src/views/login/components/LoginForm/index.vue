@@ -79,7 +79,7 @@ function handleSubmit(data: LoginDTO) {
     <div class="w-full max-w-md space-y-8 ">
         <div class="space-y-2">
             <div class=" flex items-center gap-2 mb-6">
-                <div class="w-10 h-10 rounded-lg bg-[#3355ff] flex items-center justify-center">
+                <div class="w-10 h-10 rounded-lg bg-[var(--td-brand-color)] flex items-center justify-center">
                     <Lock class="size-6 text-white" />
                 </div>
                 <span class="text-2xl text-[#0B1133]">后台管理系统</span>
