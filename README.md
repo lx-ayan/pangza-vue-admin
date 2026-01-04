@@ -5,7 +5,7 @@
 ## ✨ 特性
 
 - 🚀 **Vue 3 + TypeScript**：采用最新的 Vue 3 组合式 API 和 TypeScript 开发，提供更好的类型安全和开发体验
-- 🎨 **TDesign UI 组件库**：使用字节跳动开源的 TDesign Vue Next 组件库，提供丰富的 UI 组件
+- 🎨 **TDesign UI 组件库**：使用腾讯开源的 TDesign Vue Next 组件库，提供丰富的 UI 组件
 - 💡 **Tailwind CSS**：集成 Tailwind CSS，实现灵活的样式定制
 - 🔒 **完整的权限管理**：支持角色权限控制、动态路由生成
 - 🌓 **明暗主题切换**：支持亮色和暗色主题，提升用户体验

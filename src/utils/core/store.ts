@@ -23,6 +23,7 @@ function getUnitTime() {
 }
 
 class StorageUtil {
+
     set(key: string, data: any, expire: number = -1) {
         const state: StoreData = {
             value: data,
@@ -30,6 +31,7 @@ class StorageUtil {
         state.expire = expire === -1 ? undefined : getCurrentTime() + expire * getUnitTime();
         localStorage.setItem(storageUtilConfig.prefix + key, JSON.stringify(state));
     }
+
     get<T>(key: string): Nullable<T> {
         const getKey = storageUtilConfig.prefix + key;
         const data = JSON.parse(localStorage.getItem(getKey)) as StoreData<T>;
