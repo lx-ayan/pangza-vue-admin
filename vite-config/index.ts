@@ -23,7 +23,7 @@ const buildViteConfig: UserConfigFnObject = ({ mode }) => {
             proxy
         },
         optimizeDeps: {
-            include: cdnEnabled ? env.VITE_BUILD_EXTERNAL : []
+            include: cdnEnabled ? env.VITE_BUILD_EXTERNAL || [] : []
         }
     }
 }
