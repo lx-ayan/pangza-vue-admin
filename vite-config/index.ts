@@ -11,6 +11,7 @@ const buildViteConfig: UserConfigFnObject = ({ mode }) => {
     const root = process.cwd();
     const env = parseEnv(loadEnv(mode, root));
     const proxy = buildProxy(env);
+    const cdnEnabled = env.VITE_ENABLE_CDN;
     return {
         plugins: setupPlugins(env, mode === 'production'),
         resolve: {
@@ -22,14 +23,7 @@ const buildViteConfig: UserConfigFnObject = ({ mode }) => {
             proxy
         },
         optimizeDeps: {
-            include: [
-                'vue',
-                'vue-router',
-                'tdesign-vue-next',
-                'echarts',
-                'axios',
-                'pinia'
-            ]
+            include: cdnEnabled ? env.VITE_BUILD_EXTERNAL : []
         }
     }
 }

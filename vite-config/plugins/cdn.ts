@@ -5,6 +5,7 @@ export function setupCDN(env: ViteEnv): Plugin {
     const { VITE_CDN_IMPORT } = env;
 
     const modules: Options['modules'] = [];
+
     VITE_CDN_IMPORT!.forEach(option => {
         const [module, globalName, url, cssUrl] = option.split('|');
         const item: any = {
